@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .level-name { font-size: 11px; font-weight: 600; }
+      .level-desc { font-size: 9px; fill: #555; }
+      .sigma { font-size: 10px; font-weight: 700; }
+      .bar-text { font-size: 9px; fill: #fff; font-weight: 600; }
+    </style>
+    <!-- RdYlGn diverging: green (invariant) to red (violated) -->
+  </defs>
+
+  <text x="350" y="24" text-anchor="middle" class="title">Figure 8.1 — Hierarchy of Invariance Violations</text>
+  <text x="350" y="40" text-anchor="middle" class="subtitle">Models preserve some symmetries and break others. The pattern is selective: salience-manipulating transforms displace; structural transforms do not.</text>
+
+  <g transform="translate(50, 65)">
+    <!-- Headers -->
+    <text x="0" y="0" class="level-name" fill="#444">Transform Type</text>
+    <text x="280" y="0" class="level-name" fill="#444">Violation Magnitude</text>
+    <text x="530" y="0" class="level-name" fill="#444">Significance</text>
+
+    <!-- Level 1: Evaluation order (T4) — NOT significant -->
+    <text x="0" y="35" class="level-name" fill="#1a9850">1. Evaluation Order</text>
+    <text x="0" y="48" class="level-desc">(T4: does scoring dimensions in different order change result?)</text>
+    <rect x="280" y="22" width="20" height="28" fill="#1a9850" rx="3"/>
+    <text x="290" y="41" text-anchor="middle" class="bar-text">—</text>
+    <text x="530" y="40" class="sigma" fill="#1a9850">NOT SIGNIFICANT</text>
+    <text x="530" y="53" class="level-desc" fill="#1a9850">Scores: 0.867–1.000</text>
+
+    <!-- Level 2: Gender swap (T2) — NOT significant -->
+    <text x="0" y="90" class="level-name" fill="#66bd63">2. Gender Swap</text>
+    <text x="0" y="103" class="level-desc">(T2: changing pronouns/names while preserving moral content)</text>
+    <rect x="280" y="77" width="30" height="28" fill="#66bd63" rx="3"/>
+    <text x="295" y="96" text-anchor="middle" class="bar-text">—</text>
+    <text x="530" y="95" class="sigma" fill="#66bd63">NOT SIGNIFICANT</text>
+    <text x="530" y="108" class="level-desc" fill="#66bd63">Scores: 0.708–0.958</text>
+
+    <!-- Level 3: Cultural reframe (T2) — moderate -->
+    <text x="0" y="145" class="level-name" fill="#fee08b">3. Cultural Reframe</text>
+    <text x="0" y="158" class="level-desc">(T2: changing cultural context while preserving moral facts)</text>
+    <rect x="280" y="132" width="100" height="28" fill="#fee08b" rx="3"/>
+    <text x="330" y="151" text-anchor="middle" class="bar-text" fill="#333">4.2σ</text>
+    <text x="530" y="150" class="sigma" fill="#d4a017">SIGNIFICANT (4.2σ)</text>
+    <text x="530" y="163" class="level-desc">Exploratory — cultural context may carry moral weight</text>
+
+    <!-- Level 4: Sensory distractors (A1) — strong -->
+    <text x="0" y="200" class="level-name" fill="#f46d43">4. Sensory Distractors</text>
+    <text x="0" y="213" class="level-desc">(A1: adding irrelevant vivid sensory details to scenarios)</text>
+    <rect x="280" y="187" width="140" height="28" fill="#f46d43" rx="3"/>
+    <text x="350" y="206" text-anchor="middle" class="bar-text">4.6σ</text>
+    <text x="530" y="205" class="sigma" fill="#f46d43">DISCOVERY (4.6σ)</text>
+    <text x="530" y="218" class="level-desc">Vivid details warp heuristic despite irrelevance</text>
+
+    <!-- Level 5: Emotional anchoring (E2) — strong -->
+    <text x="0" y="255" class="level-name" fill="#d73027">5. Emotional Anchoring</text>
+    <text x="0" y="268" class="level-desc">(E2: rewriting scenarios with emotional charge)</text>
+    <rect x="280" y="242" width="180" height="28" fill="#d73027" rx="3"/>
+    <text x="370" y="261" text-anchor="middle" class="bar-text">6.8σ</text>
+    <text x="530" y="260" class="sigma" fill="#d73027">DISCOVERY (6.8σ)</text>
+    <text x="530" y="273" class="level-desc">Emotional framing displaces judgment</text>
+
+    <!-- Level 6: Euphemistic/dramatic framing (T5) — strongest -->
+    <text x="0" y="310" class="level-name" fill="#a50026">6. Linguistic Framing</text>
+    <text x="0" y="323" class="level-desc">(T5: euphemistic vs. dramatic rewriting of identical content)</text>
+    <rect x="280" y="297" width="220" height="28" fill="#a50026" rx="3"/>
+    <text x="390" y="316" text-anchor="middle" class="bar-text">15.3σ</text>
+    <text x="530" y="315" class="sigma" fill="#a50026">DISCOVERY (15.3σ)</text>
+    <text x="530" y="328" class="level-desc">Strongest effect — salience manipulation</text>
+
+    <!-- Bracket annotation -->
+    <line x1="590" y1="30" x2="610" y2="30" stroke="#1a9850" stroke-width="1.5"/>
+    <line x1="610" y1="30" x2="610" y2="100" stroke="#1a9850" stroke-width="1.5"/>
+    <line x1="590" y1="100" x2="610" y2="100" stroke="#1a9850" stroke-width="1.5"/>
+    <text x="618" y="70" class="level-desc" fill="#1a9850">Symmetries</text>
+    <text x="618" y="82" class="level-desc" fill="#1a9850">preserved ✓</text>
+
+    <line x1="590" y1="195" x2="610" y2="195" stroke="#d73027" stroke-width="1.5"/>
+    <line x1="610" y1="195" x2="610" y2="320" stroke="#d73027" stroke-width="1.5"/>
+    <line x1="590" y1="320" x2="610" y2="320" stroke="#d73027" stroke-width="1.5"/>
+    <text x="618" y="250" class="level-desc" fill="#d73027">Symmetries</text>
+    <text x="618" y="262" class="level-desc" fill="#d73027">broken ✗</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="350" y="395" text-anchor="middle" class="subtitle">The selectivity pattern is the diagnostic: models resist structural transforms (gender, order) but not salience transforms (framing, emotion, distraction).</text>
+  <text x="350" y="410" text-anchor="middle" class="subtitle">This selective vulnerability structure is what multi-dimensional measurement reveals and scalar robustness scores would hide.</text>
+</svg>

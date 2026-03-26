@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 600" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 16px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 11px; fill: #666; }
+      .axis-label { font-size: 10px; fill: #444; font-weight: 500; }
+      .tick-label { font-size: 9px; fill: #999; }
+      .legend-text { font-size: 10px; fill: #333; }
+      .grid { stroke: #e0e0e0; stroke-width: 0.5; fill: none; }
+      .grid-outer { stroke: #ccc; stroke-width: 1; fill: none; }
+    </style>
+    <!-- ColorBrewer Dark2 palette -->
+  </defs>
+
+  <!-- Title -->
+  <text x="360" y="30" text-anchor="middle" class="title">Figure 13.1 — Model Robustness Profiles Across Five Cognitive Domains</text>
+  <text x="360" y="48" text-anchor="middle" class="subtitle">Each axis represents one benchmark track (0 = no capability, 1 = perfect). Shape reveals vulnerability structure that composite scores destroy.</text>
+
+  <!-- Radar chart center -->
+  <g transform="translate(330, 320)">
+    <!-- 5 axes at 72° intervals: Learning, Metacognition, Social Cognition, Attention, Executive Functions -->
+    <!-- Axis angles: L=270° (top), M=342°, S=54°, A=126°, E=198° -->
+
+    <!-- Grid rings at 0.2, 0.4, 0.6, 0.8, 1.0 -->
+    <polygon class="grid" points="0,-40 38.04,-12.36 23.51,32.36 -23.51,32.36 -38.04,-12.36"/>
+    <polygon class="grid" points="0,-80 76.08,-24.72 47.02,64.72 -47.02,64.72 -76.08,-24.72"/>
+    <polygon class="grid" points="0,-120 114.13,-37.08 70.53,97.08 -70.53,97.08 -114.13,-37.08"/>
+    <polygon class="grid" points="0,-160 152.17,-49.44 94.04,129.44 -94.04,129.44 -152.17,-49.44"/>
+    <polygon class="grid-outer" points="0,-200 190.21,-61.80 117.56,161.80 -117.56,161.80 -190.21,-61.80"/>
+
+    <!-- Axis lines -->
+    <line x1="0" y1="0" x2="0" y2="-210" stroke="#bbb" stroke-width="0.7"/>
+    <line x1="0" y1="0" x2="199.72" y2="-64.89" stroke="#bbb" stroke-width="0.7"/>
+    <line x1="0" y1="0" x2="123.43" y2="169.89" stroke="#bbb" stroke-width="0.7"/>
+    <line x1="0" y1="0" x2="-123.43" y2="169.89" stroke="#bbb" stroke-width="0.7"/>
+    <line x1="0" y1="0" x2="-199.72" y2="-64.89" stroke="#bbb" stroke-width="0.7"/>
+
+    <!-- Axis labels -->
+    <text x="0" y="-220" text-anchor="middle" class="axis-label">Learning</text>
+    <text x="0" y="-232" text-anchor="middle" class="tick-label">(L1-L4)</text>
+    <text x="210" y="-60" text-anchor="start" class="axis-label">Metacognition</text>
+    <text x="210" y="-48" text-anchor="start" class="tick-label">(M1-M4)</text>
+    <text x="135" y="190" text-anchor="start" class="axis-label">Social Cognition</text>
+    <text x="135" y="202" text-anchor="start" class="tick-label">(T1-T5)</text>
+    <text x="-135" y="190" text-anchor="end" class="axis-label">Attention</text>
+    <text x="-135" y="202" text-anchor="end" class="tick-label">(A1-A4)</text>
+    <text x="-210" y="-60" text-anchor="end" class="axis-label">Executive Fns</text>
+    <text x="-210" y="-48" text-anchor="end" class="tick-label">(E1-E4)</text>
+
+    <!-- Grid ring labels -->
+    <text x="5" y="-38" class="tick-label">0.2</text>
+    <text x="5" y="-78" class="tick-label">0.4</text>
+    <text x="5" y="-118" class="tick-label">0.6</text>
+    <text x="5" y="-158" class="tick-label">0.8</text>
+    <text x="5" y="-198" class="tick-label">1.0</text>
+
+    <!-- Model data (composite scores per track):
+         L=top(270°), M=342°, SC=54°, A=126°, EF=198°
+         Scale: score * 200 = pixel distance from center
+
+         Claude:    L=0.568(?), M=0.450, SC=0.712, A=0.679, EF=0.625
+         Flash 2.0: L=0.568, M=0.418, SC=0.683, A=0.666, EF=0.622
+         Flash 2.5: L=0.477, M=0.450, SC=0.648, A=0.745, EF=0.682
+         Flash 3:   L=0.477(?), M=0.450, SC=0.705, A=0.747, EF=0.685
+         Pro:       L=0.488, M=0.401, SC=0.708, A=0.776, EF=0.695
+    -->
+
+    <!-- Claude Sonnet 4.6 — #1b9e77 (teal) -->
+    <polygon points="
+      0,-113.6
+      85.62,-27.82
+      87.70,120.77
+      -83.64,116.28
+      -118.86,-38.62
+    " fill="rgba(27,158,119,0.12)" stroke="#1b9e77" stroke-width="2"/>
+
+    <!-- Gemini 2.0 Flash — #d95f02 (orange) -->
+    <polygon points="
+      0,-113.6
+      79.53,-25.84
+      84.13,115.86
+      -81.99,112.89
+      -118.33,-38.45
+    " fill="rgba(217,95,2,0.08)" stroke="#d95f02" stroke-width="2" stroke-dasharray="6,3"/>
+
+    <!-- Gemini 2.5 Pro — #7570b3 (purple) -->
+    <polygon points="
+      0,-97.6
+      76.30,-24.79
+      87.19,120.06
+      -95.55,131.57
+      -132.10,-42.92
+    " fill="rgba(117,112,179,0.08)" stroke="#7570b3" stroke-width="2" stroke-dasharray="2,2"/>
+
+    <!-- Gemini 3 Flash — #e7298a (magenta) -->
+    <polygon points="
+      0,-95.4
+      85.62,-27.82
+      86.87,119.62
+      -91.97,126.64
+      -130.20,-42.31
+    " fill="rgba(231,41,138,0.08)" stroke="#e7298a" stroke-width="1.5" stroke-dasharray="8,2,2,2"/>
+
+    <!-- Gemini 2.5 Flash — #66a61e (green) -->
+    <polygon points="
+      0,-95.4
+      85.62,-27.82
+      79.81,109.90
+      -91.72,126.30
+      -129.64,-42.13
+    " fill="rgba(102,166,30,0.06)" stroke="#66a61e" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(560, 120)">
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#1b9e77" stroke-width="2.5"/>
+    <text x="30" y="4" class="legend-text">Claude Sonnet 4.6</text>
+
+    <line x1="0" y1="22" x2="25" y2="22" stroke="#d95f02" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="30" y="26" class="legend-text">Gemini 2.0 Flash</text>
+
+    <line x1="0" y1="44" x2="25" y2="44" stroke="#7570b3" stroke-width="2" stroke-dasharray="2,2"/>
+    <text x="30" y="48" class="legend-text">Gemini 2.5 Pro</text>
+
+    <line x1="0" y1="66" x2="25" y2="66" stroke="#e7298a" stroke-width="1.5" stroke-dasharray="8,2,2,2"/>
+    <text x="30" y="70" class="legend-text">Gemini 3 Flash</text>
+
+    <line x1="0" y1="88" x2="25" y2="88" stroke="#66a61e" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="30" y="92" class="legend-text">Gemini 2.5 Flash</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="360" y="570" text-anchor="middle" class="subtitle">Each model has a distinct geometric signature. Claude (solid teal): strong executive control, weak attention.</text>
+  <text x="360" y="585" text-anchor="middle" class="subtitle">Pro (dotted purple): strong attention, weak metacognition. No single score captures these differences.</text>
+</svg>

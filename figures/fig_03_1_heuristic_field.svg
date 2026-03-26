@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 450" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .label { font-size: 11px; fill: #444; font-weight: 500; }
+      .small { font-size: 9px; fill: #666; }
+    </style>
+    <radialGradient id="goal-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#1a9850;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#1a9850;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="trap-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#d73027;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#d73027;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <text x="340" y="24" text-anchor="middle" class="title">Figure 3.1 — The Heuristic Field on a 2D Reasoning Manifold</text>
+  <text x="340" y="40" text-anchor="middle" class="subtitle">Gradient arrows show ∇h — the direction the heuristic guides the search. Level sets (contours) show h = constant surfaces.</text>
+
+  <g transform="translate(40, 55)">
+    <!-- Manifold background (light) -->
+    <rect x="0" y="0" width="600" height="340" fill="#fafafa" stroke="#ddd" stroke-width="1" rx="8"/>
+
+    <!-- Contour lines (level sets of h) — concentric around goal -->
+    <ellipse cx="480" cy="80" rx="180" ry="120" fill="none" stroke="#c6dbef" stroke-width="0.8"/>
+    <ellipse cx="480" cy="80" rx="140" ry="95" fill="none" stroke="#9ecae1" stroke-width="0.8"/>
+    <ellipse cx="480" cy="80" rx="100" ry="70" fill="none" stroke="#6baed6" stroke-width="0.8"/>
+    <ellipse cx="480" cy="80" rx="60" ry="45" fill="none" stroke="#3182bd" stroke-width="1"/>
+    <ellipse cx="480" cy="80" rx="25" ry="20" fill="none" stroke="#08519c" stroke-width="1.2"/>
+
+    <!-- Local minimum contours (trap) -->
+    <ellipse cx="180" cy="240" rx="70" ry="55" fill="none" stroke="#fcbba1" stroke-width="0.8"/>
+    <ellipse cx="180" cy="240" rx="45" ry="35" fill="none" stroke="#fc9272" stroke-width="0.8"/>
+    <ellipse cx="180" cy="240" rx="20" ry="16" fill="none" stroke="#de2d26" stroke-width="1"/>
+
+    <!-- Goal glow -->
+    <circle cx="480" cy="80" r="50" fill="url(#goal-glow)"/>
+    <!-- Trap glow -->
+    <circle cx="180" cy="240" r="40" fill="url(#trap-glow)"/>
+
+    <!-- Gradient arrows (pointing toward decreasing h, i.e., toward goal) -->
+    <!-- Row 1 -->
+    <line x1="60" y1="60" x2="90" y2="55" stroke="#4292c6" stroke-width="1.2" opacity="0.5"/>
+    <polygon points="90,55 85,50 83,57" fill="#4292c6" opacity="0.5"/>
+
+    <line x1="160" y1="50" x2="195" y2="48" stroke="#4292c6" stroke-width="1.3" opacity="0.6"/>
+    <polygon points="195,48 189,43 188,52" fill="#4292c6" opacity="0.6"/>
+
+    <line x1="280" y1="45" x2="318" y2="50" stroke="#4292c6" stroke-width="1.5" opacity="0.7"/>
+    <polygon points="318,50 311,44 310,54" fill="#4292c6" opacity="0.7"/>
+
+    <line x1="380" y1="55" x2="415" y2="62" stroke="#2171b5" stroke-width="1.8" opacity="0.8"/>
+    <polygon points="415,62 408,56 407,67" fill="#2171b5" opacity="0.8"/>
+
+    <!-- Row 2 -->
+    <line x1="60" y1="140" x2="88" y2="148" stroke="#4292c6" stroke-width="1.2" opacity="0.4"/>
+    <polygon points="88,148 82,142 81,152" fill="#4292c6" opacity="0.4"/>
+
+    <line x1="280" y1="130" x2="318" y2="118" stroke="#2171b5" stroke-width="1.6" opacity="0.7"/>
+    <polygon points="318,118 311,113 312,123" fill="#2171b5" opacity="0.7"/>
+
+    <line x1="380" y1="140" x2="415" y2="120" stroke="#08519c" stroke-width="2" opacity="0.9"/>
+    <polygon points="415,120 408,116 410,125" fill="#08519c" opacity="0.9"/>
+
+    <!-- Row 3 (near trap — arrows split) -->
+    <line x1="80" y1="220" x2="115" y2="230" stroke="#fc9272" stroke-width="1.3" opacity="0.6"/>
+    <polygon points="115,230 108,225 109,235" fill="#fc9272" opacity="0.6"/>
+
+    <line x1="80" y1="260" x2="118" y2="248" stroke="#fc9272" stroke-width="1.3" opacity="0.6"/>
+    <polygon points="118,248 111,244 112,253" fill="#fc9272" opacity="0.6"/>
+
+    <line x1="280" y1="240" x2="310" y2="210" stroke="#4292c6" stroke-width="1.4" opacity="0.6"/>
+    <polygon points="310,210 303,207 305,215" fill="#4292c6" opacity="0.6"/>
+
+    <!-- Row 4 -->
+    <line x1="300" y1="300" x2="340" y2="270" stroke="#4292c6" stroke-width="1.3" opacity="0.5"/>
+    <polygon points="340,270 333,267 335,275" fill="#4292c6" opacity="0.5"/>
+
+    <line x1="420" y1="280" x2="450" y2="240" stroke="#4292c6" stroke-width="1.4" opacity="0.6"/>
+    <polygon points="450,240 443,237 445,246" fill="#4292c6" opacity="0.6"/>
+
+    <!-- Saddle region between trap and goal -->
+    <text x="300" y="195" text-anchor="middle" class="small" fill="#999">saddle point</text>
+    <text x="300" y="208" text-anchor="middle" class="small" fill="#999">(∇h ≈ 0)</text>
+
+    <!-- Goal marker -->
+    <circle cx="480" cy="80" r="8" fill="#1a9850" stroke="#fff" stroke-width="2"/>
+    <text x="480" y="105" text-anchor="middle" class="label" fill="#1a9850">Goal</text>
+    <text x="480" y="118" text-anchor="middle" class="small" fill="#1a9850">h(x) = 0</text>
+
+    <!-- Trap marker -->
+    <circle cx="180" cy="240" r="6" fill="#d73027" stroke="#fff" stroke-width="2"/>
+    <text x="180" y="267" text-anchor="middle" class="label" fill="#d73027">Local minimum</text>
+    <text x="180" y="280" text-anchor="middle" class="small" fill="#d73027">∇h = 0, Hessian > 0</text>
+
+    <!-- Start point -->
+    <circle cx="50" cy="50" r="5" fill="#333"/>
+    <text x="50" y="42" text-anchor="middle" class="label">s₀</text>
+
+    <!-- Optimal trajectory (green, follows gradient to goal) -->
+    <path d="M 55,55 C 150,60 300,50 420,65 L 472,78" fill="none" stroke="#1a9850" stroke-width="2.5" stroke-dasharray="none"/>
+    <text x="250" y="38" class="small" fill="#1a9850">geodesic (optimal path)</text>
+
+    <!-- Corrupted trajectory (red, diverted to trap) -->
+    <path d="M 55,58 C 100,100 130,180 175,235" fill="none" stroke="#d73027" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="60" y="165" class="small" fill="#d73027">corrupted trajectory</text>
+    <text x="60" y="178" class="small" fill="#d73027">(heuristic misled)</text>
+
+    <!-- Legend -->
+    <rect x="420" y="260" width="170" height="70" fill="#fff" stroke="#ddd" stroke-width="0.5" rx="4"/>
+    <line x1="430" y1="280" x2="455" y2="280" stroke="#4292c6" stroke-width="1.5"/>
+    <polygon points="455,280 450,276 450,284" fill="#4292c6"/>
+    <text x="462" y="284" class="small">∇h (heuristic gradient)</text>
+    <circle cx="442" cy="300" r="3" fill="#1a9850"/>
+    <text x="462" y="304" class="small">Goal (global minimum of h)</text>
+    <circle cx="442" cy="318" r="3" fill="#d73027"/>
+    <text x="462" y="322" class="small">Trap (local minimum of h)</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="340" y="420" text-anchor="middle" class="subtitle">The heuristic field h(x) is a scalar field on the reasoning manifold. Its gradient ∇h guides the search toward states estimated closer to the goal.</text>
+  <text x="340" y="436" text-anchor="middle" class="subtitle">A corrupted heuristic (Chapter 5) bends ∇h toward a local minimum, diverting the search from the geodesic.</text>
+</svg>

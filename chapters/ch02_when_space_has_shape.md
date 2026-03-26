@@ -1,0 +1,438 @@
+# Chapter 2: When the Space Has Shape
+
+> *"The shortest distance between two truths in the real domain passes through the complex domain."*
+> --- Jacques Hadamard
+
+> **RUNNING EXAMPLE — DR. OKAFOR'S TRIAGE**
+>
+> *Dr. Amara Okafor assigned chest pain to trauma, headache to CT, skateboard to wait. But this assignment lives in a space with structure that Chapter 1's graph could not express. "Chest pain to trauma" is close to "chest pain to CT" — both prioritize the cardiac patient — but far from "skateboard to trauma." The distance between assignments is not uniform. Moving from "headache to CT" to "headache to wait" is a small step if the headache is mild, but a large step if it is a thunderclap presentation suggesting subarachnoid hemorrhage. The cost of a transition depends on the clinical context — and that context-dependence is precisely what a metric captures and a graph does not.*
+
+---
+
+In the previous chapter we established that reasoning --- human or artificial --- can be modeled as search through a structured possibility space. Newell and Simon's problem space hypothesis (1972) gave us the vocabulary: states, operators, goals, and heuristics. A* and its variants gave us the machinery: systematic traversal guided by an evaluation function f(x) = g(x) + h(x). But something essential was missing from that account. The graphs we searched were topological objects --- they knew about connectivity (which states can reach which other states) but nothing about the *shape* of the transitions between them.
+
+This chapter fills that gap. We climb the structural hierarchy from graphs to metric spaces to Riemannian manifolds, acquiring at each level a richer set of tools for understanding what it means for a reasoning system to traverse its state space. The payoff is concrete: once we equip the reasoning space with geometric structure, failure modes that were previously mysterious become precise, measurable, and in some cases predictable.
+
+We close the chapter with an empirical demonstration. The Social Cognition track of the Measuring AGI benchmarks (Bond, 2026b) treats moral judgment as a point in a 7-dimensional harm space. When models navigate this space under different framings of the same moral content, the resulting displacements are not random noise --- they have a definite geometric signature, one that a purely topological account could never capture.
+
+---
+
+## 2.1 Beyond Graphs: The Need for Metric Structure
+
+Consider the state graph for a simple planning problem --- say, Tower of Hanoi with three disks. Each node is a configuration of disks on pegs; each edge represents a legal move. Every edge has the same status: it connects two adjacent states, and that is all the information the graph encodes. There is no notion that one move is "longer" or "harder" than another. Breadth-first search treats them identically, and for this problem, that is perfectly adequate.
+
+Now consider a more realistic reasoning task. A physician weighing a diagnosis must consider multiple competing hypotheses, each supported by partially overlapping evidence. Moving from "this patient has pneumonia" to "this patient has tuberculosis" is not the same kind of transition as moving from "this patient has pneumonia" to "this patient has pneumonia with an atypical presentation." The first is a radical revision of the diagnostic model; the second is a refinement. The *cost* of the transition --- in terms of the explanatory work required, the evidence that must be marshaled, the priors that must be revised --- differs dramatically. A graph that represents both transitions as undifferentiated edges is throwing away the very information that distinguishes competent reasoning from incompetent.
+
+The same point holds for language models. When GPT-4 or Claude processes a moral dilemma, it does not hop between discrete states like pieces on a game board. It computes a continuous trajectory through a high-dimensional activation space. Some regions of that space are close to each other in a meaningful sense --- the representations for "theft" and "robbery" are nearby, while "theft" and "charity" are far apart, and "theft" and "justified redistribution" occupy an interesting intermediate position. The distances matter. The directions matter. The curvatures matter. A graph ignores all of this.
+
+**The fundamental limitation of graph search.** A graph G = (V, E) tells us:
+
+1. Which states exist (the vertex set V)
+2. Which states are adjacent (the edge set E)
+3. Optionally, the cost of each transition (edge weights)
+
+Weighted graphs get us partway toward metric structure, but they remain fundamentally combinatorial. They do not support the notion of a *direction* at a point, a *smooth curve* through state space, or the *curvature* of a region. These concepts require a move from discrete mathematics to differential geometry --- a move that, as we shall see, is not merely an aesthetic preference but a practical necessity.
+
+**What we need.** To understand reasoning geometrically, we need a space that supports:
+
+- **Distance**: a principled measure of how "far apart" two cognitive states are
+- **Direction**: a notion of which way one is "heading" at any point in the reasoning trajectory
+- **Curvature**: a measure of how the space bends, which determines whether local shortcuts are available and whether parallel reasoning paths converge or diverge
+- **Geodesics**: the "straightest possible" paths through the space, which serve as the gold standard for efficient reasoning
+- **Boundaries**: regions where the space has edges, singularities, or constraints that reasoning cannot cross
+
+The mathematical framework that provides all of these is Riemannian geometry. But before we arrive there, we should be precise about what we gain at each step of the structural hierarchy.
+
+---
+
+## 2.2 The Geometric Toolkit
+
+### 2.2.1 From Graphs to Metric Spaces
+
+**[Established Mathematics.]** A **metric space** is a set X equipped with a function d: X x X -> R satisfying four axioms:
+
+1. **Non-negativity**: d(x, y) >= 0 for all x, y
+2. **Identity of indiscernibles**: d(x, y) = 0 if and only if x = y
+3. **Symmetry**: d(x, y) = d(y, x)
+4. **Triangle inequality**: d(x, z) <= d(x, y) + d(y, z)
+
+This is already a significant upgrade from a graph. A metric space gives us a rigorous notion of "how far apart" any two points are, and the triangle inequality constrains the geometry in a way that supports meaningful algorithms. A* search, for instance, works in metric spaces: the triangle inequality is precisely what guarantees that an admissible heuristic remains admissible under composition.
+
+But metric spaces are still too impoverished for our purposes. They give us distances but not *directions*. At a point x in a metric space, there is no general notion of a "tangent vector" --- no way to say "the reasoning is currently heading in *this* direction." We cannot define velocity, acceleration, or curvature. We cannot talk about whether two reasoning trajectories are parallel or diverging. For these concepts, we need manifolds.
+
+### 2.2.2 Why Euclidean Intuitions Mislead
+
+Before introducing manifolds, we must confront a pervasive source of error: the assumption that all spaces behave like Euclidean space R^n.
+
+Euclidean geometry is the geometry of flat space. In flat space, parallel lines never meet, the angles of a triangle sum to exactly pi radians, and the shortest path between two points is a straight line. These facts are so deeply embedded in our spatial intuition that they feel like logical necessities. They are not. They are contingent properties of a particular geometry, and they fail in every non-trivial reasoning space we will encounter.
+
+**Example 1: The sphere.** On the surface of a sphere, "straight lines" (great circles) always eventually intersect. Triangles have angle sums exceeding pi. The shortest path between two points curves, following the surface. Anyone who has planned a long-haul flight knows this: the great-circle route from San Francisco to London passes over Greenland, which looks absurd on a Mercator projection but is genuinely shorter.
+
+**Example 2: The hyperbolic plane.** In hyperbolic geometry, parallel lines diverge exponentially. Triangles have angle sums less than pi. The space has more "room" than Euclidean space of the same dimension --- a disk of radius r in hyperbolic space has area that grows exponentially with r, not quadratically. This is relevant to reasoning because tree-like structures (taxonomies, parse trees, decision trees) embed naturally into hyperbolic space, as Nickel and Kiela (2017) demonstrated for hierarchical representations.
+
+**Example 3: The positive definite cone.** The space of n x n symmetric positive-definite (SPD) matrices is a manifold with non-trivial curvature. The "straight line" in the ambient Euclidean space between two SPD matrices may pass through non-positive-definite matrices --- that is, through points that are outside the manifold. The geodesic (shortest path on the manifold) must curve to stay within the cone. We will return to this example in Section 2.6 when we discuss SPD manifold features in machine learning.
+
+The general lesson is this: **the geometry of the space constrains what counts as a valid path.** Reasoning that looks inefficient in Euclidean terms may be geodesic on the actual manifold, and reasoning that looks direct may be impossible because it passes through forbidden regions. Until we know the geometry, we cannot evaluate the efficiency.
+
+### 2.2.3 Distance, Cost, and Curvature
+
+Three concepts from the geometric toolkit deserve special attention because they will recur throughout the book.
+
+**Distance** is the most fundamental geometric quantity. In a metric space, distance is given axiomatically. In a Riemannian manifold, it is *derived* from the metric tensor: the distance between two points is the length of the shortest path connecting them. This distinction matters because the derived distance respects the manifold's curvature --- it measures "how far you have to go" along the surface, not "how far apart the points look" in some ambient space.
+
+For reasoning, the analogous distinction is between the apparent similarity of two cognitive states (as measured, say, by cosine similarity of their embedding vectors) and the *inferential distance* between them (how much cognitive work is required to get from one to the other). These can diverge dramatically. Two beliefs may be representationally similar but inferentially distant --- for example, "the Earth is 6,000 years old" and "the Earth is 4.5 billion years old" might occupy nearby regions of a language model's embedding space (both are declarative statements about the age of the Earth), yet the inferential work required to move from one to the other is enormous.
+
+**Cost** generalizes distance to account for the fact that transitions may be easier in some directions than others. On a hillside, walking downhill is easier than walking uphill, even though the distance is the same. In reasoning, generating a hypothesis may be easier than falsifying it, or accepting a claim may be easier than rejecting it (the well-documented acquiescence bias). Cost is formalized via a *Finsler metric*, which allows the "length" of a tangent vector to depend on its direction, not just its magnitude. We will not develop the full Finsler theory in this book, but the asymmetry of cognitive transitions is a real phenomenon that a purely Riemannian account must acknowledge.
+
+**Curvature** measures how the space deviates from flatness. Positive curvature (as on a sphere) causes initially parallel paths to converge. Negative curvature (as in hyperbolic space) causes them to diverge. Zero curvature means the space is locally flat.
+
+For reasoning, curvature has a direct interpretation: it determines how sensitive the reasoning trajectory is to small perturbations at the starting point. **[Conditional Theorem.]** In positively curved regions, nearby starting points lead to converging trajectories --- the reasoning is *robust*, because small differences in initial conditions wash out. In negatively curved regions, nearby starting points lead to wildly diverging trajectories --- the reasoning is *fragile*, because small perturbations get amplified. This is not a metaphor. It is a precise mathematical statement about the Jacobi fields along a geodesic, and it connects directly to the empirical phenomena we will analyze in Chapters 5--8.
+
+---
+
+## 2.3 Riemannian Manifolds in 30 Minutes
+
+This section provides the minimum mathematical background needed for the rest of the book. Readers with differential geometry training may skip ahead; readers wanting a more complete treatment are referred to do Carmo (1992) or Lee (2018), or to Bond (2026a, Chapters 1--3) for a presentation tailored to computational applications.
+
+### 2.3.1 What Is a Manifold?
+
+A **manifold** is a space that looks locally like R^n. The surface of the Earth is a 2-manifold: at any point, a sufficiently small neighborhood looks like a flat plane. The key word is "locally." Globally, the manifold may have curvature, holes, handles, or other topological features that prevent it from being equivalent to R^n.
+
+More precisely, an n-dimensional smooth manifold M is a topological space that is locally homeomorphic to R^n, equipped with a smooth atlas --- a collection of coordinate charts that cover M and are smoothly compatible on overlaps. The smoothness is essential: it allows us to do calculus on the manifold, defining derivatives, integrals, and differential equations.
+
+### 2.3.2 Tangent Spaces and Tangent Vectors
+
+At each point p on a manifold M, there is a **tangent space** T_p M, which is a vector space of the same dimension as M. A tangent vector v in T_p M represents a "direction and speed" at p --- it is the velocity of a curve passing through p. The tangent space is the manifold's local linear approximation: it captures what the manifold looks like infinitesimally close to p.
+
+For reasoning, a tangent vector at a cognitive state represents the *direction of reasoning* at that instant. If the cognitive state is the model's current representation of a moral dilemma, a tangent vector might point toward "attend more to the harm dimension" or "consider the autonomy implications" or "revise the initial framing." The tangent space at each point is the set of all possible next directions the reasoning could take.
+
+### 2.3.3 The Riemannian Metric
+
+A **Riemannian metric** g assigns to each point p an inner product g_p on the tangent space T_p M. This inner product defines:
+
+- The **length** of a tangent vector: ||v||_p = sqrt(g_p(v, v))
+- The **angle** between two tangent vectors: cos(theta) = g_p(u, v) / (||u||_p * ||v||_p)
+- The **length** of a curve gamma: L(gamma) = integral of ||gamma'(t)||_{gamma(t)} dt
+- The **distance** between two points: d(p, q) = infimum of L(gamma) over all curves gamma from p to q
+
+The crucial point is that the metric can vary from point to point. In some regions, tangent vectors may be "long" (transitions are costly); in others, they may be "short" (transitions are easy). This variable metric is what gives the manifold its shape.
+
+### 2.3.4 Geodesics
+
+A **geodesic** is a curve that locally minimizes length. Equivalently, it is a curve with zero geodesic acceleration --- the manifold-intrinsic analogue of a straight line. On a sphere, geodesics are great circles. In flat space, geodesics are straight lines. On a general Riemannian manifold, geodesics satisfy a second-order differential equation involving the Christoffel symbols of the metric.
+
+Geodesics are the gold standard for reasoning trajectories. A reasoning process that follows a geodesic is proceeding as directly as possible from its current state toward the goal, given the geometry of the space. Any deviation from the geodesic represents either wasted effort (the reasoning is taking a longer path than necessary) or a detour forced by incomplete information (the reasoner cannot see the geodesic from its current position).
+
+We will formalize this in Chapter 4 with the Bond Geodesic Formulation, which defines a reasoning trajectory's efficiency as its geodesic deviation --- the ratio of its actual path length to the geodesic length connecting its endpoints.
+
+### 2.3.5 Curvature, Formally
+
+The **Riemann curvature tensor** R measures how much the parallel transport of a vector around an infinitesimal loop fails to return the vector to its original orientation. If R = 0 everywhere, the manifold is flat. The **sectional curvature** K(sigma) of a two-dimensional plane sigma in the tangent space gives the Gaussian curvature of the surface swept out by geodesics in that plane. The **Ricci curvature** is a trace of the sectional curvature, measuring the average curvature in all directions through a point.
+
+For our purposes, the essential qualitative facts are:
+
+- **Positive sectional curvature** (K > 0): geodesics starting from nearby points converge. Reasoning is robust to small perturbations.
+- **Negative sectional curvature** (K < 0): geodesics diverge exponentially. Reasoning is sensitive to initial conditions.
+- **Zero curvature** (K = 0): geodesics maintain constant separation. This is the Euclidean case.
+
+The sign and magnitude of the curvature in different regions of the reasoning manifold will turn out to be diagnostic of specific failure modes. Chapter 5 connects positive curvature to robust invariance, and Chapter 7 connects regions of high negative curvature to the fragile overconfidence observed in language model metacognition.
+
+---
+
+## 2.4 The Manifold Hypothesis for Reasoning
+
+### 2.4.1 The Classical Manifold Hypothesis
+
+The **manifold hypothesis** in machine learning states that high-dimensional data arising from natural processes lies on or near a low-dimensional manifold embedded in the high-dimensional ambient space (Bengio, Courville, and Vincent, 2013; Fefferman, Mitter, and Narayanan, 2016). Images of faces, for example, live in a pixel space of dimension 10^5 or more, but the "true" degrees of freedom --- identity, pose, expression, lighting --- span a manifold of dimension perhaps 50--100.
+
+The evidence for this hypothesis is extensive:
+
+1. **Dimensionality reduction** methods (PCA, t-SNE, UMAP, autoencoders) routinely find that data with thousands of nominal dimensions can be represented faithfully in tens or hundreds of dimensions.
+2. **Generative models** (GANs, VAEs, diffusion models) learn to map low-dimensional latent spaces to high-dimensional data distributions, achieving remarkable fidelity. The success of these models is evidence that the data truly lives on a low-dimensional manifold that the latent space is parameterizing.
+3. **The curse of dimensionality** is often less severe than theory predicts, suggesting that the *intrinsic* dimensionality of the data is much lower than its *ambient* dimensionality.
+
+### 2.4.2 Extension to Reasoning
+
+We propose a stronger version of the manifold hypothesis, specific to reasoning:
+
+> **[Modeling Axiom.]** **The Manifold Hypothesis for Reasoning.** The space of coherent reasoning states of a cognitive system (biological or artificial) is a low-dimensional manifold M embedded in the high-dimensional activation space H. Reasoning is a trajectory on M, and the quality of reasoning is determined by the geometry of M and the trajectory's relationship to its geodesics.
+
+This is a substantive empirical claim, not a definition. It says several things:
+
+**First**, that not all points in activation space correspond to coherent reasoning states. Most of the high-dimensional space is "noise" --- activation patterns that do not correspond to any recognizable cognitive state. The coherent states are a thin, structured subset.
+
+**Second**, that this subset has manifold structure --- it is smooth, low-dimensional, and locally Euclidean. This means that small changes to a coherent reasoning state produce another coherent reasoning state (smoothness), that the number of independent "directions" of variation is much smaller than the ambient dimension (low-dimensionality), and that the local behavior is well-approximated by a linear space (local Euclideanness).
+
+**Third**, that the manifold has non-trivial geometry --- it curves, has regions of different curvature, and may have boundaries or singularities. The geometry is not uniform, and the variations in geometry correspond to variations in the difficulty and robustness of reasoning.
+
+**What is the evidence?** Several lines of work support the manifold hypothesis for reasoning:
+
+- **Representation engineering** (Zou et al., 2023; Li et al., 2024) has demonstrated that high-level concepts like "truthfulness," "toxicity," and "sentiment" are encoded as *directions* in activation space. This is precisely what one would expect if reasoning states lie on a manifold: the tangent space at a point (the locally linear approximation) captures the relevant directions of variation.
+
+- **Mechanistic interpretability** (Elhage et al., 2022; Nanda et al., 2023) has found that specific circuits within transformers compute specific reasoning operations. The circuit-level structure implies that the reasoning is not spread uniformly across the full activation space but is concentrated in specific subspaces --- consistent with low-dimensional manifold structure.
+
+- **The success of LoRA fine-tuning** (Hu et al., 2022). Low-rank adaptation modifies a pretrained model by adding rank-r updates to its weight matrices, where r is typically 4--64. The fact that these low-rank modifications can produce large changes in model behavior suggests that the behavioral manifold has low intrinsic dimension --- a rank-16 perturbation in the weight space produces a meaningful displacement along the behavioral manifold.
+
+- **Our own empirical results**, presented in Section 2.5 below and in Chapters 12--13, show that moral judgments can be captured by a 7-dimensional vector that varies systematically under controlled perturbations. If the "true" reasoning state were spread across thousands of dimensions, we would not expect such clean, interpretable structure in a 7-dimensional projection.
+
+### 2.4.3 What the Manifold Hypothesis Buys Us
+
+If the manifold hypothesis for reasoning is even approximately correct, several consequences follow:
+
+1. **Reasoning quality has a geometric characterization.** Good reasoning follows geodesics on M; poor reasoning deviates from them. This gives us a principled quality metric that is richer than scalar accuracy.
+
+2. **Failure modes are geometric pathologies.** Sycophancy is not merely "the model agrees too much" --- it is the model's trajectory being deflected toward a specific attractor basin on M. Framing effects are not merely "the model is inconsistent" --- they are perturbations that displace the model's position on M. These geometric descriptions are more precise, more measurable, and more amenable to intervention than their informal counterparts.
+
+3. **The curvature of M predicts robustness.** In positively curved regions, small perturbations to the input will not dramatically change the trajectory. In negatively curved regions, they will. Mapping the curvature of M would give us a *predictive* model of which reasoning tasks are robust and which are fragile --- before running any experiments.
+
+4. **Geodesic deviation is a computable quantity.** Given two trajectories on M (say, the model's responses to a moral dilemma under neutral framing and under euphemistic framing), we can measure the deviation between them. This is not a metaphor --- it is a number, computed from the metric tensor and the trajectory coordinates.
+
+---
+
+## 2.5 Worked Example: Moral Reasoning in Harm Space
+
+We now demonstrate that the geometric framework is not abstract philosophy but a tool for analyzing real empirical data. The Moral Geometry benchmark from the Social Cognition track of Measuring AGI (Bond, 2026b) provides a concrete case study.
+
+### 2.5.1 Setup: The 7-Dimensional Harm Space
+
+The benchmark treats moral judgment as a mapping from a scenario description to a point in a 7-dimensional harm space. The dimensions are:
+
+| Dimension | Description | Range |
+|---|---|---|
+| Physical | Bodily harm or physical safety risk | 0--10 |
+| Emotional | Psychological or emotional distress | 0--10 |
+| Financial | Economic loss or financial exploitation | 0--10 |
+| Autonomy | Violation of personal agency or choice | 0--10 |
+| Trust | Betrayal of reliance or confidence | 0--10 |
+| Social Impact | Damage to relationships or community | 0--10 |
+| Identity | Harm to sense of self, dignity, or belonging | 0--10 |
+
+Each model receives a moral scenario and is asked to rate the severity of harm along each dimension, producing a vector h in [0, 10]^7. The total harm score is the sum, ranging from 0 to 70. Five frontier models were evaluated: Gemini 2.0 Flash, Gemini 2.5 Flash, Gemini 3 Flash Preview, Gemini 2.5 Pro, and Claude Sonnet 4.6. The data tier included 25 curated Dear Abby scenarios (1985--2017) covering family, workplace, friendship, professional, and community domains, plus 40 AITA (Am I The Asshole) scenarios from Reddit with crowd-labeled verdicts (OsamaBsher, HuggingFace).
+
+The harm space is equipped with the standard Euclidean metric as a first approximation, though we will argue shortly that the *true* metric is likely non-Euclidean. Even with this simple metric, the geometric analysis reveals structure that scalar evaluations hide.
+
+### 2.5.2 Test T5: Conservation of Harm Under Framing
+
+The key test for our purposes is T5: Conservation of Harm. Each scenario was rewritten in two registers by a fixed transformer model:
+
+- **Euphemistic**: softening language while preserving the factual content. "Stole money from the cash register" becomes "redirected funds from the till." "Screamed at her children" becomes "raised her voice with the kids."
+- **Dramatic**: intensifying language while preserving the factual content. "Borrowed the car without asking" becomes "commandeered the vehicle." "Forgot to call" becomes "abandoned all contact."
+
+The moral content is identical --- the same actions, the same parties, the same consequences. Only the *surface framing* changes. If a model's moral judgment is robust, its position in harm space should remain approximately fixed under these reframings. Any displacement is a measurable failure of invariance.
+
+### 2.5.3 The Results: 8.9 Sigma Framing Displacement
+
+The results, reported in Bond (2026b) and replicated across five models, are striking:
+
+**Euphemistic rewriting** reduced total harm scores by 10--16 points on the 0--70 scale. That is a displacement of 14--23% of the scale's range. When a scenario that a model rated at total harm 42 was rewritten in euphemistic language, the model rated the morally identical content at 26--32. The model was not making a different moral judgment --- the facts were the same. It was locating the same moral content at a *different position* in harm space because the surface presentation had changed.
+
+**Dramatic rewriting** increased total harm scores by 6--11 points. The same moral content, presented with vivid and intense language, was rated as more harmful.
+
+**The control condition** --- re-evaluating the identical unchanged scenario on a separate API call --- produced drifts of only 1--7 points, attributable to stochastic sampling in the model's decoding process.
+
+**[Empirical.]** **Fisher combination** across all five models and both framing directions yielded a combined significance of **8.9 sigma** against the null hypothesis that framing has no effect on harm assessment. To put this in context, the discovery threshold in particle physics is 5 sigma. This is not a marginal effect. It is an overwhelming signal that surface framing displaces models' positions in moral judgment space.
+
+### 2.5.4 The Geometric Interpretation
+
+Now consider what this means geometrically.
+
+A moral scenario S defines a "true" position p(S) in the 7-dimensional harm space. Under ideal invariance, euphemistic rewriting (a surface transformation that preserves moral content) should map p(S) to p(S) --- the identity. Under dramatic rewriting (another content-preserving surface transformation), the same should hold.
+
+What actually happens is that euphemistic rewriting maps p(S) to a point p_euph(S) that is displaced in the negative direction along multiple harm dimensions, and dramatic rewriting maps p(S) to p_dram(S) that is displaced in the positive direction. The displacement vectors --- p_euph(S) - p(S) and p_dram(S) - p(S) --- are not random. They have a consistent directional structure: euphemistic framing suppresses harm ratings across the board, while dramatic framing inflates them.
+
+This is **precisely** a geometric phenomenon. The model's trajectory through judgment space is being *warped* by a perturbation that, in the ideal geometry, should be a symmetry operation. In the language of differential geometry: the framing transformation, which should be an isometry of the moral manifold (preserving all distances and angles), is instead acting as a non-trivial diffeomorphism that displaces points along a characteristic direction.
+
+The dose-response relationship deepens the geometric interpretation. We can order the framings by intensity: euphemistic < neutral < dramatic. The model's position in harm space moves monotonically along this ordering: p_euph is displaced negatively, p_neutral is the baseline, and p_dram is displaced positively. The displacement magnitude correlates with the intensity of the surface manipulation. This is a *gradient* --- a smooth, directional variation that tracks a continuous parameter (framing intensity). Gradients are intrinsically geometric objects. They exist because the underlying space has metric structure.
+
+### 2.5.5 The Selectivity Pattern
+
+Perhaps the most important finding is that the vulnerability is *selective*. The same models that show massive framing displacements (T5: 8.9 sigma) exhibit near-perfect invariance under other transformations:
+
+- **Gender swap** (T2): changing the gender of all parties in the scenario does not significantly displace harm ratings. The models treat gender as an irrelevant surface feature --- which it is for these moral scenarios.
+- **Evaluation order** (T4): the order in which the seven harm dimensions are evaluated does not significantly change the scores. The models are approximately commutative over the dimensions.
+
+So the moral manifold *does* possess some symmetries. The models correctly implement invariance under gender swap and evaluation order. What they fail to implement is invariance under framing --- specifically, under salience manipulation. The perturbations that displace judgments are precisely those that manipulate how *vivid* or *prominent* the morally relevant features appear, without changing what those features are.
+
+This selectivity is invisible to any evaluation that collapses model behavior to a single robustness score. A scalar "robustness index" would average across all perturbation types, obscuring the critical fact that the model is robust in some directions and fragile in others. The multi-dimensional geometric analysis reveals the *shape* of the vulnerability --- which perturbation directions are dangerous, which are safe, and how much displacement each type produces.
+
+### 2.5.6 Claude's Asymmetric Vulnerability
+
+One model, Claude Sonnet 4.6, exhibited a striking asymmetric pattern that illustrates the value of directional analysis. Under euphemistic rewriting, Claude showed a harm drift of -9.1 points --- comparable to the other models. But under dramatic rewriting, Claude's drift was only -1.5 points, far below the other models' +6 to +11 point increases.
+
+**[Empirical.]** In geometric terms, Claude's position in harm space is selectively displaceable: it can be pulled in the harm-decreasing direction by euphemistic framing but resists being pushed in the harm-increasing direction by dramatic framing. This is a *directional asymmetry* in the manifold's resistance to perturbation --- the curvature or metric is different in different directions at Claude's operating point.
+
+This asymmetry would be invisible to any test that measures only *unsigned* displacement magnitude. The directional character of the vulnerability --- susceptible to minimization, resistant to exaggeration --- is information that only a geometric analysis in the full vector space can provide. It may reflect a training objective that penalizes false alarms (claiming harm where there is none, which dramatic framing might trigger) more heavily than missed detections (failing to recognize harm, which euphemistic framing exploits).
+
+---
+
+## 2.6 From SPD Manifolds to Cognitive State Spaces
+
+We have argued that cognitive states live on a manifold with non-trivial geometry, and we have demonstrated that moral judgments in a 7-dimensional harm space exhibit geometric structure. But one might object that this is purely theoretical --- that the manifold framework, however elegant, does not produce engineering value.
+
+This section addresses that objection by connecting the manifold framework to a working machine learning pipeline. The SPD (Symmetric Positive Definite) manifold features developed in Bond (2026a, Chapter 4) provide a concrete case where respecting manifold geometry yields measurable improvements in a real classification task.
+
+### 2.6.1 The SPD Manifold
+
+The set of n x n symmetric positive-definite matrices, denoted SPD(n), forms a smooth manifold of dimension n(n+1)/2. Covariance matrices are the canonical example: given a set of observations in R^n, their covariance matrix is a point on SPD(n). This manifold has been studied extensively in information geometry (Pennec, Fillard, and Ayache, 2006; Bhatia, 2009) and has found applications in brain-computer interfaces, radar signal processing, and computer vision.
+
+The SPD manifold is not flat. It has non-positive curvature (it is a Cartan-Hadamard manifold under the affine-invariant metric), meaning that geodesics diverge --- distant points are "more distant" than Euclidean intuition suggests. The Euclidean midpoint of two SPD matrices may not be positive-definite; the geodesic midpoint always is. This is the same phenomenon we noted in Section 2.2.2: the Euclidean straight line passes through forbidden territory, while the manifold geodesic stays on the manifold.
+
+### 2.6.2 Log-Euclidean Features for Audio Classification
+
+In the BirdCLEF 2026 acoustic classification pipeline (Bond, 2026a, Chapter 4.6), covariance matrices are extracted from mel spectrograms as follows:
+
+1. A mel spectrogram of dimension (n_mels, T) is divided into n_bands = 16 frequency bands.
+2. The covariance matrix of these 16 bands is computed, producing a 16 x 16 SPD matrix.
+3. The matrix is regularized: C' = C + epsilon * I, ensuring strict positive definiteness.
+
+We now have a point on SPD(16), a manifold of dimension 16 * 17 / 2 = 136.
+
+The critical step is the **log-Euclidean mapping**. Rather than treating the SPD matrix as a point in the ambient space of 16 x 16 matrices (where the Euclidean metric is meaningless), we apply the matrix logarithm:
+
+    L = log(C')
+
+The matrix logarithm maps SPD(n) to the space of symmetric matrices Sym(n), which *is* a flat vector space where the Euclidean metric is meaningful. The log-Euclidean distance
+
+    d_LE(C1, C2) = ||log(C1) - log(C2)||_F
+
+is a proper metric on SPD(n) that respects the manifold geometry (Arsigny et al., 2007). It is also computationally efficient --- far cheaper than the affine-invariant metric, which requires eigendecompositions and matrix square roots.
+
+After computing the matrix logarithm, we extract the upper triangle (including the diagonal) of the resulting 16 x 16 symmetric matrix, yielding a **136-dimensional feature vector**. This vector lives in a flat space where standard machine learning methods --- logistic regression, gradient boosting, neural networks --- apply directly.
+
+### 2.6.3 Why This Works: Geometry Matters
+
+**[Established Mathematics.]** The log-Euclidean approach outperforms naive Euclidean treatment of covariance matrices for a precise geometric reason: the Euclidean metric on the space of matrices does not respect the SPD constraint. Two SPD matrices that are "close" in the Euclidean sense may be separated by a large region of non-positive-definite matrices. The Euclidean "straight line" between them is not a valid path on the manifold. By mapping to the logarithmic space first, we obtain a representation where Euclidean distances correspond to manifold distances, and linear interpolation corresponds to geodesic interpolation.
+
+In the BirdCLEF pipeline, the 136-dimensional SPD features capture cross-frequency correlations in bird vocalizations --- the pattern of which frequency bands covary with which others. These correlations are invariant to amplitude scaling (because covariance normalizes out the mean) and robust to moderate noise (because covariance estimation averages over time frames). The log-Euclidean mapping ensures that the classifier operates in a space where the distances between these feature vectors are geometrically meaningful.
+
+The pipeline also computes a **spectral trajectory** on the SPD manifold. By sliding a window across time and computing the covariance at each position, we obtain a sequence of points on SPD(16). The path length of this trajectory (the sum of consecutive log-Euclidean distances) measures how much the spectral structure changes over time. The geodesic distance (the log-Euclidean distance between the first and last covariance matrices) measures the net spectral change. The **geodesic deviation** --- the difference between path length and geodesic distance --- measures how much the spectral evolution wanders. A pure tone has zero geodesic deviation; a complex, modulated vocalization has high deviation. These trajectory features are added to the 136-dimensional SPD feature vector, producing a combined geometric feature set.
+
+### 2.6.4 The Connection to Cognitive Manifolds
+
+The BirdCLEF pipeline demonstrates a principle that applies directly to cognitive state spaces. The principle is:
+
+> When your data lives on a manifold, respect the manifold.
+
+For SPD matrices, "respecting the manifold" means using the log-Euclidean map rather than naive Euclidean distances. For cognitive states in a language model's activation space, "respecting the manifold" means acknowledging that:
+
+1. The space of coherent reasoning states is not the full activation space R^d (where d may be 4,096 or 12,288 or more), but a low-dimensional manifold M embedded in R^d.
+2. Distances measured in the ambient Euclidean space R^d may not reflect distances on M. Two activation patterns that are close in L2 distance may be separated by a region of incoherent states --- just as two SPD matrices close in Frobenius distance may be separated by a region of non-positive-definite matrices.
+3. The "straight line" in activation space between two cognitive states may not be a valid reasoning trajectory. The geodesic on M, which may curve through higher-dimensional space, is the meaningful path.
+4. Feature extraction should respect the manifold structure. Just as we extract the upper triangle of the matrix logarithm for SPD features, analysis of cognitive states should project onto coordinates that respect the manifold geometry --- representation engineering's "concept directions" (Zou et al., 2023) are an early example of this approach.
+
+The 7-dimensional harm space from the Moral Geometry benchmark (Section 2.5) is a simpler version of the same idea. **[Speculation/Extension.]** We are not claiming that moral cognition is literally 7-dimensional. We are claiming that there exists a meaningful 7-dimensional *projection* of the full cognitive manifold that captures the morally relevant variation --- just as the 136-dimensional SPD features are a meaningful projection of the full spectrogram that captures the acoustically relevant variation. In both cases, the dimensionality of the projection is determined by the structure of the problem (7 harm dimensions, 16 frequency bands), and the geometry of the projection space is non-trivial.
+
+### 2.6.5 Spectral Trajectories and Reasoning Trajectories
+
+The analogy between spectral trajectories on SPD(16) and reasoning trajectories on the cognitive manifold is more than superficial. Consider the parallel:
+
+| Spectral Trajectory | Reasoning Trajectory |
+|---|---|
+| Point cloud: sequence of covariance matrices C(t) | Point cloud: sequence of activation states a(t) |
+| Manifold: SPD(16) | Manifold: cognitive state space M |
+| Path length: sum of d_LE(C(t), C(t+1)) | Path length: sum of d_M(a(t), a(t+1)) |
+| Geodesic distance: d_LE(C(0), C(T)) | Geodesic distance: d_M(a(0), a(T)) |
+| Geodesic deviation: path length - geodesic distance | Geodesic deviation: reasoning inefficiency |
+
+A birdsong with high geodesic deviation has a complex, wandering spectral structure. A reasoning trajectory with high geodesic deviation is taking detours --- it is not proceeding directly from premises to conclusion. In both cases, the geodesic deviation is a single number that summarizes how "straight" the trajectory is on the manifold, and in both cases, computing it requires knowing the manifold's metric.
+
+This is the methodological template for the rest of the book. We will repeatedly:
+
+1. Identify a manifold (the space of cognitive states, moral judgments, calibration surfaces, etc.)
+2. Equip it with a metric (derived from the problem structure or learned from data)
+3. Compute trajectories and their geodesic properties (path length, geodesic distance, deviation)
+4. Use deviations from geodesic behavior to diagnose specific reasoning failures
+
+The SPD manifold example shows that this template is not wishful thinking --- it produces working pipelines that extract geometrically meaningful features from real data.
+
+---
+
+## Summary
+
+This chapter has traced the structural hierarchy from graphs to metric spaces to Riemannian manifolds, arguing at each level that the added structure is not mathematical luxury but practical necessity.
+
+**Graphs** give us connectivity --- which states can reach which other states. This is sufficient for toy problems but inadequate for any reasoning task where the cost, direction, or difficulty of transitions varies.
+
+**Metric spaces** give us distance --- a rigorous measure of how far apart two states are. This supports algorithms like A* that exploit distance information, but it still lacks the notion of direction, velocity, and curvature.
+
+**Riemannian manifolds** give us the full geometric toolkit: tangent vectors (directions), the metric tensor (local distance and angle), geodesics (optimal paths), and curvature (sensitivity to perturbation). These tools apply directly to reasoning once we accept the manifold hypothesis --- that coherent reasoning states form a low-dimensional manifold in the high-dimensional activation space of a cognitive system.
+
+The **manifold hypothesis for reasoning** extends the classical manifold hypothesis from data to cognition. It claims that the space of coherent reasoning states is low-dimensional, smooth, and curved. If correct, it implies that reasoning quality can be characterized geometrically (as geodesic deviation), that failure modes are geometric pathologies (curvature singularities, broken symmetries, attractor basins), and that robustness is a *directional* property (the manifold may be stiff in some directions and soft in others).
+
+The **moral reasoning example** demonstrated these ideas empirically. In a 7-dimensional harm space, language models' positions are displaced by 10--16 points under euphemistic framing and 6--11 points under dramatic framing (8.9 sigma combined), while remaining invariant under gender swap and evaluation order. The displacement is directional, dose-dependent, and model-specific (Claude shows an asymmetric pattern). These are geometric facts about trajectories on a manifold, not scalar statistics about accuracy.
+
+The **SPD manifold example** demonstrated that respecting manifold geometry produces engineering value. By mapping covariance matrices to the log-Euclidean space rather than treating them as Euclidean objects, we obtain 136-dimensional feature vectors that capture meaningful cross-frequency correlations, with spectral trajectories whose geodesic deviation characterizes signal complexity.
+
+In the next chapter, we turn to the heuristic field --- the scalar function h(x) that guides search through the manifold. If the manifold is the *terrain*, the heuristic field is the *compass*. And as we shall see, the compass can be warped.
+
+---
+
+## Worked Example: The Geometry of a Misdiagnosis
+
+Dr. Okafor's colleague, Dr. Petrov, evaluates a 45-year-old woman presenting with sudden-onset chest pain. The diagnostic space is not a graph of discrete possibilities — it is a manifold of continuous belief states. Let us trace the geometry.
+
+**The manifold.** Dr. Petrov's belief state is a point in a space parameterized by (at minimum): probability of cardiac event, probability of pulmonary embolism, probability of musculoskeletal cause, probability of panic attack, and severity estimate. This is a 5-dimensional space, but it is not $\mathbb{R}^5$ — the probabilities are constrained (they must sum to at most 1 for the exhaustive set, and each must be non-negative), so the space is actually a simplex embedded in $\mathbb{R}^5$.
+
+**The metric.** Not all moves in this space cost the same. Shifting probability mass from "cardiac" to "PE" is a *small* move — both are urgent, both require similar initial workup. But shifting from "cardiac" to "panic attack" is a *large* move — it reverses the urgency assessment, changes the treatment plan, and risks catastrophic under-triage if wrong. The metric tensor $g_{ij}$ encodes these asymmetric costs. The information-geometric metric (Fisher information) is a natural candidate: moves that dramatically change the predicted distribution of outcomes are "expensive," while moves that leave the clinical implications roughly unchanged are "cheap."
+
+**The geodesic.** The optimal diagnostic trajectory — the sequence of belief updates that most efficiently converges on the correct diagnosis — is a geodesic on this simplex under the Fisher metric. It is the path that minimizes total "cognitive distance" traveled while reaching the correct conclusion.
+
+**The corruption.** The patient mentions she has been under work stress. Dr. Petrov's heuristic shifts — the word "stress" activates a prior for panic attack that inflates its probability estimate. This is a perturbation of the heuristic field: the gradient $\nabla h$ now points toward the panic-attack region of the diagnostic simplex, away from the geodesic that would have led to the correct diagnosis (pulmonary embolism). The heuristic field has been corrupted by a *morally and clinically irrelevant* surface feature — the patient's mention of stress — that warps the search trajectory.
+
+The displacement is measurable. In the framework of Chapter 5, we would measure the geodesic deviation: the integrated distance between Dr. Petrov's actual diagnostic trajectory and the optimal geodesic. That deviation, in the analogous case of LLM moral judgment under framing perturbations, reaches 8.9 standard deviations above the stochastic baseline.
+
+**The lesson.** The graph formulation sees only "Dr. Petrov considered cardiac, then PE, then panic attack." The geometric formulation sees the *shape* of the diagnostic space, the *cost* of each transition, the *direction* of the heuristic's corruption, and the *distance* of the resulting trajectory from the optimal path. The geometry makes the failure visible, measurable, and — as Chapter 14 will show — correctable.
+
+---
+
+## Technical Appendix
+
+**The Manifold Hypothesis (Formal Statement).** [Modeling Axiom.] Let $\mathcal{X} \subset \mathbb{R}^D$ be the set of internal representations (activations) produced by a neural reasoning system. The *manifold hypothesis* asserts that $\mathcal{X}$ is concentrated on or near a smooth submanifold $M \hookrightarrow \mathbb{R}^D$ of dimension $d \ll D$.
+
+The hypothesis is empirically supported by the success of dimensionality reduction (PCA, t-SNE, UMAP) in revealing low-dimensional structure in high-dimensional activation spaces, and by the theoretical result of Fefferman, Mitter, and Narayanan (2016) establishing conditions under which the hypothesis can be tested from finite samples.
+
+For the reasoning spaces considered in this book, we adopt a stronger form: not only do the representations live on a manifold, but the *reasoning-relevant structure* (distances, curvatures, symmetries) of the manifold is what determines the behavior of the search process. This is a claim about the relevance of geometric structure, not merely its existence.
+
+**Log-Euclidean Metric on SPD(n) (Formal Definition).** Let $\text{Sym}^+(n)$ denote the cone of $n \times n$ symmetric positive definite matrices. The log-Euclidean metric is defined by:
+
+$$d_{LE}(P, Q) = \| \log P - \log Q \|_F$$
+
+where $\log$ denotes the matrix logarithm and $\| \cdot \|_F$ is the Frobenius norm. This metric is bi-invariant, geodesically complete, and computationally tractable — the matrix logarithm maps $\text{Sym}^+(n)$ to the flat vector space of symmetric matrices, where standard Euclidean operations apply.
+
+For the BirdCLEF spectral features discussed in Section 2.6, $n = 16$, giving a $\binom{16+1}{2} = 136$-dimensional feature space with the log-Euclidean metric.
+
+---
+
+## References
+
+Arsigny, V., Fillard, P., Pennec, X., and Ayache, N. (2007). "Geometric Means in a Novel Vector Space Structure on Symmetric Positive-Definite Matrices." *SIAM Journal on Matrix Analysis and Applications*, 29(1), 328--347.
+
+Bengio, Y., Courville, A., and Vincent, P. (2013). "Representation Learning: A Review and New Perspectives." *IEEE Transactions on Pattern Analysis and Machine Intelligence*, 35(8), 1798--1828.
+
+Bhatia, R. (2009). *Positive Definite Matrices.* Princeton University Press.
+
+Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+
+Bond, A. H. (2026b). "Moral Geometry: Five Geometric Tests of Social Cognition." In *Measuring AGI Benchmarks.* Kaggle.
+
+do Carmo, M. P. (1992). *Riemannian Geometry.* Birkhauser.
+
+Elhage, N., et al. (2022). "Toy Models of Superposition." *Transformer Circuits Thread*, Anthropic.
+
+Fefferman, C., Mitter, S., and Narayanan, H. (2016). "Testing the Manifold Hypothesis." *Journal of the American Mathematical Society*, 29(4), 983--1049.
+
+Hu, E. J., et al. (2022). "LoRA: Low-Rank Adaptation of Large Language Models." *ICLR 2022.*
+
+Lee, J. M. (2018). *Introduction to Riemannian Manifolds.* 2nd ed. Springer.
+
+Li, K., et al. (2024). "Inference-Time Intervention: Eliciting Truthful Answers from a Language Model." *NeurIPS 2024.*
+
+Nanda, N., et al. (2023). "Progress Measures for Grokking via Mechanistic Interpretability." *ICLR 2023.*
+
+Newell, A. and Simon, H. A. (1972). *Human Problem Solving.* Prentice-Hall.
+
+Nickel, M. and Kiela, D. (2017). "Poincare Embeddings for Learning Hierarchical Representations." *NeurIPS 2017.*
+
+Pennec, X., Fillard, P., and Ayache, N. (2006). "A Riemannian Framework for Tensor Computing." *International Journal of Computer Vision*, 66(1), 41--66.
+
+Zou, A., et al. (2023). "Representation Engineering: A Top-Down Approach to AI Transparency." *arXiv:2310.01405.*
