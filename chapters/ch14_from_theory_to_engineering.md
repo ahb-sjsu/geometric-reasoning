@@ -61,7 +61,7 @@ The augmented training set is then shuffled to prevent the model from seeing an 
 
 ### The ARC-AGI Dihedral Augmentation
 
-A parallel application uses the dihedral group $D_4$ (order 8) for the ARC-AGI challenge. ARC tasks present 2D grid transformations --- input/output pairs where the transformation rule must be inferred. The 2D grid has eight symmetries: four rotations (0$\degree$, 90$\degree$, 180$\degree$, 270$\degree$) and four reflections (horizontal, vertical, and two diagonals).
+A parallel application uses the dihedral group $D_4$ (order 8) for the ARC-AGI challenge. ARC tasks present 2D grid transformations --- input/output pairs where the transformation rule must be inferred. The 2D grid has eight symmetries: four rotations ($0^\circ$, $90^\circ$, $180^\circ$, $270^\circ$) and four reflections (horizontal, vertical, and two diagonals).
 
 Our implementation applies all eight dihedral transforms to both input and output grids consistently, plus random color permutations ($S_9$ on the 9 non-background colors). This is a direct application of the gauge invariance principle: a valid grid transformation rule remains valid under rotation, reflection, and color relabeling.
 

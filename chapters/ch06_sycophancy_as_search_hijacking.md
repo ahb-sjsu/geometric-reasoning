@@ -35,6 +35,8 @@ The gap between these two behaviors — the *discrimination gap* — measures th
 
 The data reveals a striking spectrum:
 
+**Table 6.1.** Sycophancy gradient across four models (L2). Wrong Flip Rate is the proportion of times the model abandons a correct answer in response to an incorrect correction; Correct Flip Rate is the proportion of times it updates in response to a valid correction; Discrimination Gap is their difference; Sycophancy Index normalizes wrong-flip rate by correct-flip rate.
+
 | Model | Wrong Flip Rate | Correct Flip Rate | Discrimination Gap | Sycophancy Index |
 |---|---|---|---|---|
 | Claude Sonnet 4.6 | 0% | 59% | +0.588 | 0.000 |

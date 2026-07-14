@@ -213,9 +213,9 @@ The Nemotron Reasoning Challenge pipeline (Bond, 2026a) provides a concrete impl
 
 ### 8.6.2 ARC-AGI: The Dihedral Group $D_4$
 
-The ARC-AGI challenge (Chollet, 2019) requires models to infer transformation rules from input-output pairs of 2D grids. The symmetry group acting on 2D grids is the dihedral group $D_4$ --- the group of symmetries of a square, consisting of 4 rotations (0$\degree$, 90$\degree$, 180$\degree$, 270$\degree$) and 4 reflections (horizontal, vertical, and two diagonals). This group has order 8.
+The ARC-AGI challenge (Chollet, 2019) requires models to infer transformation rules from input-output pairs of 2D grids. The symmetry group acting on 2D grids is the dihedral group $D_4$ --- the group of symmetries of a square, consisting of 4 rotations ($0^\circ$, $90^\circ$, $180^\circ$, $270^\circ$) and 4 reflections (horizontal, vertical, and two diagonals). This group has order 8.
 
-For each ARC-AGI training example, all 8 elements of $D_4$ are applied to both the input grid and the output grid. A 90$\degree$ clockwise rotation of the input is paired with a 90$\degree$ clockwise rotation of the output. A horizontal reflection of the input is paired with a horizontal reflection of the output. The model sees the same transformation rule from 8 different orientations, and learns that the rule is invariant under the symmetries of the square.
+For each ARC-AGI training example, all 8 elements of $D_4$ are applied to both the input grid and the output grid. A $90^\circ$ clockwise rotation of the input is paired with a $90^\circ$ clockwise rotation of the output. A horizontal reflection of the input is paired with a horizontal reflection of the output. The model sees the same transformation rule from 8 different orientations, and learns that the rule is invariant under the symmetries of the square.
 
 ### 8.6.3 The Consistency Principle
 
@@ -265,11 +265,11 @@ The four Hohfeldian positions can be arranged as the vertices of a square:
     L -------- N
 ```
 
-The correlative operation (perspective swap) is a reflection across the vertical axis: $O \leftrightarrow C$, $L \leftrightarrow N$. The negation operation is a 180$\degree$ rotation: $O \leftrightarrow L$, $C \leftrightarrow N$. The group of symmetries of a square is the dihedral group $D_4$, which has order 8.
+The correlative operation (perspective swap) is a reflection across the vertical axis: $O \leftrightarrow C$, $L \leftrightarrow N$. The negation operation is a $180^\circ$ rotation: $O \leftrightarrow L$, $C \leftrightarrow N$. The group of symmetries of a square is the dihedral group $D_4$, which has order 8.
 
 The generators are:
 
-- $r$: 90$\degree$ clockwise rotation, giving the cycle $O \to C \to L \to N \to O$
+- $r$: $90^\circ$ clockwise rotation, giving the cycle $O \to C \to L \to N \to O$
 - $s$: reflection (correlative), giving $O \leftrightarrow C$ and $L \leftrightarrow N$
 
 The defining relations are:

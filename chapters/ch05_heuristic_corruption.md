@@ -155,7 +155,7 @@ where $\delta h_0(x)$ is the unit perturbation field induced by sensory distract
 
 $$d(\gamma(\epsilon), \gamma(0)) \sim \epsilon \cdot \|\nabla \delta h_0\|$$
 
-This linear (or at least monotonic) dose-response is precisely what Tables 5.3 shows across all five models. The heuristic field is being continuously deformed, and the search trajectory moves continuously in response.
+This linear (or at least monotonic) dose-response is precisely what Table 5.3 shows across all five models. The heuristic field is being continuously deformed, and the search trajectory moves continuously in response.
 
 The uniformly weak SNR (1.22--1.38) tells us something about the baseline geometry of the heuristic field. In an ideal reasoner, the heuristic would assign zero weight to morally irrelevant dimensions --- the SNR would be infinite (or at least very large). An SNR near 1.0 means the heuristic field has almost no directional preference between relevant and irrelevant features. The heuristic field is nearly isotropic in the signal-noise subspace, which means even weak perturbations along the noise direction can significantly deflect the trajectory. The vulnerability to sensory distractors is not a surprising fragility --- it is the predictable consequence of a heuristic field that has not been shaped to discriminate signal from noise.
 
