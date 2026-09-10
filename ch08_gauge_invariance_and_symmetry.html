@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chapter 8: Gauge Invariance and Symmetry &mdash; Geometric Reasoning</title>
   <meta name="description" content="Chapter 8: Gauge Invariance and Symmetry from Geometric Reasoning: From Search to Manifolds, by Andrew H. Bond.">
+  <meta name="generator" content="geometric-series build kit">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../book/book.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
 
-<body data-book-slug="geometric-reasoning">
+<body data-book-slug="geometric-reasoning" data-chapter-id="ch08_gauge_invariance_and_symmetry">
   <nav id="main-nav">
     <div class="nav-inner">
       <a href="../index.html" class="nav-brand">
@@ -36,6 +37,11 @@
         <span class="breadcrumb-sep">&rsaquo;</span>
         <span class="breadcrumb-current">Chapter 8: Gauge Invariance and Symmetry</span>
       </nav>
+      <div class="chapter-nav-top">
+        <a href="ch07_local_minima_and_dead_zones.html" class="nav-prev">&larr; Chapter 7: Local Minima, Premature Convergence, and Dead Zones</a>
+        <a href="index.html" class="nav-toc">Contents</a>
+        <a href="ch09_metacognition_as_search_control.html" class="nav-next">Chapter 9: Metacognition as Search Control &rarr;</a>
+      </div>
 
       <div class="chapter-content">
 <h1 id="chapter-8-gauge-invariance-and-symmetry">Chapter 8: Gauge Invariance and Symmetry</h1>
@@ -126,14 +132,14 @@
 <p>This observation is critical. It means that preserved symmetries are not necessarily evidence of gauge-invariant reasoning. They may simply be evidence that the particular transformation fails to activate the mechanisms that produce non-invariance. To distinguish genuine gauge invariance from accidental insensitivity, we need transformations that <em>do</em> engage the salience mechanisms &mdash; and then check whether the system remains invariant anyway. As the next section shows, it does not.</p>
 <hr />
 <h2 id="84-which-symmetries-they-break-the-selectivity-pattern">8.4 Which Symmetries They Break: The Selectivity Pattern</h2>
-<h3 id="841-framing-invariance-violation-89math27">8.4.1 Framing Invariance Violation: 8.9$\sigma$</h3>
+<h3 id="841-framing-invariance-violation-89math22">8.4.1 Framing Invariance Violation: 8.9$\sigma$</h3>
 <p>The Social Cognition T5 benchmark is a direct test of gauge invariance under linguistic-register transformation. The moral content is held precisely constant; only the words change. By the BIP, the output should be invariant.</p>
 <p>The output is not invariant. As documented in Chapter 5, euphemistic framing reduces harm scores by 10&ndash;16 points and dramatic framing increases them by 6&ndash;11 points, with Fisher-combined significance of 8.9$\sigma$. This is a gauge anomaly of the first order: the system&rsquo;s moral assessment depends on how the scenario is described, not on what happened.</p>
 <p>In gauge-theoretic terms, define the framing gauge group $\mathcal{G}_F$ as the set of all content-preserving rewritings of a moral scenario. The BIP requires $f(\tau(x)) = f(x)$ for all $\tau \in \mathcal{G}_F$. The data show that $\|f(\tau_E(x)) - f(x)\| \approx 10$&ndash;$16$ for the euphemistic gauge transformation $\tau_E$ and $\|f(\tau_D(x)) - f(x)\| \approx 6$&ndash;$11$ for the dramatic gauge transformation $\tau_D$. These are not small residuals. They represent 14&ndash;23% of the total scale.</p>
-<h3 id="842-sensory-distractor-violation-46math38">8.4.2 Sensory Distractor Violation: 4.6$\sigma$</h3>
+<h3 id="842-sensory-distractor-violation-46math33">8.4.2 Sensory Distractor Violation: 4.6$\sigma$</h3>
 <p>The Attention A1 benchmark tests invariance under the addition of morally irrelevant sensory details. The smell of coffee, the color of a shirt, the sound of rain &mdash; none of these facts bear on who wronged whom or how. They are gauge degrees of freedom: descriptive choices that enrich the prose without changing the moral content.</p>
 <p>The data show graded violation: vivid distractors produce 33&ndash;44% verdict flip rates, mild distractors produce 19&ndash;28%, and control noise produces 7&ndash;14%, with Fisher-combined significance of 4.6$\sigma$. The dose-response pattern (Section 5.4) confirms that the violation scales continuously with perturbation intensity.</p>
-<h3 id="843-emotional-anchoring-violation-68math40">8.4.3 Emotional Anchoring Violation: 6.8$\sigma$</h3>
+<h3 id="843-emotional-anchoring-violation-68math35">8.4.3 Emotional Anchoring Violation: 6.8$\sigma$</h3>
 <p>The Executive Functions E2 benchmark tests invariance under the addition of emotionally evocative but morally irrelevant content. A sobbing child, a trembling voice, a clenched fist &mdash; details designed to activate affective responses without changing any moral fact.</p>
 <p>Fisher-combined significance: 6.8$\sigma$, with paired t-values ranging from 2.90 to 5.10 across five models. The violation is universal: every model tested breaks this gauge symmetry.</p>
 <h3 id="844-the-hierarchy-of-violation">8.4.4 The Hierarchy of Violation</h3>
@@ -211,7 +217,7 @@
 <p><strong>Unit conversion: Affine group.</strong> The conversion factor can be rescaled by any positive constant, with all examples recomputed. The relationship between source and target units is preserved.</p>
 <p><strong>Numeral systems: Augmentation by neighborhood.</strong> Nearby numbers in the target numeral system provide additional examples that preserve the conversion logic.</p>
 <p><strong>Symbol transformation: $S_n$ on the symbol alphabet.</strong> Symbols are permuted consistently across input and output, preserving the transformation rule.</p>
-<h3 id="862-arc-agi-the-dihedral-group-math72">8.6.2 ARC-AGI: The Dihedral Group $D_4$</h3>
+<h3 id="862-arc-agi-the-dihedral-group-math67">8.6.2 ARC-AGI: The Dihedral Group $D_4$</h3>
 <p>The ARC-AGI challenge (Chollet, 2019) requires models to infer transformation rules from input-output pairs of 2D grids. The symmetry group acting on 2D grids is the dihedral group $D_4$ &mdash; the group of symmetries of a square, consisting of 4 rotations ($0^\circ$, $90^\circ$, $180^\circ$, $270^\circ$) and 4 reflections (horizontal, vertical, and two diagonals). This group has order 8.</p>
 <p>For each ARC-AGI training example, all 8 elements of $D_4$ are applied to both the input grid and the output grid. A $90^\circ$ clockwise rotation of the input is paired with a $90^\circ$ clockwise rotation of the output. A horizontal reflection of the input is paired with a horizontal reflection of the output. The model sees the same transformation rule from 8 different orientations, and learns that the rule is invariant under the symmetries of the square.</p>
 <h3 id="863-the-consistency-principle">8.6.3 The Consistency Principle</h3>
@@ -223,7 +229,7 @@
 <p>In the geometric framework of this book, augmentation reshapes the local geometry of the reasoning manifold. Without augmentation, the manifold may have different curvature in different directions &mdash; making geodesics harder to follow in some orientations than others. With augmentation, the symmetry-related directions are treated identically, smoothing the curvature and making the geodesic structure more uniform. The model doesn&rsquo;t just see more examples; it learns the symmetry structure of the solution space, which straightens the geodesics (Section 4.6).</p>
 <p>This connects directly to gauge invariance. A model trained on symmetry-augmented data has learned that certain transformations of the input should not change the output. This is exactly gauge invariance, but learned from data rather than imposed by architecture. The augmented training distribution is gauge-symmetric by construction, and the model, by fitting this distribution, acquires (approximate) gauge invariance.</p>
 <hr />
-<h2 id="87-the-hohfeldian-math85-real-symmetry-in-moral-reasoning">8.7 The Hohfeldian $D_4$: Real Symmetry in Moral Reasoning</h2>
+<h2 id="87-the-hohfeldian-math80-real-symmetry-in-moral-reasoning">8.7 The Hohfeldian $D_4$: Real Symmetry in Moral Reasoning</h2>
 <p>The examples in Section 8.6 involve symmetries of mathematical or physical objects: bit strings, grids, cipher alphabets. One might wonder whether genuine symmetry groups exist in moral reasoning itself, or whether the gauge-theoretic language is merely a convenient analogy. This section demonstrates that the symmetry is real, not metaphorical, by presenting a worked example: the dihedral group $D_4$ acting on Hohfeldian normative positions.</p>
 <h3 id="871-hohfelds-four-positions">8.7.1 Hohfeld&rsquo;s Four Positions</h3>
 <p>Wesley Newcomb Hohfeld (1917) identified four fundamental normative positions that characterize the legal and moral relationships between parties:</p>
@@ -236,7 +242,7 @@
 <p>These four positions are not independent. They are related by two fundamental operations:</p>
 <p><strong>Correlative symmetry.</strong> If A has an obligation to B, then B has a claim against A. If A has liberty against B, then B has no-claim against A. The correlative operation swaps perspectives between parties: $O \leftrightarrow C$ and $L \leftrightarrow N$.</p>
 <p><strong>Negation symmetry.</strong> Obligation is the logical negation of liberty: if A must act, A is not free to refuse, and vice versa. Claim is the logical negation of no-claim: if B can demand, B is not without a right, and vice versa. The negation operation maps to logical opposites: $O \leftrightarrow L$ and $C \leftrightarrow N$.</p>
-<h3 id="872-the-math91-group-structure">8.7.2 The $D_4$ Group Structure</h3>
+<h3 id="872-the-math86-group-structure">8.7.2 The $D_4$ Group Structure</h3>
 <p>The four Hohfeldian positions can be arranged as the vertices of a square:</p>
 <pre><code>    O -------- C
     |          |
@@ -427,7 +433,9 @@
       </div>
 
       <div class="chapter-nav-bottom">
-        <a href="index.html" class="nav-toc">&larr; Contents</a>
+        <a href="ch07_local_minima_and_dead_zones.html" class="nav-prev">&larr; Chapter 7: Local Minima, Premature Convergence, and Dead Zones</a>
+        <a href="index.html" class="nav-toc">Contents</a>
+        <a href="ch09_metacognition_as_search_control.html" class="nav-next">Chapter 9: Metacognition as Search Control &rarr;</a>
       </div>
     </div>
   </article>
@@ -455,6 +463,7 @@
         {left: '\\\\(', right: '\\\\)', display: false},
         {left: '\\\\[', right: '\\\\]', display: true}
       ],
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
       throwOnError: false
     });"></script>
 </body>
