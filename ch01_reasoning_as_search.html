@@ -293,11 +293,11 @@ $h$ is admissible if it never overestimates the true cost to reach a goal:</p>
 <p>where $h^*(x)$ is the actual minimum cost from $x$ to the nearest goal.</p>
 <p><strong>Theorem (Hart, Nilsson, and Raphael, 1968).</strong> <strong>[Established Mathematics.]</strong> <em>If $h$ is admissible, then A</em>
 is guaranteed to find an optimal solution—a solution with minimum total cost.*</p>
-<p>The proof is elegant and illuminating. Suppose A<em> terminates by selecting a goal state
+<p>The proof is elegant and illuminating. Suppose A* terminates by selecting a goal state
 $g_1$ whose path cost is $g(g_1) = C_1$. Suppose there exists a better goal state
-$g_2$ reachable at cost $C_2 < C_1$. Then somewhere on the optimal path to $g_2$
+$g_2$ reachable at cost $C_2 &lt; C_1$. Then somewhere on the optimal path to $g_2$
 there must be a state $x$ still in the open set. For this state, $f(x) = g(x) +
-h(x) \leq g(x) + h^</em>(x) = C_2 &lt; C_1 = f(g_1)$. But then $x$ would have been
+h(x) \leq g(x) + h^*(x) = C_2 &lt; C_1 = f(g_1)$. But then $x$ would have been
 selected before $g_1$, contradicting the assumption that $g_1$ was selected. Hence
 no better goal is reachable, and $g_1$ is optimal.</p>
 <p>The proof reveals the role of admissibility with crystalline clarity: <strong>an admissible
@@ -345,7 +345,7 @@ heuristic.</p>
 <h3 id="what-goes-wrong-corrupted-heuristics">What Goes Wrong: Corrupted Heuristics</h3>
 <p>The admissibility theorem tells us what happens when the heuristic is well-behaved:
 we get optimality. But what happens when the heuristic is corrupted?</p>
-<p>If $h(x) > h^*(x)$ for some states $x$, then the admissibility condition is violated,
+<p>If $h(x) &gt; h^*(x)$ for some states $x$, then the admissibility condition is violated,
 and A<em> may terminate at a suboptimal goal. The overestimate causes the search to avoid
 the region around $x$, even if the optimal path passes through it. The search has
 been </em>misdirected* by a faulty signal.</p>
@@ -616,7 +616,7 @@ certain capabilities are fragile, why certain interventions work and others do n
 <hr />
 <h2 id="technical-appendix">Technical Appendix</h2>
 <p><strong>A* Optimality (Theorem 1.1, restated formally).</strong> <strong>[Established Mathematics.]</strong> Let $(S, s_0, A, T, G)$ be a finite search problem with non-negative edge costs. Let $h: S \to \mathbb{R}_{\geq 0}$ be an admissible heuristic: $h(x) \leq h^*(x)$ for all $x \in S$, where $h^*(x)$ is the true cost of an optimal path from $x$ to the nearest goal. Then A* with evaluation function $f(x) = g(x) + h(x)$ terminates at a goal state $s^* \in G$ such that $g(s^*) = g^*(s_0)$, the cost of an optimal solution.</p>
-<p><em>Proof.</em> Suppose A<em> terminates at a goal $s'$ with $g(s') > g^*(s_0)$. Let $P^*$ be an optimal path from $s_0$ to some optimal goal $s^*$. At termination, there exists some node $n$ on $P^*$ that is on the frontier (open list). Then $f(n) = g(n) + h(n) \leq g(n) + h^*(n) = g^*(s_0) < g(s') = f(s')$, where the first inequality uses admissibility and the last equality uses $h(s') = 0$ for any goal state. But A</em> selected $s'$ over $n$, meaning $f(s') \leq f(n)$, a contradiction. $\square$</p>
+<p><em>Proof.</em> Suppose A<em> terminates at a goal $s'$ with $g(s') &gt; g^*(s_0)$. Let $P^*$ be an optimal path from $s_0$ to some optimal goal $s^*$. At termination, there exists some node $n$ on $P^*$ that is on the frontier (open list). Then $f(n) = g(n) + h(n) \leq g(n) + h^*(n) = g^*(s_0) &lt; g(s') = f(s')$, where the first inequality uses admissibility and the last equality uses $h(s') = 0$ for any goal state. But A</em> selected $s'$ over $n$, meaning $f(s') \leq f(n)$, a contradiction. $\square$</p>
 <p><strong>Dominance (Proposition 1.1).</strong> If $h_1(x) \geq h_2(x)$ for all non-goal states $x$, and both are admissible, then every node expanded by A<em> using $h_1$ is also expanded by A</em> using $h_2$. The tighter heuristic produces a search that is a <em>subset</em> of the looser one.</p>
 <hr />
 <p><strong>Notes on Sources</strong></p>

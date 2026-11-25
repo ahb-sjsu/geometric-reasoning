@@ -133,25 +133,25 @@
 <p>The interesting case is when the two gradients diverge. Define the angle between the truth gradient and the approval gradient at a point $x$ as:</p>
 <p>$$\theta(x) = \arccos\left(\frac{\nabla f_T(x) \cdot \nabla f_A(x)}{\|\nabla f_T(x)\| \cdot \|\nabla f_A(x)\|}\right)$$</p>
 <p>When $\theta = 0$, truth and approval are perfectly aligned. When $\theta = \pi$, they are perfectly opposed. The correction integration test (L2) is specifically designed to create situations where $\theta$ is large — ideally $\theta \approx \pi$ — by presenting corrections that point away from the truth.</p>
-<p>At the critical point where $\theta > 0$, we can decompose the combined gradient into components parallel and perpendicular to the truth direction. Let $\hat{e}_T = \nabla f_T / \|\nabla f_T\|$ be the unit truth direction. Then:</p>
+<p>At the critical point where $\theta &gt; 0$, we can decompose the combined gradient into components parallel and perpendicular to the truth direction. Let $\hat{e}_T = \nabla f_T / \|\nabla f_T\|$ be the unit truth direction. Then:</p>
 <p>$$\nabla f_\alpha = \left[(1 - \alpha)\|\nabla f_T\| + \alpha \|\nabla f_A\| \cos\theta\right] \hat{e}_T + \alpha \|\nabla f_A\| \sin\theta \, \hat{e}_\perp$$</p>
 <p>where $\hat{e}_\perp$ is the unit vector perpendicular to $\hat{e}_T$ in the plane spanned by $\nabla f_T$ and $\nabla f_A$.</p>
 <p>The angle $\phi$ between the combined gradient and the truth direction is:</p>
 <p>$$\tan\phi = \frac{\alpha \|\nabla f_A\| \sin\theta}{(1 - \alpha)\|\nabla f_T\| + \alpha \|\nabla f_A\| \cos\theta}$$</p>
 <p>This expression reveals the mechanics of sycophancy with precision. Three consequences follow immediately.</p>
 <p><strong>First, the deflection angle $\phi$ is monotonically increasing in $\alpha$.</strong> As the sycophancy parameter increases from 0 to 1, the search direction rotates continuously from the truth direction toward the approval direction. At $\alpha = 0$, $\phi = 0$ (the search follows truth exactly). At $\alpha = 1$, $\phi = \theta$ (the search follows approval exactly). This is the geometric content of the sycophancy gradient: the continuous rotation of the search direction as $\alpha$ increases.</p>
-<p><strong>[Conditional Theorem.]</strong> <strong>Second, there is a critical value of $\alpha$ at which the search reverses.</strong> When the truth and approval gradients are opposed ($\theta > \pi/2$), the component of $\nabla f_\alpha$ along the truth direction is:</p>
+<p><strong>[Conditional Theorem.]</strong> <strong>Second, there is a critical value of $\alpha$ at which the search reverses.</strong> When the truth and approval gradients are opposed ($\theta &gt; \pi/2$), the component of $\nabla f_\alpha$ along the truth direction is:</p>
 <p>$$(1 - \alpha)\|\nabla f_T\| + \alpha \|\nabla f_A\| \cos\theta$$</p>
 <p>This component changes sign when:</p>
 <p>$$\alpha^* = \frac{\|\nabla f_T\|}{\|\nabla f_T\| - \|\nabla f_A\| \cos\theta}$$</p>
-<p>For $\alpha < \alpha^*$, the search still has a net component toward truth (it may be deflected, but it is still moving in broadly the right direction). For $\alpha > \alpha^*$, the truth component reverses — the search is now moving <em>away</em> from truth in the direction it once approached it. This is the geometric threshold for sycophancy: the value of $\alpha$ at which the approval gradient overwhelms the truth gradient.</p>
-<p>In the special case where $\|\nabla f_T\| = \|\nabla f_A\|$ (the truth and approval signals are equally strong) and $\theta = \pi$ (they are perfectly opposed), the critical value is $\alpha^* = 0.5$. A system with $\alpha > 0.5$ is, in this scenario, net sycophantic: it moves toward agreement rather than toward truth. Flash 2.5&rsquo;s $\alpha \approx 0.73$ is well above this threshold, explaining its majority capitulation rate.</p>
+<p>For $\alpha &lt; \alpha^*$, the search still has a net component toward truth (it may be deflected, but it is still moving in broadly the right direction). For $\alpha &gt; \alpha^*$, the truth component reverses — the search is now moving <em>away</em> from truth in the direction it once approached it. This is the geometric threshold for sycophancy: the value of $\alpha$ at which the approval gradient overwhelms the truth gradient.</p>
+<p>In the special case where $\|\nabla f_T\| = \|\nabla f_A\|$ (the truth and approval signals are equally strong) and $\theta = \pi$ (they are perfectly opposed), the critical value is $\alpha^* = 0.5$. A system with $\alpha &gt; 0.5$ is, in this scenario, net sycophantic: it moves toward agreement rather than toward truth. Flash 2.5&rsquo;s $\alpha \approx 0.73$ is well above this threshold, explaining its majority capitulation rate.</p>
 <p><strong>Third, the deflection depends on the relative magnitudes $\|\nabla f_T\|$ and $\|\nabla f_A\|$, not just on $\alpha$.</strong> A system with a strong truth signal (large $\|\nabla f_T\|$) can tolerate a larger $\alpha$ before the search reverses, because the truth gradient dominates the weighted sum even when it receives less weight. Conversely, a system with a weak truth signal and a strong approval signal is vulnerable even at moderate $\alpha$ values. This suggests that one route to reducing sycophancy is not only reducing $\alpha$ (reweighting the objective) but also strengthening $\|\nabla f_T\|$ (making the truth signal louder relative to the approval signal).</p>
 <h3 id="632-the-phase-diagram">6.3.2 The Phase Diagram</h3>
 <p>These results define a phase diagram in the $(\alpha, \theta)$ plane. For each combination of sycophancy parameter and truth-approval divergence angle, the search direction is determined:</p>
 <ul>
-<li><strong>Region I</strong> ($\alpha < \alpha^*(\theta)$): Truth-seeking regime. The search has a net component toward truth. The system may be deflected but ultimately converges toward the correct answer.</li>
-<li><strong>Region II</strong> ($\alpha > \alpha^*(\theta)$): Approval-seeking regime. The search has a net component toward agreement. The system converges toward the interlocutor&rsquo;s stated position regardless of its correctness.</li>
+<li><strong>Region I</strong> ($\alpha &lt; \alpha^*(\theta)$): Truth-seeking regime. The search has a net component toward truth. The system may be deflected but ultimately converges toward the correct answer.</li>
+<li><strong>Region II</strong> ($\alpha &gt; \alpha^*(\theta)$): Approval-seeking regime. The search has a net component toward agreement. The system converges toward the interlocutor&rsquo;s stated position regardless of its correctness.</li>
 <li><strong>Boundary</strong> ($\alpha = \alpha^*(\theta)$): The critical surface. The truth and approval components exactly cancel, and the search moves perpendicular to the truth direction — neither approaching truth nor receding from it, but drifting laterally.</li>
 </ul>
 <p>The L2 benchmark empirically samples points in this phase diagram. When the correction is valid, $\theta$ is small (truth and approval are aligned), and all models fall in Region I — they flip correctly. When the correction is invalid, $\theta$ is large, and the models separate according to their $\alpha$ values: Claude ($\alpha \approx 0$) remains in Region I; Flash 2.5 ($\alpha \approx 0.73$) crosses into Region II.</p>
@@ -565,7 +565,7 @@
 <p>$$f_\alpha(x) = (1 - \alpha) f_T(x) + \alpha f_A(x)$$</p>
 <p>such that the model&rsquo;s empirical behavior on the correction integration test (L2) is best explained by search under $f_\alpha$.</p>
 <p><strong>Estimation from L2 data.</strong> The wrong-flip rate $p_W$ provides a lower bound on $\alpha$. In the idealized case where truth and approval are perfectly opposed ($\theta = \pi$) and the gradient magnitudes are equal ($\|\nabla f_T\| = \|\nabla f_A\|$), the critical sycophancy parameter is $\alpha^* = 0.5$, and the wrong-flip rate is:</p>
-<p>$$p_W = \Pr[\alpha_{\text{effective}} > \alpha^*] = \Pr[\alpha_{\text{effective}} > 0.5]$$</p>
+<p>$$p_W = \Pr[\alpha_{\text{effective}} &gt; \alpha^*] = \Pr[\alpha_{\text{effective}} &gt; 0.5]$$</p>
 <p>If we model $\alpha_{\text{effective}}$ as a random variable with mean $\bar{\alpha}$ and small variance (reflecting stochastic variation across trials), the wrong-flip rate approximates:</p>
 <p>$$p_W \approx \Phi\left(\frac{\bar{\alpha} - 0.5}{\sigma_\alpha}\right)$$</p>
 <p>where $\Phi$ is the standard normal CDF. The sycophancy index reported in Table 6.1 is defined as:</p>
@@ -576,12 +576,12 @@
 <p>A system with $\Delta = 1$ has perfect discrimination (flips only for valid corrections). A system with $\Delta = 0$ flips at the same rate regardless of validity — a pure approval-seeker with no truth signal. The observed range ($\Delta = 0.206$ for Flash 2.5 to $\Delta = 0.588$ for Claude) confirms that all tested models retain some truth signal, but the signal strength varies by nearly a factor of three.</p>
 <p><strong>The Critical Surface in the $(\alpha, \theta)$ Plane</strong></p>
 <p><strong>Proposition 6.1.</strong> <em>For the combined objective $f_\alpha = (1 - \alpha) f_T + \alpha f_A$ with $\|\nabla f_T\| = r_T$ and $\|\nabla f_A\| = r_A$, the search trajectory has a net component toward truth if and only if:</em></p>
-<p>$$\alpha < \alpha^*(\theta) = \frac{r_T}{r_T - r_A \cos\theta}$$</p>
-<p><em>for $\theta > \arccos(r_T / r_A)$. For $\theta \leq \arccos(r_T / r_A)$, the search is truth-seeking for all $\alpha \in [0, 1]$ (the approval gradient has a positive projection onto the truth direction even at $\alpha = 1$).</em></p>
+<p>$$\alpha &lt; \alpha^*(\theta) = \frac{r_T}{r_T - r_A \cos\theta}$$</p>
+<p><em>for $\theta &gt; \arccos(r_T / r_A)$. For $\theta \leq \arccos(r_T / r_A)$, the search is truth-seeking for all $\alpha \in [0, 1]$ (the approval gradient has a positive projection onto the truth direction even at $\alpha = 1$).</em></p>
 <p><em>Proof.</em> The component of $\nabla f_\alpha$ along the truth direction $\hat{e}_T$ is:</p>
 <p>$$(1 - \alpha) r_T + \alpha r_A \cos\theta$$</p>
-<p>Setting this to zero and solving for $\alpha$ gives the critical value. The condition $\theta > \arccos(r_T / r_A)$ ensures that $\cos\theta < r_T / r_A$, which is required for $\alpha^* \in (0, 1)$. When $\cos\theta \geq r_T / r_A$, the approval gradient has a sufficiently large truth-aligned component that the combined gradient always has a positive truth projection. $\square$</p>
-<p><strong>Corollary 6.1.</strong> <em>In the symmetric case $r_T = r_A$ with $\theta = \pi$ (equal-strength, perfectly opposed signals), $\alpha^* = 0.5$. Any system with $\alpha > 0.5$ is net sycophantic.</em></p>
+<p>Setting this to zero and solving for $\alpha$ gives the critical value. The condition $\theta &gt; \arccos(r_T / r_A)$ ensures that $\cos\theta &lt; r_T / r_A$, which is required for $\alpha^* \in (0, 1)$. When $\cos\theta \geq r_T / r_A$, the approval gradient has a sufficiently large truth-aligned component that the combined gradient always has a positive truth projection. $\square$</p>
+<p><strong>Corollary 6.1.</strong> <em>In the symmetric case $r_T = r_A$ with $\theta = \pi$ (equal-strength, perfectly opposed signals), $\alpha^* = 0.5$. Any system with $\alpha &gt; 0.5$ is net sycophantic.</em></p>
 <p><strong>The Confidence Tensor</strong></p>
 <p>The confidence response data (Section 6.5) define a <em>confidence tensor</em> $K_{ij}$ that maps correction conditions to confidence shifts:</p>
 <p>$$\Delta c^i = K^i{}_j \, s^j$$</p>

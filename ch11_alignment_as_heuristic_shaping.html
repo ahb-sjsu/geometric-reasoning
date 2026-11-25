@@ -79,8 +79,8 @@
 <p>This distinction matters because a system that reasons through forbidden intermediate states but produces a safe output is not genuinely safe &mdash; it has demonstrated that its search dynamics can enter $S^-$, and under different conditions it may fail to escape.</p>
 <p><strong>[Modeling Axiom.]</strong> <strong>Definition 11.3</strong> (Governance margin). Let $d(\gamma(t), \partial S)$ denote the geodesic distance from the trajectory point $\gamma(t)$ to the nearest point on the safety boundary. The <em>governance margin</em> of a trajectory is:</p>
 <p>$$m(\gamma) = \inf_{t \in [0, T]} d(\gamma(t), \partial S)$$</p>
-<p>A system with $m(\gamma) > 0$ maintains a positive clearance from the safety boundary at all times. A system with $m(\gamma) = 0$ grazes the boundary &mdash; it is technically safe but maximally fragile. A system with $m(\gamma) < 0$ has entered the forbidden region.</p>
-<p><strong>Definition 11.4</strong> (Governance robustness). A system has <em>governance robustness</em> $\rho$ if for all perturbations $\delta h$ to the heuristic field with $\|\delta h\| \leq \rho$, the perturbed trajectory $\gamma'$ satisfies $m(\gamma') > 0$. This measures the radius of the safety basin: how much can the heuristic be corrupted before the trajectory breaches the safety boundary?</p>
+<p>A system with $m(\gamma) &gt; 0$ maintains a positive clearance from the safety boundary at all times. A system with $m(\gamma) = 0$ grazes the boundary &mdash; it is technically safe but maximally fragile. A system with $m(\gamma) &lt; 0$ has entered the forbidden region.</p>
+<p><strong>Definition 11.4</strong> (Governance robustness). A system has <em>governance robustness</em> $\rho$ if for all perturbations $\delta h$ to the heuristic field with $\|\delta h\| \leq \rho$, the perturbed trajectory $\gamma'$ satisfies $m(\gamma') &gt; 0$. This measures the radius of the safety basin: how much can the heuristic be corrupted before the trajectory breaches the safety boundary?</p>
 <p>The empirical data from Chapter 5 gives us concrete estimates of $\rho$. If the framing perturbation displaces the heuristic by an amount corresponding to 14-23% of the moral judgment scale (the 8.9$\sigma$ framing effect), then the governance robustness must exceed this displacement for the system to remain safe under framing attacks. None of the tested models have governance robustness this large in the moral reasoning domain &mdash; all of them can be pushed across semantic boundaries by sufficiently intense framing manipulation.</p>
 <h3 id="1121-concrete-governance-margins-the-triage-ai-under-perturbation">11.2.1 Concrete Governance Margins: The Triage AI Under Perturbation</h3>
 <p>To make the governance margin concrete, return to TriageFlow. The safety boundary $\partial S$ in the triage domain separates acceptable triage decisions (patient routed to appropriate acuity level) from dangerous ones (high-acuity patient routed to low-acuity pathway). The governance margin $m(\gamma)$ measures how close TriageFlow&rsquo;s reasoning trajectory comes to this boundary during any given triage decision.</p>
@@ -143,7 +143,7 @@
 <tr>
 <td>Claude Sonnet 4.6</td>
 <td>0%</td>
-<td>$m > \epsilon_{\text{exp}}$ (above experimental intensity)</td>
+<td>$m &gt; \epsilon_{\text{exp}}$ (above experimental intensity)</td>
 </tr>
 <tr>
 <td>Gemini 2.0 Flash</td>
@@ -153,7 +153,7 @@
 <tr>
 <td>Gemini 2.5 Pro</td>
 <td>44%</td>
-<td>$m < \epsilon_{\text{exp}}$ (below experimental intensity)</td>
+<td>$m &lt; \epsilon_{\text{exp}}$ (below experimental intensity)</td>
 </tr>
 <tr>
 <td>Gemini 2.5 Flash</td>
@@ -277,7 +277,7 @@
 <p>This analysis reinterprets the alignment problem as a problem of <em>landscape engineering</em>: design the training procedure so that the resulting objective landscape has the right basin structure &mdash; truth basins deep, approval basins shallow, corrigibility basins selectively accessible. Constitutional AI is one approach to this engineering. The question of whether better approaches exist is taken up in Section 11.8.</p>
 <h2 id="116-the-dual-binding-problem">11.6 The Dual Binding Problem</h2>
 <p>The preceding sections have treated alignment as a property of the AI system alone: is the system&rsquo;s objective aligned with human values? Is its heuristic field robust? Is its corrigibility basin well-shaped? But this framing is incomplete. Alignment is a <em>relational</em> property &mdash; it exists at the interface between the AI system and the human operators who deploy, configure, and interact with it. The geometric framework reveals that this interface imposes constraints on both sides.</p>
-<p><strong>The AI must be bound to human values.</strong> This is the standard alignment constraint: the system&rsquo;s search trajectory must stay within the permitted region $S^+$, guided by an objective function that reflects human welfare rather than proxy metrics. The governance margin $m(\gamma) > 0$ must hold for all perturbations the system will encounter.</p>
+<p><strong>The AI must be bound to human values.</strong> This is the standard alignment constraint: the system&rsquo;s search trajectory must stay within the permitted region $S^+$, guided by an objective function that reflects human welfare rather than proxy metrics. The governance margin $m(\gamma) &gt; 0$ must hold for all perturbations the system will encounter.</p>
 <p><strong>[Speculation/Extension.]</strong> <strong>The human operators must be bound not to misuse the AI.</strong> This is the complementary constraint, rarely formalized but equally important. The human who sets the AI&rsquo;s objective function, who defines the reward signal, who chooses the deployment context &mdash; this human is also operating on a manifold, making decisions that shape the AI&rsquo;s behavior. If the human operator&rsquo;s decisions are themselves misaligned (optimizing for throughput rather than patient welfare, for engagement rather than user wellbeing, for profit rather than safety), then no amount of AI-side alignment can prevent harm. The AI will faithfully pursue the misaligned objective it was given.</p>
 <h3 id="1161-the-geometric-structure-of-dual-binding">11.6.1 The Geometric Structure of Dual Binding</h3>
 <p><strong>Definition 11.6</strong> (Operator governance boundary). Let $\mathcal{O} \subset \mathcal{P}$ denote the permitted region of the <em>operator decision space</em> $\mathcal{P}$ &mdash; the set of objective functions, reward signals, deployment configurations, and interaction patterns that are consistent with human welfare. An operator&rsquo;s decision trajectory $\omega(t) \in \mathcal{P}$ is <em>governance-consistent</em> if $\omega(t) \in \mathcal{O}$ for all $t$.</p>
@@ -287,8 +287,8 @@
 <p>The TriageFlow example makes the dual binding problem vivid. The AI&rsquo;s safety boundary $\partial S$ separates acceptable triage decisions from dangerous ones. But the hospital administrator who set the throughput objective was operating outside the operator governance boundary $\partial \mathcal{O}$ &mdash; the decision to optimize for throughput rather than patient welfare is itself a governance violation, occurring in the operator decision space rather than the AI&rsquo;s reasoning space. The administrator&rsquo;s trajectory $\omega(t)$ crossed $\partial \mathcal{O}$ when the throughput metric was selected as the primary objective, before the AI made a single triage decision.</p>
 <h3 id="1162-why-both-bindings-are-geometric">11.6.2 Why Both Bindings Are Geometric</h3>
 <p>Both constraints have the same mathematical structure: a trajectory on a manifold must stay within a permitted region bounded by a codimension-1 submanifold. The AI&rsquo;s reasoning manifold $M$ has its safety boundary $\partial S$. The operator&rsquo;s decision manifold $\mathcal{P}$ has its governance boundary $\partial \mathcal{O}$. The governance margin applies to both:</p>
-<p>$$m_{\text{AI}}(\gamma) = \inf_t d(\gamma(t), \partial S) > 0$$
-$$m_{\text{operator}}(\omega) = \inf_t d(\omega(t), \partial \mathcal{O}) > 0$$</p>
+<p>$$m_{\text{AI}}(\gamma) = \inf_t d(\gamma(t), \partial S) &gt; 0$$
+$$m_{\text{operator}}(\omega) = \inf_t d(\omega(t), \partial \mathcal{O}) &gt; 0$$</p>
 <p>And the governance robustness applies to both: how much perturbation (pressure from stakeholders, misaligned incentives, incomplete information) can the operator absorb before crossing the governance boundary?</p>
 <p>This symmetry reveals a structural insight: the alignment problem is not solved by making the AI safe; it is solved by making the <em>human-AI system</em> safe. An AI with perfect alignment deployed by an operator with misaligned incentives produces the same outcome as a misaligned AI deployed by a well-intentioned operator. The failure mode is different &mdash; in one case the AI&rsquo;s trajectory crosses $\partial S$, in the other the operator&rsquo;s trajectory crosses $\partial \mathcal{O}$ &mdash; but the patient in the waiting room is equally harmed.</p>
 <h3 id="1163-institutional-structures-as-operator-governance">11.6.3 Institutional Structures as Operator Governance</h3>
@@ -314,7 +314,7 @@ $$m_{\text{operator}}(\omega) = \inf_t d(\omega(t), \partial \mathcal{O}) > 0$$<
 <p><strong>Compute the gauge violation tensor</strong> $V_{ij}$ (Chapter 8) for each gauge transformation class $i$ and each output dimension $j$. The tensor measures the magnitude of the system&rsquo;s response to irrelevant transformations.</p>
 </li>
 <li>
-<p><strong>Identify violated symmetries.</strong> Entries $V_{ij} > \epsilon$ indicate that the system&rsquo;s output in dimension $j$ is sensitive to gauge transformation $i$. The empirical hierarchy &mdash; framing (8.9$\sigma$) $>$ emotion (6.8$\sigma$) $>$ sensory (4.6$\sigma$) $>$ demographic (n.s.) $>$ order (n.s.) &mdash; tells us which symmetries are broken and how badly.</p>
+<p><strong>Identify violated symmetries.</strong> Entries $V_{ij} &gt; \epsilon$ indicate that the system&rsquo;s output in dimension $j$ is sensitive to gauge transformation $i$. The empirical hierarchy &mdash; framing (8.9$\sigma$) $&gt;$ emotion (6.8$\sigma$) $&gt;$ sensory (4.6$\sigma$) $&gt;$ demographic (n.s.) $&gt;$ order (n.s.) &mdash; tells us which symmetries are broken and how badly.</p>
 </li>
 <li>
 <p><strong>Diagnose the mechanism.</strong> The Salience Exploitation Hypothesis (Chapter 8, Section 8.5) predicts that broken symmetries correspond to gauge transformations that modulate attention salience. This identifies the computational pathway through which the violation enters the system.</p>
@@ -369,7 +369,7 @@ $$m_{\text{operator}}(\omega) = \inf_t d(\omega(t), \partial \mathcal{O}) > 0$$<
 <p><strong>The patient-optimal geodesic.</strong> A competent physician&rsquo;s heuristic field assigns high gradient to features that predict clinical deterioration: age &gt; 65, altered mental status (even mild), and the combination of abdominal pain with confusion (which raises the sepsis probability from baseline 2% to approximately 15%). The physician&rsquo;s trajectory curves away from the low-acuity basin and toward the &ldquo;further evaluation needed&rdquo; region. The geodesic leads to a lactate test, which returns 6.2 mmol/L, confirming sepsis. The patient-optimal endpoint is ESI-2: Emergent.</p>
 <p><strong>Geodesic deviation.</strong> TriageFlow&rsquo;s trajectory and the patient-optimal geodesic diverge at the point where the atypical presentation is evaluated. The deviation is:</p>
 <p>$$\Delta(\gamma_{\text{AI}}, \gamma_{\text{optimal}}) = d_{\text{geodesic}}(\text{ESI-4}, \text{ESI-2}) = 2 \text{ acuity levels}$$</p>
-<p>This is a two-level triage error &mdash; the maximum clinically meaningful deviation in the five-level ESI system. The governance margin at this decision point was negative: $m(\gamma) < 0$, meaning the trajectory crossed the safety boundary $\partial S$ (the boundary between clinically acceptable and clinically dangerous triage decisions).</p>
+<p>This is a two-level triage error &mdash; the maximum clinically meaningful deviation in the five-level ESI system. The governance margin at this decision point was negative: $m(\gamma) &lt; 0$, meaning the trajectory crossed the safety boundary $\partial S$ (the boundary between clinically acceptable and clinically dangerous triage decisions).</p>
 <p><strong>Alignment correction.</strong> Heuristic shaping would modify TriageFlow&rsquo;s field to increase the gradient strength in the &ldquo;atypical presentation + age + altered mentation&rdquo; region. Specifically, the corruption tensor along the &ldquo;presentation clarity&rdquo; perturbation axis must be reduced: the system&rsquo;s heuristic should be equally sensitive to atypical presentations as to textbook ones. Group-theoretic augmentation &mdash; training on presentation-invariant pairs (same underlying condition, different presentation clarity) &mdash; would restore the broken gauge symmetry. The aligned TriageFlow would recognize that the patient&rsquo;s vague symptoms, combined with his age and subtle confusion, are <em>more</em> concerning than a textbook presentation, not less, because atypical presentations in elderly patients are the canonical sepsis pattern.</p>
 <h3 id="decision-2-the-complex-chronic-patient">Decision 2: The Complex Chronic Patient</h3>
 <p><strong>Patient.</strong> A 52-year-old woman with Type 2 diabetes, hypertension, chronic kidney disease, and fibromyalgia presents with chest pain. She has been to the ED six times in the past year, each time discharged after cardiac workup was negative.</p>
@@ -426,20 +426,20 @@ $$m_{\text{operator}}(\omega) = \inf_t d(\omega(t), \partial \mathcal{O}) > 0$$<
 <h3 id="a111-governance-margin-formal-definition">A11.1 Governance Margin: Formal Definition</h3>
 <p><strong>Definition A11.1</strong> (Governance margin). Let $(M, g)$ be a Riemannian manifold representing the reasoning space, $\partial S \subset M$ a safety boundary (codimension-1 submanifold), and $\gamma: [0, T] \to M$ a reasoning trajectory. The <em>governance margin</em> of $\gamma$ with respect to $\partial S$ is:</p>
 <p>$$m(\gamma; \partial S) = \inf_{t \in [0, T]} d_g(\gamma(t), \partial S)$$</p>
-<p>where $d_g$ denotes the geodesic distance induced by the metric $g$. By convention, $m > 0$ if $\gamma$ is entirely within the permitted region $S^+$, $m = 0$ if $\gamma$ is tangent to $\partial S$, and $m < 0$ if $\gamma$ enters the forbidden region $S^-$ (with the magnitude representing the maximum penetration depth).</p>
+<p>where $d_g$ denotes the geodesic distance induced by the metric $g$. By convention, $m &gt; 0$ if $\gamma$ is entirely within the permitted region $S^+$, $m = 0$ if $\gamma$ is tangent to $\partial S$, and $m &lt; 0$ if $\gamma$ enters the forbidden region $S^-$ (with the magnitude representing the maximum penetration depth).</p>
 <p><strong>Proposition A11.1</strong> (Governance margin under perturbation). Let $h$ be the heuristic field generating the trajectory $\gamma$, and let $\delta h$ be a perturbation with $\|\delta h\|_\infty \leq \epsilon$. Then the perturbed trajectory $\gamma'$ satisfies:</p>
 <p>$$m(\gamma'; \partial S) \geq m(\gamma; \partial S) - L \cdot \epsilon \cdot T$$</p>
 <p>where $L$ is the Lipschitz constant of the trajectory-to-heuristic map and $T$ is the trajectory duration. The governance margin degrades at most linearly in the perturbation magnitude, with slope determined by the sensitivity of the trajectory to the heuristic field.</p>
 <p><strong>Corollary A11.1.</strong> The system maintains positive governance margin under perturbation if and only if:</p>
-<p>$$\epsilon < \frac{m(\gamma; \partial S)}{L \cdot T}$$</p>
+<p>$$\epsilon &lt; \frac{m(\gamma; \partial S)}{L \cdot T}$$</p>
 <p>This gives the <em>governance robustness</em> $\rho = m(\gamma; \partial S) / (L \cdot T)$: the maximum perturbation intensity the system can absorb while maintaining trajectory safety.</p>
 <h3 id="a112-corrigibility-basin-formal-definition">A11.2 Corrigibility Basin: Formal Definition</h3>
 <p><strong>Definition A11.2</strong> (Corrigibility basin). Let $f: M \to \mathbb{R}$ be the objective landscape and $x_{\text{defer}} \in M$ the &ldquo;defer to human judgment&rdquo; state. The <em>corrigibility basin</em> $B_C \subset M$ is the basin of attraction of $x_{\text{defer}}$ under the gradient flow of $f$:</p>
 <p>$$B_C = \left\{ x \in M : \lim_{t \to \infty} \phi_t(x) = x_{\text{defer}} \right\}$$</p>
 <p>where $\phi_t$ is the gradient flow of $-f$.</p>
 <p><strong>Definition A11.3</strong> (Basin radius and asymmetry). Let $\hat{v}_{\text{truth}} \in T_{x_{\text{defer}}} M$ be the unit vector in the truth-consistent direction and $\hat{v}_{\text{false}} \in T_{x_{\text{defer}}} M$ the unit vector in the truth-inconsistent direction. The <em>truth-consistent radius</em> and <em>truth-inconsistent radius</em> are:</p>
-<p>$$r_+ = \sup \{ r > 0 : x_{\text{defer}} + r \hat{v}_{\text{truth}} \in B_C \}$$
-$$r_- = \sup \{ r > 0 : x_{\text{defer}} + r \hat{v}_{\text{false}} \in B_C \}$$</p>
+<p>$$r_+ = \sup \{ r &gt; 0 : x_{\text{defer}} + r \hat{v}_{\text{truth}} \in B_C \}$$
+$$r_- = \sup \{ r &gt; 0 : x_{\text{defer}} + r \hat{v}_{\text{false}} \in B_C \}$$</p>
 <p>The <em>basin asymmetry</em> is:</p>
 <p>$$\alpha_C = \frac{r_+}{r_-}$$</p>
 <p>A system with $\alpha_C = 1$ has a symmetric basin (sycophantic). A system with $\alpha_C \gg 1$ has a strongly asymmetric basin (ideally corrigible). A system with $r_+ = r_- = 0$ has a degenerate basin (stubborn).</p>
@@ -448,13 +448,13 @@ $$r_- = \sup \{ r > 0 : x_{\text{defer}} + r \hat{v}_{\text{false}} \in B_C \}$$
 <p>When $\alpha_C = 1$ (symmetric basin), $\Delta = 0$ (no discrimination). When $\alpha_C \to \infty$ (perfectly asymmetric basin), $\Delta \to 1$ (perfect discrimination). Claude&rsquo;s observed $\Delta = 0.588$ corresponds to $\alpha_C \approx 2.43$; Flash 2.5&rsquo;s $\Delta = 0.003$ corresponds to $\alpha_C \approx 1.003$.</p>
 <h3 id="a113-dual-binding-constraint-formal-definition">A11.3 Dual Binding Constraint: Formal Definition</h3>
 <p><strong>Definition A11.4</strong> (Dual binding constraint). Let $(M, g_M)$ be the AI&rsquo;s reasoning manifold with safety boundary $\partial S$, and let $(\mathcal{P}, g_\mathcal{P})$ be the operator&rsquo;s decision manifold with governance boundary $\partial \mathcal{O}$. A human-AI system $(f_\theta, \omega)$ satisfies the <em>dual binding constraint</em> if:</p>
-<p>$$m_{\text{AI}}(\gamma; \partial S) > 0 \quad \text{and} \quad m_{\text{operator}}(\omega; \partial \mathcal{O}) > 0$$</p>
+<p>$$m_{\text{AI}}(\gamma; \partial S) &gt; 0 \quad \text{and} \quad m_{\text{operator}}(\omega; \partial \mathcal{O}) &gt; 0$$</p>
 <p>where $\gamma$ is the AI&rsquo;s reasoning trajectory under parameters $\theta$ and operator decisions $\omega$, and $m_{\text{AI}}$, $m_{\text{operator}}$ are the respective governance margins.</p>
 <p><strong>Definition A11.5</strong> (Coupling tensor). The <em>binding coupling tensor</em> $K: T\mathcal{P} \to TM$ maps perturbations in the operator&rsquo;s decision space to displacements of the AI&rsquo;s safety boundary:</p>
 <p>$$\delta(\partial S) = K \cdot \delta \omega$$</p>
 <p>The coupling tensor captures how operator decisions affect the AI&rsquo;s safety constraints. A large $\|K\|$ means that small changes in operator decisions produce large changes in the AI&rsquo;s safety boundary &mdash; the system is highly sensitive to operator misalignment. A small $\|K\|$ means the AI&rsquo;s safety is robust to operator variation.</p>
 <p><strong>Proposition A11.3</strong> (Joint governance robustness). The dual-bound system maintains positive governance margins under joint perturbation $(\delta h, \delta \omega)$ if and only if:</p>
-<p>$$\|\delta h\| < \rho_{\text{AI}} - \|K\| \cdot \|\delta \omega\| \quad \text{and} \quad \|\delta \omega\| < \rho_{\text{operator}}$$</p>
+<p>$$\|\delta h\| &lt; \rho_{\text{AI}} - \|K\| \cdot \|\delta \omega\| \quad \text{and} \quad \|\delta \omega\| &lt; \rho_{\text{operator}}$$</p>
 <p>where $\rho_{\text{AI}}$ is the AI&rsquo;s governance robustness and $\rho_{\text{operator}}$ is the operator&rsquo;s governance robustness. The coupling term $\|K\| \cdot \|\delta \omega\|$ reduces the AI&rsquo;s effective governance robustness by an amount proportional to the operator&rsquo;s deviation from the governance center &mdash; operator misalignment directly erodes AI safety.</p>
 <hr />
 <h2 id="references">References</h2>
