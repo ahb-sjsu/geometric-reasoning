@@ -282,7 +282,7 @@
 <p>The set of n x n symmetric positive-definite matrices, denoted SPD(n), forms a smooth manifold of dimension n(n+1)/2. Covariance matrices are the canonical example: given a set of observations in R^n, their covariance matrix is a point on SPD(n). This manifold has been studied extensively in information geometry (Pennec, Fillard, and Ayache, 2006; Bhatia, 2009) and has found applications in brain-computer interfaces, radar signal processing, and computer vision.</p>
 <p>The SPD manifold is not flat. It has non-positive curvature (it is a Cartan-Hadamard manifold under the affine-invariant metric), meaning that geodesics diverge &mdash; distant points are &ldquo;more distant&rdquo; than Euclidean intuition suggests. The Euclidean midpoint of two SPD matrices is positive-definite, because the cone is convex, but it is not the geodesic midpoint. This is the same phenomenon we noted in Section 2.2.2: the Euclidean straight line is not the manifold&rsquo;s shortest path and, continued beyond its endpoints, passes into forbidden territory, while the manifold geodesic stays on the manifold.</p>
 <h3 id="262-log-euclidean-features-for-audio-classification">2.6.2 Log-Euclidean Features for Audio Classification</h3>
-<p>In the BirdCLEF 2026 acoustic classification pipeline (Bond, 2026a, Chapter 4.6), covariance matrices are extracted from mel spectrograms as follows:</p>
+<p>In the BirdCLEF 2026 acoustic classification pipeline, which uses the frequency-band covariance extraction of Bond (2026a, Section 4.4), covariance matrices are extracted from mel spectrograms as follows:</p>
 <ol>
 <li>A mel spectrogram of dimension (n_mels, T) is divided into n_bands = 16 frequency bands.</li>
 <li>The covariance matrix of these 16 bands is computed, producing a 16 x 16 SPD matrix.</li>
@@ -388,7 +388,7 @@
 <p>Arsigny, V., Fillard, P., Pennec, X., and Ayache, N. (2007). &ldquo;Geometric Means in a Novel Vector Space Structure on Symmetric Positive-Definite Matrices.&rdquo; <em>SIAM Journal on Matrix Analysis and Applications</em>, 29(1), 328&ndash;347.</p>
 <p>Bengio, Y., Courville, A., and Vincent, P. (2013). &ldquo;Representation Learning: A Review and New Perspectives.&rdquo; <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em>, 35(8), 1798&ndash;1828.</p>
 <p>Bhatia, R. (2009). <em>Positive Definite Matrices.</em> Princeton University Press.</p>
-<p>Bond, A. H. (2026a). <em>Geometric Methods in Computational Modeling.</em> San Jose State University.</p>
+<p>Bond, A. H. (2026a). <em>Geometric Methods: Computational Modeling.</em> San Jose State University.</p>
 <p>Bond, A. H. (2026b). &ldquo;Moral Geometry: Five Geometric Tests of Social Cognition.&rdquo; In <em>Measuring AGI Benchmarks.</em> Kaggle.</p>
 <p>do Carmo, M. P. (1992). <em>Riemannian Geometry.</em> Birkhauser.</p>
 <p>Elhage, N., et al. (2022). &ldquo;Toy Models of Superposition.&rdquo; <em>Transformer Circuits Thread</em>, Anthropic.</p>

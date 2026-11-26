@@ -62,7 +62,7 @@
 <p>The preceding chapters have developed a geometric theory of reasoning: search on manifolds, guided by heuristic fields, along geodesics, with failure modes characterized as geometric pathologies. This chapter demonstrates that the theory produces working engineering. Every geometric concept from Parts I-III has been implemented in code and tested on real data.</p>
 <h2 id="141-group-theoretic-data-augmentation">14.1 Group-Theoretic Data Augmentation</h2>
 <p><strong>[Established Mathematics.]</strong> The gauge invariance framework of Chapter 8 predicts that a model&rsquo;s reasoning quality is bounded by its symmetry structure. A model that breaks gauge invariance under framing but not under gender swap has a specific geometric deficiency &mdash; and the natural remedy is to restore the broken symmetry through training data augmentation.</p>
-<p><em>Geometric Methods in Computational Modeling</em> (Bond, 2026a, Ch. 13) develops this idea formally: if a task has a symmetry group $G$, then augmenting the training set by applying all elements of $G$ to each example forces the model to learn a $G$-invariant representation. The augmented model&rsquo;s heuristic field inherits the symmetry.</p>
+<p><em>Geometric Methods: Computational Modeling</em> (Bond, 2026a, Ch. 13) develops this idea formally: if a task has a symmetry group $G$, then augmenting the training set by applying all elements of $G$ to each example forces the model to learn a $G$-invariant representation. The augmented model&rsquo;s heuristic field inherits the symmetry.</p>
 <h3 id="the-nemotron-geometric-pipeline">The Nemotron Geometric Pipeline</h3>
 <p><strong>[Empirical.]</strong> The Nvidia Nemotron 3 Reasoning Challenge provides an ideal testbed. The competition requires fine-tuning a 30-billion parameter model on geometric reasoning tasks &mdash; pattern recognition in sequences, encryption schemes, unit conversions, physics problems. Each task type has a distinct symmetry group.</p>
 <p>We implemented six symmetry-specific augmentation strategies:</p>
@@ -139,8 +139,8 @@ qpatch.patch_all(compute_dtype=torch.float16)  # Volta = fp16
 <p>The four patches address: (1) safetensors metadata corruption, (2) uint8 dtype propagation through LoRA layers, (3) MoE scatter dtype mismatches, and (4) fused CUDA kernel incompatibility with quantized weights. Each corresponds to a type-system boundary violation between independently-developed libraries &mdash; a failure at the <em>interface</em> between transformers, peft, and bitsandbytes.</p>
 <p>The v0.2 release adds the <em>Patch Switch</em> pattern: auto-detection probes that check whether each bug exists before patching, runtime telemetry that counts how often each patch actually fires, and hot-swappable enable/disable for individual patches. This is, in miniature, the same geometric diagnostic principle applied throughout this book: probe, measure, intervene selectively.</p>
 <h2 id="144-spd-manifold-features-and-topological-data-analysis">14.4 SPD Manifold Features and Topological Data Analysis</h2>
-<p>The BirdCLEF geometric feature pipeline implements two techniques from <em>Geometric Methods</em> (Bond, 2026a):</p>
-<h3 id="spd-manifold-features-ch-46">SPD Manifold Features (Ch. 4.6)</h3>
+<p>The BirdCLEF geometric feature pipeline implements two techniques of <em>Geometric Methods</em> (Bond, 2026a), which does not itself treat BirdCLEF:</p>
+<h3 id="spd-manifold-features-ch-44">SPD Manifold Features (Ch. 4.4)</h3>
 <p><strong>[Established Mathematics.]</strong> The Symmetric Positive Definite manifold SPD($n$) is the space of $n \times n$ symmetric positive definite matrices. It is a Riemannian manifold with a well-studied differential geometry.</p>
 <p>Our pipeline:
 1. Computes a mel spectrogram (128 frequency bins)
@@ -218,7 +218,7 @@ qpatch.patch_all(compute_dtype=torch.float16)  # Volta = fp16
 <p><img alt="Figure 14.2" src="figures/ch14_fig2.svg" /></p>
 <p><em>Figure 14.2. A tree in the Poincaré disk, the two-dimensional case of the ball of Section 14.5 with curvature c = 1; the system itself uses 32 dimensions and the tree is illustrative. Children are placed with the chapter&rsquo;s Möbius addition, so every edge has the same hyperbolic length although the edges look shorter toward the boundary, and the dashed circles mark hyperbolic distance 1, 2 and 3 from the origin. The number of nodes doubles at each level and they still fit. This is the room the embedding uses, with general rules near the origin and specific sub-rules near the boundary.</em></p>
 <h2 id="146-the-bond-geodesic-equilibrium-in-economic-reasoning">14.6 The Bond Geodesic Equilibrium in Economic Reasoning</h2>
-<p>The geometric reasoning framework extends beyond language models to multi-agent economic decision-making. The Bond Geodesic Equilibrium (BGE) &mdash; from <em>Geometric Ethics</em>, Theorem 20.3 &mdash; generalizes Nash equilibrium to manifold-valued decision spaces.</p>
+<p>The geometric reasoning framework extends beyond language models to multi-agent economic decision-making. The Bond Geodesic Equilibrium (BGE) &mdash; from <em>Geometric Ethics</em>, Theorem 20.3 (developed computationally in <em>Geometric Methods</em>, Chapter 7) &mdash; generalizes Nash equilibrium to manifold-valued decision spaces.</p>
 <p>The economic decision manifold is a 9-dimensional space with a Mahalanobis metric:</p>
 <p>$$d(s, t) = \sqrt{(s - t)^T \Sigma^{-1} (s - t)} + \sum_k \beta_k \cdot \mathbb{1}[\text{boundary}_k \text{ violated}]$$</p>
 <p>where $\Sigma$ is the 9$\times$9 covariance matrix of the economic dimensions and $\beta_k$ are boundary penalties (potentially infinite for sacred values). Each agent performs A* search on this manifold, and equilibrium is reached when no agent wants to change their path.</p>
@@ -335,8 +335,8 @@ qpatch.patch_all(compute_dtype=torch.float16)  # Volta = fp16
 <p><strong>Proposition 14.2 (Curvature Bound).</strong> The change in sectional curvature induced by a rank-$r$ LoRA update is bounded by $\|\Delta K\| \leq C \cdot \sigma_{\max}(B) \cdot \sigma_{\max}(A) \cdot r / \min(m,n)$, where $C$ is a constant depending on the original metric and $\sigma_{\max}$ denotes the largest singular value. This bound confirms that low-rank updates produce bounded curvature perturbations &mdash; the manifold&rsquo;s global topology is preserved.</p>
 <hr />
 <h2 id="references">References</h2>
-<p>Bond, A. H. (2026a). <em>Geometric Methods in Computational Modeling.</em> San Jose State University.</p>
-<p>Bond, A. H. (2026b). <em>Geometric Ethics: Moral Reasoning on the Judgment Manifold.</em> San Jose State University.</p>
+<p>Bond, A. H. (2026a). <em>Geometric Methods: Computational Modeling.</em> San Jose State University.</p>
+<p>Bond, A. H. (2026b). <em>Geometric Ethics: The Mathematical Structure of Moral Reasoning.</em> San Jose State University.</p>
 <p>Chollet, F. (2024). ARC-AGI: A formal benchmark for measuring abstract reasoning capabilities. <em>Proceedings of the ARC Prize Foundation.</em></p>
 <p>Dettmers, T., Pagnoni, A., Holtzman, A., &amp; Zettlemoyer, L. (2023). QLoRA: Efficient finetuning of quantized LLMs. <em>Advances in Neural Information Processing Systems</em>, 36.</p>
 <p>Hu, E. J., et al. (2022). LoRA: Low-rank adaptation of large language models. <em>ICLR 2022.</em></p>

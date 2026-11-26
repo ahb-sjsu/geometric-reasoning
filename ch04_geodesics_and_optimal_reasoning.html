@@ -89,7 +89,7 @@
 <p>$$\mathcal{L}[\gamma] = \int_0^1 g_{\gamma(t)}\left(\dot{\gamma}(t), \dot{\gamma}(t)\right) dt$$</p>
 <p>then the geodesic is the trajectory that minimizes $\mathcal{L}$ — it is the <em>least-action path</em> through reasoning space, in the same sense that light follows the path of least time (Fermat&rsquo;s principle) and particles follow paths of least action (Hamilton&rsquo;s principle).</p>
 <h2 id="42-the-bond-geodesic-formulation">4.2 The Bond Geodesic Formulation</h2>
-<p>We formalize this connection following the framework introduced in <em>Geometric Methods in Computational Modeling</em> (Bond, 2026a, Ch. 6). Consider a reasoning task specified by:</p>
+<p>We formalize this connection following the framework introduced in <em>Geometric Methods: Computational Modeling</em> (Bond, 2026a, Ch. 6). Consider a reasoning task specified by:</p>
 <ul>
 <li>An initial state $x_0 \in M$ (the problem representation)</li>
 <li>A goal region $G \subset M$ (the set of acceptable solutions)</li>
@@ -159,7 +159,7 @@
 - <em>Verbose but empty CoT</em>: the chain is long but the geodesic deviation is large — the model traverses many states but makes little net progress.
 - <em>Circular CoT</em>: the chain contains loops — the model revisits reasoning states.
 - <em>Hallucinated CoT</em>: the chain leaves the reasoning manifold entirely — the intermediate states are not on any valid reasoning surface.</p>
-<p>The Nemotron geometric training pipeline (Ch. 13 of <em>Geometric Methods</em>) exploits this connection directly. <strong>[Speculation/Extension.]</strong> By augmenting training data with symmetry-transformed examples — applying group actions (S_8 × Z_2 for bit manipulation, S_26 for encryption, R+ for physics) — we reshape the local geometry of the reasoning manifold to make geodesics easier to follow. The augmented model doesn&rsquo;t just see more examples; it learns the <em>symmetry structure</em> of the solution space, which straightens the geodesics.</p>
+<p>The Nemotron geometric training pipeline (Section 14.1; its method is the group-theoretic augmentation of <em>Geometric Methods</em>, Ch. 13, developed there for ARC-AGI) exploits this connection directly. <strong>[Speculation/Extension.]</strong> By augmenting training data with symmetry-transformed examples — applying group actions (S_8 × Z_2 for bit manipulation, S_26 for encryption, R+ for physics) — we reshape the local geometry of the reasoning manifold to make geodesics easier to follow. The augmented model doesn&rsquo;t just see more examples; it learns the <em>symmetry structure</em> of the solution space, which straightens the geodesics.</p>
 <h3 id="the-six-symmetry-groups-and-their-geometric-role">The six symmetry groups and their geometric role</h3>
 <p>The Nemotron pipeline identifies six distinct symmetry groups, each corresponding to a class of reasoning problems whose solution spaces possess specific invariance structure:</p>
 <ol>
@@ -188,7 +188,7 @@
 <p>In practice, the Nemotron pipeline achieves a <strong>1.5x to 2.5x data expansion factor</strong> depending on the symmetry group. For $D_4$, each example generates up to 8 variants (the 8 elements of the dihedral group), yielding a 2.0-2.5x expansion after deduplication. For $S_n$ with moderate $n$, a representative sample of permutations yields approximately 1.5-2.0x expansion. The $\mathbb{R}^+$ group, being continuous, allows arbitrary expansion; in practice, 3-5 scale factors are sampled per example, giving 1.5-2.0x expansion. The identity group contributes 1.0x (no expansion).</p>
 <p>The expected aggregate expansion across the full training mixture is <strong>1.5-2.5x</strong>, depending on the composition of problem types. This is not a large factor — it is far less than generic data augmentation schemes that might 10x the data. The geometric insight is that symmetry-principled augmentation is <em>targeted</em>: it adds exactly the examples needed to flatten the irrelevant curvature, and no more.</p>
 <h2 id="47-the-spd-manifold-a-concrete-geodesic-computation">4.7 The SPD Manifold: A Concrete Geodesic Computation</h2>
-<p>To make these ideas concrete, consider the Symmetric Positive Definite (SPD) manifold used in the BirdCLEF geometric feature pipeline (Bond 2026a, Ch. 4.6).</p>
+<p>To make these ideas concrete, consider the Symmetric Positive Definite (SPD) manifold used in the BirdCLEF geometric feature pipeline (after Bond 2026a, Section 4.4).</p>
 <p>The space of $n \times n$ symmetric positive definite matrices $\text{SPD}(n)$ is a Riemannian manifold with the affine-invariant metric:</p>
 <p>$$d_{\text{AI}}(\Sigma_1, \Sigma_2) = \left\| \log\left(\Sigma_1^{-1/2} \Sigma_2 \Sigma_1^{-1/2}\right) \right\|_F$$</p>
 <p>In the BirdCLEF pipeline, mel-spectrogram frequency bands are grouped into 16 bands, producing 16×16 covariance matrices — points on SPD(16). The log-Euclidean approximation:</p>
