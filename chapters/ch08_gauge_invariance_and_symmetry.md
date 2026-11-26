@@ -187,6 +187,10 @@ The Salience Exploitation Hypothesis is therefore not merely descriptive. It ide
 
 ---
 
+![Figure 8.1](figures/ch08_fig1.svg)
+
+*Figure 8.1. The five content-preserving transformations of Table 8.2, in the order of the hierarchy of Section 8.8.2. The bars are the Fisher-combined significance, in standard deviations, with which each transformation moved the models' judgments; the first two produced no significant displacement. The right-hand column is what the Salience Exploitation Hypothesis says each transformation modulates. The significance values are the ones the chapter reports from the Measuring AGI benchmarks; the salience column is the chapter's hypothesis, which it marks as speculation.*
+
 ## 8.6 Group-Theoretic Data Augmentation as Symmetry Restoration
 
 If gauge symmetry breaking is the diagnosis, what is the treatment? The geometric framework suggests a precise answer: if the model's internal representations lack the symmetries that the task possesses, we can *teach* the model those symmetries by augmenting the training data with symmetry-transformed examples.

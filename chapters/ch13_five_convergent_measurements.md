@@ -269,6 +269,10 @@ Geometrically, inhibitory control measures the rigidity of the search trajectory
 
 ---
 
+![Figure 13.1](figures/ch13_fig1.svg)
+
+*Figure 13.1. Track composites as the chapter reports them (Tables 13.1, 13.2, 13.5 and 13.6); the vertical axis is the composite score. Each track is a column, each model keeps one colour and one position within a column, and a line joins a model's scores in neighbouring columns. The lines cross: Gemini 3 Flash leads Social Cognition, Gemini 2.5 Pro leads Attention and Executive Functions, and Gemini 2.0 Flash leads Learning, which was run on three models. The chapter reports no composite for Metacognition, so that track has no column.*
+
 ## 13.6 The Scalar Irrecoverability Theorem
 
 We are now in a position to state the central finding that emerges from the convergence of all five tracks.
@@ -308,6 +312,10 @@ The Scalar Irrecoverability Theorem is not an abstract mathematical curiosity. I
 **For the geometric framework:** The theorem validates the multi-dimensional approach that is the thesis of this book. If model capabilities could be captured by a single number, the geometric apparatus --- manifolds, curvature, symmetry, cross-sections --- would be unnecessary overhead. The fact that they cannot vindicates the investment in geometric structure. The reasoning manifold is genuinely multi-dimensional, and the measurements that characterize it must be multi-dimensional as well.
 
 ---
+
+![Figure 13.2](figures/ch13_fig2.svg)
+
+*Figure 13.2. A composite of two metacognition scores as its weights change: the horizontal axis is the weight w on error detection (M3), with the rest on strategy selection (M4), and the vertical axis is the weighted score for the two models of Table 13.4. At equal weights Gemini 2.5 Pro scores 0.525 and Gemini 2.0 Flash 0.409, the averages the chapter quotes, and below w = 0.38 the order reverses. Which model ranks first is set by the weight, not by the scores. The scores are those the chapter reports; the weighted sum is the projection of its Theorem 13.1.*
 
 ## 13.7 Robustness Profiles: Each Model Has a Geometric Signature
 

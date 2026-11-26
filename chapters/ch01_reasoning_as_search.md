@@ -261,6 +261,10 @@ of what happens when human judgment is distorted by framing effects, emotional
 anchoring, or social pressure, as we will argue in detail in Chapters 5 through 8.
 
 
+![Figure 1.1](figures/ch01_fig1.svg)
+
+*Figure 1.1. The spectrum of search as Section 1.3 lays it out, with the reasoning analogue the chapter gives for each kind. This is a schematic of the text, not data. With the zero heuristic A* reduces to uniform-cost search, and with the perfect heuristic h* it expands only the states on the optimal path, so the place of a search on the spectrum is set by the quality of h.*
+
 ## 1.4 A* and the Centrality of the Heuristic
 
 The A* algorithm, introduced by Hart, Nilsson, and Raphael in 1968, is the canonical
@@ -404,6 +408,10 @@ reasoner has a specific heuristic corruption: it overestimates cost in certain r
 of the search space and underestimates it in others, producing a predictable pattern
 of search trajectories that systematically miss the optimal path.
 
+
+![Figure 1.2](figures/ch01_fig2.svg)
+
+*Figure 1.2. A* on one illustrative grid with three admissible heuristics: h = 0, half the true cost, and h*, the true cost to the goal. Shaded cells are the states each search expands, and all three find a path of the same optimal length, 22 steps. With h = 0 the search expands 167 of the 178 free cells, with half the true cost 156, and with h* only the 23 states on the path; each set contains the next, which is the dominance result of Section 1.4. Ties are broken toward the state with more cost already paid.*
 
 ## 1.5 The Limitation: When Graphs Are Not Enough
 

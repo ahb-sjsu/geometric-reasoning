@@ -157,6 +157,10 @@ Whether this metric coincides with, is compatible with, or is independent of the
 
 ---
 
+![Figure 16.1](figures/ch16_fig1.svg)
+
+*Figure 16.1. Two paths from the same prior belief to the same posterior, each shown at the start, the midpoint and the end; the horizontal axis is the state of the world and the vertical axis is probability density. Top: the displacement interpolation of Section 16.3, the geodesic of the Wasserstein distance, in which the belief slides and widens as one bump. Bottom: the mixture path, the straight line in probability space of Section 16.2, in which the old belief fades while the new one grows and the midpoint has two bumps. The two Gaussian beliefs are illustrative.*
+
 ## 16.4 Connections to Category Theory
 
 **[Speculation/Extension.]** Category theory provides a language for describing structure-preserving maps between mathematical objects. Its connection to geometric reasoning is more speculative than the connections to information geometry and optimal transport, but it points toward a deeper algebraic structure that may underlie the geometric one.

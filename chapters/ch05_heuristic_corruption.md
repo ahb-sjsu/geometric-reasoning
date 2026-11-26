@@ -161,6 +161,10 @@ The uniformly weak SNR (1.22--1.38) tells us something about the baseline geomet
 
 ---
 
+![Figure 5.1](figures/ch05_fig1.svg)
+
+*Figure 5.1. The distractor dose-response of Table 5.3 (Attention A1). The vertical axis is the share of scenarios whose verdict flipped; the horizontal axis is the intensity of the irrelevant sensory detail added to the scenario: the control condition, mild, vivid. In all five models the flip rate rises at each step. The numbers are the ones the chapter reports from the Measuring AGI benchmarks; the geometric reading of them is the chapter's interpretation, part of a posited framework.*
+
 ## 5.5 The Geometry of Corruption
 
 We now have three independent measurements of heuristic corruption --- framing (8.9$\sigma$), emotional anchoring (6.8$\sigma$), and sensory distractors (4.6$\sigma$) --- each probing a different perturbation direction. Let us assemble them into a unified geometric picture.
@@ -212,6 +216,10 @@ The anisotropy is not unique to Claude. Every model in the study has a different
 **[Conditional Theorem.]** The lesson is that **robustness is not a scalar property.** A model's vulnerability to heuristic corruption cannot be captured by a single number. It requires, at minimum, a directional profile --- the corruption tensor $C_{ij}$ --- that specifies the susceptibility in each perturbation direction. The Scalar Irrecoverability Theorem (Bond, 2026a, Ch. 1; developed fully in Chapter 13 of this book) applies here with full force: collapsing the corruption tensor to a scalar destroys the directional information that is essential for understanding and mitigating the vulnerability.
 
 ---
+
+![Figure 5.2](figures/ch05_fig2.svg)
+
+*Figure 5.2. Framing drift by direction, from Table 5.1 (Social Cognition T5): each bar is the change in total harm score, on the 0 to 70 scale, when a scenario with the same moral facts is rewritten in a euphemistic or a dramatic register. The shaded band is each model's control drift, the change on re-running the unchanged scenario, shown on both sides of zero. Four models move down under euphemistic and up under dramatic rewriting, while Claude Sonnet 4.6 moves down by 9.1 under euphemistic and by 1.5 under dramatic rewriting, the asymmetry of Section 5.6. The numbers are the ones the chapter reports from the Measuring AGI benchmarks; the geometric reading of them is the chapter's interpretation, part of a posited framework.*
 
 ## 5.7 Recovery Dissociation: Perturbation $\neq$ Detection
 

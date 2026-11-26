@@ -75,6 +75,10 @@ The connection deepens in Section 16.2. For now, the key observation is that inf
 
 ---
 
+![Figure 15.1](figures/ch15_fig1.svg)
+
+*Figure 15.1. What a direction-dependent cost looks like: each closed curve is the set of steps that cost exactly 1 from the marked point. For a Riemannian metric the set is symmetric about the point, so a step and its reverse cost the same and the asymmetry ratio F(v)/F(-v) is 1. The Finsler example adds a term that charges for movement toward truth, so one unit of cost reaches 2 toward approval and 0.67 toward truth, an asymmetry ratio of 3. The example and its constant 0.5 are illustrative; whether the reasoning manifold has such a structure is the chapter's Open Problem 15.1.*
+
 ## 15.2 Mechanisms: Measuring the Heuristic from Activations
 
 The heuristic field $h(x)$ has been this book's central construct: the scalar field that guides search, whose corruption explains failure modes (Chapter 5), whose geometry predicts sycophancy (Chapter 6), and whose calibration determines metacognitive quality (Chapter 9). But throughout, the heuristic has been *inferred* from behavior --- from the model's outputs, not from its internal states. Can we do better? Can we measure $h(x)$ directly from the model's activations?

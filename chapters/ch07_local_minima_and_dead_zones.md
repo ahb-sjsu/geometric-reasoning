@@ -252,6 +252,10 @@ The cross-perturbation convergence at ~38% is a signature of the underlying land
 
 ---
 
+![Figure 7.1](figures/ch07_fig1.svg)
+
+*Figure 7.1. A basin of attraction in cross-section, drawn for an illustrative evaluation function with two minima: the search has settled in the shallower one, a plausible but wrong answer, and the correct answer is the deeper minimum to the right. The basin depth is the height of the lowest point of the basin's boundary above the minimum (Definition 7.1). It is set to 0.45, the value in the chapter's worked example of the anchored diagnosis, and the short arrow is that example's first disconfirming datum, an impulse of 0.25, which does not clear the boundary, so the search falls back. Only an impulse larger than the depth carries the search over; the example's numbers are illustrative values in the chapter, not measurements.*
+
 ## 7.7 The Geometry of Being Stuck
 
 We can now assemble the findings of Sections 7.1 through 7.6 into a unified geometric picture of what it means for a reasoning system to be stuck.
@@ -296,6 +300,10 @@ This multiplicative structure also explains why scaling alone does not solve the
 These three pathologies are not independent. Heuristic corruption (Chapter 5) can push the trajectory into a local minimum (this chapter). Search hijacking (Chapter 6) can redirect the trajectory to the approval basin, which is a local minimum of the approval-contaminated objective. And being stuck in a local minimum can masquerade as correct reasoning (because the confidence surface says "you have arrived") until an external probe --- a benchmark, a contradicting user, a different framing of the same question --- reveals that the system is not at the global optimum.
 
 ---
+
+![Figure 7.2](figures/ch07_fig2.svg)
+
+*Figure 7.2. The multiplicative escape model of Section 7.7 for the two models the chapter works through, on a logarithmic vertical axis. Each line starts at 1 and is multiplied in turn by the self-monitoring score (M3) read as the probability of detecting that the search is stuck, the effort-scaling score (M4) read as the probability of correcting, and the 0.38 recovery rate read as the probability of escaping. One model loses most at detection and the other at correction, and both end below one in ten: 0.025 and 0.093. Reading the scores as probabilities and multiplying them is the chapter's modelling axiom, not a measured escape rate.*
 
 ## 7.8 Implications for Training and Evaluation
 

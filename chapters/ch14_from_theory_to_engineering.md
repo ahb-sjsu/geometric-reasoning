@@ -65,6 +65,10 @@ A parallel application uses the dihedral group $D_4$ (order 8) for the ARC-AGI c
 
 Our implementation applies all eight dihedral transforms to both input and output grids consistently, plus random color permutations ($S_9$ on the 9 non-background colors). This is a direct application of the gauge invariance principle: a valid grid transformation rule remains valid under rotation, reflection, and color relabeling.
 
+![Figure 14.1](figures/ch14_fig1.svg)
+
+*Figure 14.1. The eight symmetries of a square grid, the dihedral group of order 8, applied to one input and output pair: four rotations in the top row and four reflections in the bottom row. Each transform acts on the input grid and the output grid together, the consistency principle of Section 14.1, so every panel is a valid example of the same rule. The grid and its rule (the shape takes the colour of the single marker cell) are illustrative. With the colour permutations of Definition 14.3 the augmentation group has order 8 times 9!, or 2,903,040.*
+
 ## 14.2 Adversarial Training as Manifold Smoothing
 
 Chapter 5 showed that the heuristic field can be corrupted by perturbations. The geometric remedy is to *smooth* the heuristic field --- to train the model on adversarially perturbed inputs so that it learns to be invariant to the perturbation.
@@ -262,6 +266,10 @@ The negative sign is critical: signs that are *close* in the hierarchy (low hype
 This is precisely the prior that cuneiform analysis requires: the model should attend more to tokens that are related in the sign hierarchy and less to tokens that are unrelated. In a standard transformer, this relationship must be learned entirely from training data. With the geometric attention bias, it is encoded directly in the attention computation, reducing the data requirement and improving performance on the small cuneiform corpora that exist.
 
 The hierarchical embedding places abstract categories (sign classes, determinative categories) near the origin, where they have short geodesic connections to many descendants, and specific instances (individual readings, particular sign variants) near the boundary, where they have short connections only to their siblings and parent categories. The exponential growth of hyperbolic space ensures that the boundary has sufficient capacity to represent the full diversity of specific signs without crowding.
+
+![Figure 14.2](figures/ch14_fig2.svg)
+
+*Figure 14.2. A tree in the Poincaré disk, the two-dimensional case of the ball of Section 14.5 with curvature c = 1; the system itself uses 32 dimensions and the tree is illustrative. Children are placed with the chapter's Möbius addition, so every edge has the same hyperbolic length although the edges look shorter toward the boundary, and the dashed circles mark hyperbolic distance 1, 2 and 3 from the origin. The number of nodes doubles at each level and they still fit. This is the room the embedding uses, with general rules near the origin and specific sub-rules near the boundary.*
 
 ## 14.6 The Bond Geodesic Equilibrium in Economic Reasoning
 

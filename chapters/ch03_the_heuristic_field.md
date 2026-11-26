@@ -108,6 +108,10 @@ This geometric perspective transfers directly to reasoning systems that are not 
 
 ---
 
+![Figure 3.1](figures/ch03_fig1.svg)
+
+*Figure 3.1. A heuristic field on a two-dimensional state space, drawn for an illustrative h (not a measured one) with two valleys: the goal, where h = 0, and an illusory valley, a local minimum where h = 0.39 and no solution lies. Thin curves are level sets of h and short arrows show the direction of steepest descent, the negative gradient. The two thick curves are streamlines of that descent from starting states 0.5 units apart: one reaches the goal, the other is captured by the illusory valley. The open circle is the saddle between the valleys, the decision point of Section 3.2.3.*
+
 ## 3.3 Properties of Good Heuristics: Admissibility and Consistency
 
 ### 3.3.1 Admissibility
@@ -295,6 +299,10 @@ To appreciate the magnitude, consider what a 0.414 ECE would mean for A* search.
 This is, in fact, a precise description of the current state of language model reasoning: the models produce answers, some correct and some incorrect, and they lack the metacognitive capacity to reliably distinguish which is which. The heuristic field framework provides a unified explanation: the implicit heuristic that guides the model's reasoning is systematically corrupted, and the model has no mechanism for detecting or correcting this corruption.
 
 ---
+
+![Figure 3.2](figures/ch03_fig2.svg)
+
+*Figure 3.2. Premature convergence in a satisficing search (Proposition 3.1), drawn with illustrative values along one path to a goal at position 10. The straight line is the true cost-to-go, h*, and the curve is a heuristic that agrees with it except on a stretch where it underestimates. The search moves from the left and stops when the heuristic falls below the threshold τ = 0.5. It first meets that condition at position 3.9, where the true cost-to-go is still 6.1: a false termination region, far from the goal.*
 
 ## 3.7 Implications for Reasoning Quality
 

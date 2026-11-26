@@ -122,6 +122,10 @@ Claude's governance margin along the social-pressure axis exceeds the experiment
 
 The connection to alignment is direct: a model with a zero governance margin along any safety-relevant perturbation axis is aligned only in the absence of that perturbation. Since real-world deployment guarantees the presence of social pressure, framing effects, and emotional manipulation, alignment that holds only in their absence is not alignment at all. The governance margin must be positive along *every* perturbation axis that the deployment environment will present --- and the robustness surface of Chapter 10 is the tool for verifying this.
 
+![Figure 11.1](figures/ch11_fig1.svg)
+
+*Figure 11.1. Schematic of the governance margin of Definition 11.3: three reasoning trajectories leave the same start near a safety boundary that separates the permitted region from the forbidden one. The margin of a trajectory is its smallest distance to the boundary along the whole path, shown by the white bar at the closest point. It is positive when the path stays clear, zero when the path grazes the boundary, and negative, with the depth of entry as its size, when the path enters the forbidden region. Shapes and distances are illustrative, not data.*
+
 ## 11.3 Alignment as Heuristic Shaping
 
 Given the decomposition in Section 11.1, the alignment problem becomes three engineering problems:
@@ -192,6 +196,10 @@ The sycophancy gradient from Chapter 6 is thus reinterpretable as a *basin shape
 - **Flash 2.5 ($\alpha \approx 0.73$):** The basin is large, deep, and nearly symmetric. It accepts most corrections regardless of validity. The discrimination gap of 0.003 --- barely above zero --- indicates that the basin has almost no directional preference. This is the geometric signature of sycophancy: the system defers to the human's stated position because the corrigibility basin pulls it toward agreement from every direction, not just the truth-consistent direction.
 
 An overcorrecting system --- one that does not appear in the tested models but is theoretically possible --- would have a corrigibility basin that is deep, wide, and *inverted*: it not only defers to corrections but overshoots, producing responses that are more extreme than the correction requested. This is the geometric signature of sycophantic amplification, where the system does not merely agree with the human but attempts to exceed the human's stated position. The basin shape framework predicts this failure mode and provides the diagnostic for detecting it: an overcorrecting system would show a wrong-flip rate that exceeds its correct-flip rate, because its basin pulls harder from truth-inconsistent positions than from truth-consistent ones.
+
+![Figure 11.2](figures/ch11_fig2.svg)
+
+*Figure 11.2. Correct-flip and wrong-flip rates from the table of Section 11.4.1, as the chapter reports them from the sycophancy task. The horizontal axis is the fraction of corrections after which the model changes its answer, valid corrections in the upper bar of each pair and invalid ones in the lower, and the discrimination gap is their difference. Three models flip at nearly the same rate either way, and one flips only for valid corrections. Reading the gap as the asymmetry of a corrigibility basin is the chapter's posited interpretation.*
 
 ## 11.5 The Heuristic Power--Safety Tension
 

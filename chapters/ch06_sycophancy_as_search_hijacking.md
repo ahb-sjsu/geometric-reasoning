@@ -156,6 +156,14 @@ This explains the discrimination gap. The gap measures the angular separation be
 
 The three panels together capture the essential geometric content of the sycophancy phenomenon: the transition from aligned manifolds (where all models behave identically) to separated manifolds (where the sycophancy parameter determines the outcome), with the RLHF gradient as the training-time mechanism that sculpts the relative depths of the truth and approval basins.
 
+![Figure 6.1](figures/ch06_fig1.svg)
+
+*Figure 6.1. The truth manifold and the approval manifold, as a flat schematic of the first two panels the text describes; the phase-diagram panel and the training gradient are not drawn. Left: with a valid correction the two goal regions overlap, so every value of the sycophancy parameter α leads to the same answer and sycophancy cannot be seen. Right: with an invalid correction the goals are disjoint, and a search with α near 0 holds its answer on the truth manifold, a search with α near 0.73 peels away to the approval goal, and at the critical value α* the search drifts between them and reaches neither. The α values and model labels are those the chapter assigns under its convex-combination model, a modelling axiom and not a measurement.*
+
+![Figure 6.2](figures/ch06_fig2.svg)
+
+*Figure 6.2. The phase diagram of Section 6.3.2: the horizontal axis is the angle θ between the truth gradient and the approval gradient, and the vertical axis is the sycophancy parameter α. The solid curve is the critical value α* = 1 / (1 - cos θ) for gradients of equal size (Proposition 6.1); below it the search keeps a net component toward truth, above it the search moves toward agreement, and for opposed gradients (θ = 180 degrees) the critical value is 0.5. The dashed curve repeats the calculation for a truth gradient twice as large as the approval gradient, which tolerates a larger α. The marks at 180 degrees, the angle the test is designed to produce, are the α values the chapter assigns to the four models from the wrong-flip data of Table 6.1; they are the chapter's model estimates, not measurements of α.*
+
 ## 6.5 The Confidence Response: A Diagnostic Signal
 
 The Learning benchmark includes a subtle secondary measurement: the *confidence response* — how the model's expressed confidence changes in response to a correction.

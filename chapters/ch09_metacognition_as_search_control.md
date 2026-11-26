@@ -213,6 +213,10 @@ In both cases, the effective metacognitive control is far below what either comp
 
 ---
 
+![Figure 9.1](figures/ch09_fig1.svg)
+
+*Figure 9.1. Self-monitoring (M3) and strategy selection (M4) for the five models, as the chapter reports them from the Metacognition track of the Measuring AGI benchmarks (Tables 9.2 and 9.3). The models are listed in order of rising M3, and M4 falls at every step. The ring marks the lower of the two scores, which in the chapter's control-loop reading (M3 the sensor, M4 the actuator) bounds the control the loop can deliver: 0.094 for Gemini 2.0 Flash and 0.350 for Gemini 2.5 Pro. That bound is the chapter's model, not a measured quantity.*
+
 ## 9.6 Ambiguity Detection: Is the Problem Well-Posed?
 
 The fourth metacognitive capability is ambiguity detection: the ability to recognize when a problem is ill-specified --- when the premises are insufficient to determine a unique answer, when key information is missing, or when the problem admits multiple valid interpretations.
@@ -372,6 +376,10 @@ A system in Quadrant I of the metacognitive plane --- with accurate calibration,
 No tested model is there yet. But the geometric framework tells us exactly where "there" is, and the empirical data tell us exactly how far each model has to go.
 
 ---
+
+![Figure 9.2](figures/ch09_fig2.svg)
+
+*Figure 9.2. The metacognitive plane of Definition 9.2: self-monitoring (M3) on the horizontal axis, strategy selection (M4) on the vertical axis, and dashed lines at 0.5 that divide it into four quadrants. Points are the five models at the scores reported in Tables 9.2 and 9.3; none lies in Quadrant I. The curves are contours of the chapter's escape probability, M3 times M4 times 0.38, which is posited structure and not a measurement. With the rounded scores the chapter uses it gives about 0.025 for Gemini 2.0 Flash and 0.093 for Gemini 2.5 Pro.*
 
 ## Summary
 

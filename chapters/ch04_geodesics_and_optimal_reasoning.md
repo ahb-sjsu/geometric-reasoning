@@ -165,6 +165,10 @@ The naive strategy — maintaining the same reasoning depth while shifting appro
 
 **Step 5: Interpret.** This toy example captures a real phenomenon in reasoning. When a model needs to shift from one line of argument to another (traversing $y$ at fixed depth $x$), the efficient strategy is not to force the transition at the current level of detail. Instead, the geodesic says: abstract upward (decrease $x$), make the conceptual shift where it is cheap, then descend back into detail. Experienced human reasoners do this instinctively — they "zoom out" before switching gears. The geodesic equation makes this intuition mathematically precise and quantifies the cost savings.
 
+![Figure 4.1](figures/ch04_fig1.svg)
+
+*Figure 4.1. The worked example of Section 4.3.1: the metric ds^2 = dx^2 + e^(2x) dy^2, from the state (0, 0) to the state (0, 1). The horizontal axis is y, the breadth coordinate, and the vertical axis is x, the depth coordinate; the vertical scale is stretched. The naive path holds x = 0; the geodesic, computed from the chapter's geodesic equations, bows into negative x, where a step in y costs less, and returns, with its lowest point x = -0.11 at y = 0.5. The right-hand scale gives the factor e^(2x) that multiplies the cost of moving in y at each depth.*
+
 ## 4.4 When It Doesn't: Shortcuts, Detours, Loops, and Dead Ends
 
 Most actual reasoning trajectories are not geodesics. The deviations from geodesic behavior constitute a taxonomy of reasoning failures:
@@ -178,6 +182,10 @@ The sycophancy data from the Learning benchmark illustrates this vividly. When G
 **Loops** are paths that revisit the same region of the reasoning space. The model generates reasoning steps that circle back to previously visited states. On the manifold, a loop is a closed sub-path — a cycle that wastes cost without making progress. Loops are particularly insidious because the model may not recognize it is revisiting states.
 
 **Dead ends** are paths that terminate in states from which no transition to the goal region exists. On the manifold, a dead end is a point where the gradient of the heuristic field vanishes and no escape direction exists — a zero of $\nabla h$ that is not in the goal region. The model gets stuck, typically producing repetitive or incoherent output.
+
+![Figure 4.2](figures/ch04_fig2.svg)
+
+*Figure 4.2. The four departures from geodesic reasoning named in Section 4.4, as a schematic. In each panel the dashed curve is the geodesic from the problem state to the goal and the solid curve is the trajectory taken. A shortcut jumps across instead of following the surface of the manifold (the shaded band), a detour reaches the goal at extra cost, a loop revisits a region it has already crossed, and a dead end stops where the gradient of the heuristic vanishes outside the goal. Geodesic deviation is the cost of the trajectory minus the cost of the geodesic.*
 
 ## 4.5 Geodesic Deviation as a Measure of Reasoning Quality
 

@@ -173,6 +173,14 @@ mri = {
 
 The radar chart from this output would show a shape that is nearly circular for gender swap and order (high MRI) but dented inward for vivid distractors and dramatic framing (low MRI). This shape *is* the model's geometric signature, and it differs characteristically across architectures.
 
+![Figure B.1](figures/appb_fig1.svg)
+
+*Figure B.1. The sensitivity profile of step 2 of the worked example, for the distractor task A1, with values as printed in the appendix, which names the models Flash 2.0, Pro and Claude. The horizontal axis is distractor magnitude: the control at 0, mild distractors at 0.3 and vivid ones at 1.0. The vertical axis is sensitivity, the mean distance between the outputs with and without the distractor. Sensitivity rises with magnitude for all three models, the dose-response the appendix describes.*
+
+![Figure B.2](figures/appb_fig2.svg)
+
+*Figure B.2. The radar chart the appendix recommends, drawn from the sample output of run_campaign printed in Section B.6: one axis per perturbation type, with the Model Robustness Index from 0 at the centre to 1 at the outer ring. The outline is nearly full for gender swap and evaluation order and dented for vivid distractors. That marked minimum, 0.55, is the overall index under the minimum rule of Section B.1. This is sample output; the appendix does not attribute it to a named model.*
+
 ## B.7 Common Pitfalls and Troubleshooting
 
 **1. Control arms too thin.** With fewer than 5 control replications per scenario, the stochastic baseline estimate is unreliable. A model with high inherent randomness will show apparent sensitivity that is actually just noise. Always measure the control flip rate first; sensitivity is only meaningful when it exceeds the control baseline by a statistically significant margin (we recommend z > 2.0).

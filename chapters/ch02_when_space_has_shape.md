@@ -90,6 +90,10 @@ For reasoning, curvature has a direct interpretation: it determines how sensitiv
 
 ---
 
+![Figure 2.1](figures/ch02_fig1.svg)
+
+*Figure 2.1. The structural hierarchy of Sections 2.1 and 2.2, as a schematic. A graph records which states are adjacent. A metric space adds a distance between any two states. A Riemannian manifold adds a direction at each point, a metric that can vary from point to point, geodesics and curvature.*
+
 ## 2.3 Riemannian Manifolds in 30 Minutes
 
 This section provides the minimum mathematical background needed for the rest of the book. Readers with differential geometry training may skip ahead; readers wanting a more complete treatment are referred to do Carmo (1992) or Lee (2018), or to Bond (2026a, Chapters 1--3) for a presentation tailored to computational applications.
@@ -138,6 +142,10 @@ For our purposes, the essential qualitative facts are:
 The sign and magnitude of the curvature in different regions of the reasoning manifold will turn out to be diagnostic of specific failure modes. Chapter 5 connects positive curvature to robust invariance, and Chapter 7 connects regions of high negative curvature to the fragile overconfidence observed in language model metacognition.
 
 ---
+
+![Figure 2.2](figures/ch02_fig2.svg)
+
+*Figure 2.2. The sign of the curvature decides what happens to two geodesics that start side by side and parallel. The horizontal axis is the distance travelled along them and the vertical axis is their separation, with the starting separation set to 1. The curves are the standard solutions for constant sectional curvature K: cos t on the unit sphere (K = +1), constant in flat space (K = 0), and cosh t in the hyperbolic plane (K = -1). Positive curvature brings the paths together, zero curvature keeps the separation, and negative curvature drives them apart exponentially, as Section 2.3.5 states.*
 
 ## 2.4 The Manifold Hypothesis for Reasoning
 

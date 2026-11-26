@@ -61,6 +61,10 @@ Accuracy, even disaggregated accuracy, is insufficient. What is needed is a fram
 
 ---
 
+![Figure 10.1](figures/ch10_fig1.svg)
+
+*Figure 10.1. Two models with nearly the same Social Cognition composite, 0.695 and 0.697, on the five subtask axes of the track, each running from 0 at the centre to 1 at the outer ring. Gemini 2.0 Flash is higher on structural fuzz and framing resistance, Claude Sonnet 4.6 is higher on BIP invariance and holographic evaluation, and the two are equal on evaluation order. Neither outline contains the other. Scores are those the chapter reports from the Measuring AGI benchmark.*
+
 ## 10.2 The Model Robustness Index
 
 **[Modeling Axiom.]** The Model Robustness Index (MRI), introduced in Chapter 9 of *Geometric Methods in Computational Modeling* (Bond, 2026a), is a structured protocol for quantifying how a model's performance changes under systematic perturbation. It is not a single number but a *profile*: a function that maps each perturbation type to a robustness score.
@@ -500,6 +504,10 @@ The adversarial threshold is $\epsilon^* \approx 0.66$, with a clinical-acceptab
 Compare this to the original validation report: "91% accuracy." Dr. Okafor, reading the robustness surface, would recognize her own anisotropic competence reflected in the AI's profile. And she would know exactly what the surface means for clinical practice: trust the AI on adult cardiac cases, get a second opinion on pediatric neurology, and never let a single number substitute for the shape of the surface.
 
 ---
+
+![Figure 10.2](figures/ch10_fig2.svg)
+
+*Figure 10.2. Binary search for the adversarial threshold in the chapter's worked example, a hypothetical clinical system with illustrative numbers. The horizontal axis is perturbation intensity, the vertical axis is accuracy, the points are numbered in the order they are evaluated, and the dashed line is the tolerance, the baseline 0.93 less 0.20. Each evaluation is at the midpoint of the interval that still holds the threshold, and the bars below show that interval halving, ending between 0.656 and 0.6875. The chapter reports the threshold as about 0.66.*
 
 ## Technical Appendix
 

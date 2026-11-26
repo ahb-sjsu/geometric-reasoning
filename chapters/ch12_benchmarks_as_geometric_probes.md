@@ -278,6 +278,10 @@ Several patterns emerge from this mapping.
 
 ---
 
+![Figure 12.1](figures/ch12_fig1.svg)
+
+*Figure 12.1. Table 12.1 rearranged as a coverage map: rows are the eight probe types with the geometric property each measures, and columns are the five benchmark tracks. A solid tag is a task whose primary probe is that type, a dashed tag is a task that probes it secondarily, and the count at the right is the number of primary tasks, 21 in all. Heuristic sensitivity has four primary tasks in four tracks, while frontier management and constraint each rest on a single task. The assignment of tasks to probe types is the chapter's design, not a measured result.*
+
 ## 12.5 Budget Constraints and Reproducibility
 
 ### 12.5.1 The Cost Structure
@@ -395,6 +399,10 @@ The Scalar Irrecoverability Theorem, stated informally in Section 12.1 and devel
 Part IV of this book is the argument that evaluation should be geometric --- that we should measure the shape of reasoning, not merely its accuracy. This chapter provides the instruments. The next provides the measurements. Chapter 14 provides the engineering response. Together, they demonstrate that the geometric framework is not merely a theoretical vocabulary but a practical program for understanding and improving artificial reasoning.
 
 ---
+
+![Figure 12.2](figures/ch12_fig2.svg)
+
+*Figure 12.2. The eight-dimensional profile that Section 12.7.1 gives for its example, model A, with one axis per probe type running from 0 at the centre to 1 at the outer ring. The profile reaches 0.958 on invariance and drops to 0.400 on bottleneck passage, so its outline is far from a circle. A single score would keep the size of this outline and discard its shape. The chapter gives no numbers for its model B, so only A is drawn.*
 
 ## Worked Example: Designing a Probe for Clinical Reasoning
 
