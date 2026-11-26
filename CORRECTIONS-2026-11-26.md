@@ -179,3 +179,9 @@ These repairs come from the survey of the series for consistency between volumes
 ### Figures and captions
 
 None is made stale. Figure 8.1 (`tools/figs_ch01_08.py`) draws 4.6σ, 6.8σ and 8.9σ, which the text still prints.
+
+## Appendices published (2026-11-26)
+
+The appendices went online with the survey (chapters cite them). Repairs made when they were added:
+
+- Appendix C: currency amounts in prose written as \$ (they were being set as formulas); the amounts inside its code block are left as printed.
