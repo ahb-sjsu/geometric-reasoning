@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .stage-name { font-size: 12px; font-weight: 700; }
+      .stage-desc { font-size: 9px; fill: #555; }
+      .formula { font-size: 10px; fill: #333; font-style: italic; }
+      .analogy { font-size: 9px; fill: #888; font-style: italic; }
+      .arrow-label { font-size: 9px; fill: #666; }
+    </style>
+    <linearGradient id="spectrum-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d73027;stop-opacity:0.15"/>
+      <stop offset="33%" style="stop-color:#fee08b;stop-opacity:0.15"/>
+      <stop offset="66%" style="stop-color:#66bd63;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#1a9850;stop-opacity:0.15"/>
+    </linearGradient>
+    <marker id="spec-arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#999"/>
+    </marker>
+  </defs>
+
+  <text x="360" y="24" text-anchor="middle" class="title">Figure 1.1 — The Search Spectrum: From Guessing to Optimal Reasoning</text>
+  <text x="360" y="40" text-anchor="middle" class="subtitle">Movement along the spectrum is entirely determined by the quality of the heuristic h(x).</text>
+
+  <!-- Spectrum background -->
+  <rect x="40" y="55" width="640" height="200" fill="url(#spectrum-grad)" rx="8"/>
+
+  <!-- Bottom arrow -->
+  <line x1="60" y1="270" x2="660" y2="270" stroke="#999" stroke-width="1.5" marker-end="url(#spec-arrow)"/>
+  <text x="360" y="290" text-anchor="middle" class="arrow-label">Heuristic quality h(x) →</text>
+  <text x="80" y="290" text-anchor="middle" class="arrow-label">h = random</text>
+  <text x="640" y="290" text-anchor="middle" class="arrow-label">h = h* (perfect)</text>
+
+  <!-- Stage 1: Uninformed -->
+  <g transform="translate(80, 70)">
+    <rect x="-30" y="0" width="140" height="170" fill="rgba(215,48,39,0.08)" stroke="#d73027" stroke-width="1" rx="6"/>
+    <text x="40" y="22" text-anchor="middle" class="stage-name" fill="#d73027">Uninformed</text>
+    <text x="40" y="40" text-anchor="middle" class="formula">h(x) = 0 ∀x</text>
+    <line x1="-20" y1="50" x2="100" y2="50" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="68" text-anchor="middle" class="stage-desc">BFS / DFS</text>
+    <text x="40" y="82" text-anchor="middle" class="stage-desc">Explores everything</text>
+    <text x="40" y="96" text-anchor="middle" class="stage-desc">Exponential cost</text>
+    <text x="40" y="110" text-anchor="middle" class="stage-desc">No guidance</text>
+    <line x1="-20" y1="120" x2="100" y2="120" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="138" text-anchor="middle" class="analogy">Cognitive analogue:</text>
+    <text x="40" y="152" text-anchor="middle" class="analogy">random guessing</text>
+  </g>
+
+  <!-- Stage 2: Greedy -->
+  <g transform="translate(240, 70)">
+    <rect x="-30" y="0" width="140" height="170" fill="rgba(254,224,139,0.15)" stroke="#d4a017" stroke-width="1" rx="6"/>
+    <text x="40" y="22" text-anchor="middle" class="stage-name" fill="#d4a017">Greedy</text>
+    <text x="40" y="40" text-anchor="middle" class="formula">f(x) = h(x) only</text>
+    <line x1="-20" y1="50" x2="100" y2="50" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="68" text-anchor="middle" class="stage-desc">Follow steepest gradient</text>
+    <text x="40" y="82" text-anchor="middle" class="stage-desc">Fast but misled</text>
+    <text x="40" y="96" text-anchor="middle" class="stage-desc">No backtracking</text>
+    <text x="40" y="110" text-anchor="middle" class="stage-desc">Trapped by local optima</text>
+    <line x1="-20" y1="120" x2="100" y2="120" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="138" text-anchor="middle" class="analogy">Cognitive analogue:</text>
+    <text x="40" y="152" text-anchor="middle" class="analogy">snap judgment / System 1</text>
+  </g>
+
+  <!-- Stage 3: Informed (A*) -->
+  <g transform="translate(400, 70)">
+    <rect x="-30" y="0" width="140" height="170" fill="rgba(102,189,99,0.1)" stroke="#66bd63" stroke-width="1.5" rx="6"/>
+    <text x="40" y="22" text-anchor="middle" class="stage-name" fill="#2d8632">Informed (A*)</text>
+    <text x="40" y="40" text-anchor="middle" class="formula">f(x) = g(x) + h(x)</text>
+    <line x1="-20" y1="50" x2="100" y2="50" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="68" text-anchor="middle" class="stage-desc">Balances past + future</text>
+    <text x="40" y="82" text-anchor="middle" class="stage-desc">Guided deliberation</text>
+    <text x="40" y="96" text-anchor="middle" class="stage-desc">Optimal if h admissible</text>
+    <text x="40" y="110" text-anchor="middle" class="stage-desc">Expert-level reasoning</text>
+    <line x1="-20" y1="120" x2="100" y2="120" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="138" text-anchor="middle" class="analogy">Cognitive analogue:</text>
+    <text x="40" y="152" text-anchor="middle" class="analogy">expert clinician / System 1+2</text>
+  </g>
+
+  <!-- Stage 4: Optimal -->
+  <g transform="translate(560, 70)">
+    <rect x="-30" y="0" width="140" height="170" fill="rgba(26,152,80,0.08)" stroke="#1a9850" stroke-width="1" rx="6"/>
+    <text x="40" y="22" text-anchor="middle" class="stage-name" fill="#1a9850">Optimal</text>
+    <text x="40" y="40" text-anchor="middle" class="formula">h(x) = h*(x)</text>
+    <line x1="-20" y1="50" x2="100" y2="50" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="68" text-anchor="middle" class="stage-desc">Perfect heuristic</text>
+    <text x="40" y="82" text-anchor="middle" class="stage-desc">Follows geodesic exactly</text>
+    <text x="40" y="96" text-anchor="middle" class="stage-desc">Zero wasted effort</text>
+    <text x="40" y="110" text-anchor="middle" class="stage-desc">Normative ideal</text>
+    <line x1="-20" y1="120" x2="100" y2="120" stroke="#eee" stroke-width="0.5"/>
+    <text x="40" y="138" text-anchor="middle" class="analogy">Cognitive analogue:</text>
+    <text x="40" y="152" text-anchor="middle" class="analogy">perfect rationality (unreachable)</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="360" y="308" text-anchor="middle" class="subtitle">The A* stage is where real reasoning lives. The quality of reasoning is a direct function of the quality of h(x).</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .level-name { font-size: 13px; font-weight: 700; }
+      .level-desc { font-size: 9px; fill: #555; }
+      .gains { font-size: 9px; font-weight: 600; }
+      .arrow-text { font-size: 9px; fill: #888; font-style: italic; }
+    </style>
+    <marker id="up-arr" markerWidth="10" markerHeight="7" refX="5" refY="0" orient="auto">
+      <polygon points="0 7, 5 0, 10 7" fill="#666"/>
+    </marker>
+  </defs>
+
+  <text x="360" y="24" text-anchor="middle" class="title">Figure 2.1 — The Structural Hierarchy: From Graphs to Manifolds</text>
+  <text x="360" y="40" text-anchor="middle" class="subtitle">Each level adds geometric structure that the previous level lacks. Real reasoning requires the full stack.</text>
+
+  <!-- Level 1: Graph -->
+  <g transform="translate(30, 270)">
+    <rect x="0" y="0" width="200" height="90" fill="#fff5f0" stroke="#fcbba1" stroke-width="1.5" rx="8"/>
+    <text x="100" y="22" text-anchor="middle" class="level-name" fill="#cb181d">Graph</text>
+    <text x="100" y="38" text-anchor="middle" class="level-desc">Nodes + edges</text>
+    <text x="100" y="52" text-anchor="middle" class="level-desc">Connectivity only</text>
+    <text x="100" y="66" text-anchor="middle" class="level-desc">No distance, no direction</text>
+    <text x="100" y="82" text-anchor="middle" class="gains" fill="#cb181d">Newell &amp; Simon (1972)</text>
+
+    <!-- Mini graph -->
+    <circle cx="30" cy="40" r="4" fill="#cb181d"/>
+    <circle cx="55" cy="25" r="4" fill="#cb181d"/>
+    <circle cx="55" cy="55" r="4" fill="#cb181d"/>
+    <line x1="30" y1="40" x2="55" y2="25" stroke="#cb181d" stroke-width="1"/>
+    <line x1="30" y1="40" x2="55" y2="55" stroke="#cb181d" stroke-width="1"/>
+    <line x1="55" y1="25" x2="55" y2="55" stroke="#cb181d" stroke-width="1"/>
+  </g>
+
+  <!-- Level 2: Metric Space -->
+  <g transform="translate(260, 180)">
+    <rect x="0" y="0" width="200" height="90" fill="#fffde7" stroke="#fff176" stroke-width="1.5" rx="8"/>
+    <text x="100" y="22" text-anchor="middle" class="level-name" fill="#f57f17">Metric Space</text>
+    <text x="100" y="38" text-anchor="middle" class="level-desc">+ Distance function d(x,y)</text>
+    <text x="100" y="52" text-anchor="middle" class="level-desc">"Close" and "far" are defined</text>
+    <text x="100" y="66" text-anchor="middle" class="level-desc">Still no curvature or direction</text>
+    <text x="100" y="82" text-anchor="middle" class="gains" fill="#f57f17">+ cost structure, + neighborhoods</text>
+  </g>
+
+  <!-- Level 3: Riemannian Manifold -->
+  <g transform="translate(490, 90)">
+    <rect x="0" y="0" width="200" height="90" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
+    <text x="100" y="22" text-anchor="middle" class="level-name" fill="#2e7d32">Riemannian Manifold</text>
+    <text x="100" y="38" text-anchor="middle" class="level-desc">+ Metric tensor g, curvature R</text>
+    <text x="100" y="52" text-anchor="middle" class="level-desc">Distance, direction, curvature</text>
+    <text x="100" y="66" text-anchor="middle" class="level-desc">Geodesics, parallel transport</text>
+    <text x="100" y="82" text-anchor="middle" class="gains" fill="#2e7d32">+ optimal paths, + robustness, + symmetry</text>
+  </g>
+
+  <!-- Arrows between levels -->
+  <!-- Graph → Metric -->
+  <line x1="200" y1="280" x2="270" y2="250" stroke="#666" stroke-width="1.5"/>
+  <polygon points="270,250 262,255 265,247" fill="#666"/>
+  <text x="220" y="258" class="arrow-text">+ distance</text>
+
+  <!-- Metric → Manifold -->
+  <line x1="430" y1="200" x2="500" y2="170" stroke="#666" stroke-width="1.5"/>
+  <polygon points="500,170 492,175 495,167" fill="#666"/>
+  <text x="450" y="178" class="arrow-text">+ curvature</text>
+
+  <!-- What each level adds (right side annotations) -->
+  <g transform="translate(45, 65)">
+    <rect x="0" y="0" width="630" height="55" fill="#f5f5f5" stroke="#e0e0e0" stroke-width="0.8" rx="5"/>
+    <text x="10" y="18" class="level-desc" font-weight="600" fill="#333">What geometry adds to search:</text>
+    <text x="10" y="33" class="level-desc">Graph: "which states connect to which?" → BFS, DFS (uninformed search)</text>
+    <text x="10" y="45" class="level-desc">Metric: "how far apart are states?" → A* with cost (informed search)</text>
+    <text x="340" y="33" class="level-desc">Manifold: "how does the space curve?" → geodesics (optimal search)</text>
+    <text x="340" y="45" class="level-desc">+ symmetry groups, + failure taxonomy, + engineering toolkit</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="360" y="370" text-anchor="middle" class="subtitle">The graph captures topology. The metric captures distance. The manifold captures curvature, symmetry, and boundary — the full geometric structure of reasoning.</text>
+</svg>

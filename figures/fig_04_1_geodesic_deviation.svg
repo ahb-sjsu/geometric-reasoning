@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .label { font-size: 11px; fill: #444; font-weight: 500; }
+      .small { font-size: 9px; fill: #666; }
+      .math { font-size: 10px; fill: #333; font-style: italic; }
+    </style>
+    <linearGradient id="surface-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e9;stop-opacity:0.6"/>
+      <stop offset="50%" style="stop-color:#c8e6c9;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#a5d6a7;stop-opacity:0.6"/>
+    </linearGradient>
+  </defs>
+
+  <text x="340" y="24" text-anchor="middle" class="title">Figure 4.1 — Geodesic vs. Actual Trajectory: Measuring Reasoning Quality</text>
+  <text x="340" y="40" text-anchor="middle" class="subtitle">The geodesic γ* is the optimal path. Geodesic deviation Δ(γ, γ*) measures the excess cost of the actual trajectory.</text>
+
+  <g transform="translate(50, 55)">
+    <!-- Curved surface background (representing manifold) -->
+    <path d="M 0,280 C 50,260 100,220 180,200 C 260,180 340,190 420,180 C 500,170 550,150 580,130 L 580,300 L 0,300 Z"
+          fill="url(#surface-grad)" stroke="none"/>
+    <path d="M 0,280 C 50,260 100,220 180,200 C 260,180 340,190 420,180 C 500,170 550,150 580,130"
+          fill="none" stroke="#a5d6a7" stroke-width="1" stroke-dasharray="2,2"/>
+
+    <!-- Grid lines suggesting curvature -->
+    <path d="M 50,260 C 150,235 250,225 350,220 C 450,215 530,200 570,185" fill="none" stroke="#c8e6c9" stroke-width="0.5"/>
+    <path d="M 30,240 C 130,210 230,195 330,185 C 430,175 520,155 560,135" fill="none" stroke="#c8e6c9" stroke-width="0.5"/>
+
+    <!-- Start and end points -->
+    <circle cx="40" cy="250" r="7" fill="#333" stroke="#fff" stroke-width="2"/>
+    <text x="40" y="275" text-anchor="middle" class="label">s₀ (problem)</text>
+
+    <circle cx="540" cy="140" r="7" fill="#1a9850" stroke="#fff" stroke-width="2"/>
+    <text x="540" y="128" text-anchor="middle" class="label" fill="#1a9850">goal (solution)</text>
+
+    <!-- Geodesic (optimal path — green, smooth curve following the manifold) -->
+    <path d="M 47,248 C 120,230 220,195 320,175 C 420,155 490,145 533,142"
+          fill="none" stroke="#1a9850" stroke-width="3"/>
+    <text x="280" y="168" class="label" fill="#1a9850">γ* (geodesic)</text>
+    <text x="280" y="182" class="small" fill="#1a9850">optimal reasoning trajectory</text>
+
+    <!-- Actual trajectory (blue, deviates then returns) -->
+    <path d="M 47,250 C 100,260 150,280 200,270 C 250,260 280,230 320,210 C 360,190 400,175 450,165 C 500,155 520,148 533,144"
+          fill="none" stroke="#2171b5" stroke-width="2.5" stroke-dasharray="8,3"/>
+    <text x="180" y="295" class="label" fill="#2171b5">γ (actual trajectory)</text>
+    <text x="180" y="308" class="small" fill="#2171b5">real reasoning path — detours, backtracks</text>
+
+    <!-- Deviation arrows (red, showing the gap) -->
+    <line x1="200" y1="195" x2="200" y2="268" stroke="#d73027" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <line x1="300" y1="178" x2="300" y2="212" stroke="#d73027" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <line x1="400" y1="162" x2="400" y2="177" stroke="#d73027" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+    <!-- Deviation label -->
+    <text x="215" y="238" class="math" fill="#d73027">Δ(γ, γ*)</text>
+    <line x1="207" y1="220" x2="207" y2="260" stroke="#d73027" stroke-width="1"/>
+    <line x1="203" y1="220" x2="211" y2="220" stroke="#d73027" stroke-width="1"/>
+    <line x1="203" y1="260" x2="211" y2="260" stroke="#d73027" stroke-width="1"/>
+
+    <!-- Curvature annotation in high-curvature region -->
+    <ellipse cx="190" cy="230" rx="50" ry="40" fill="none" stroke="#ff9800" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+    <text x="245" y="220" class="small" fill="#ff9800">high-curvature region</text>
+    <text x="245" y="232" class="small" fill="#ff9800">(deviation amplified)</text>
+
+    <!-- Quality metrics box -->
+    <rect x="350" y="230" width="220" height="80" fill="#fff" stroke="#ddd" stroke-width="1" rx="5"/>
+    <text x="460" y="248" text-anchor="middle" class="label" fill="#333">Reasoning Quality Metrics</text>
+    <text x="365" y="266" class="small">Perfect reasoner: Δ = 0 (follows geodesic)</text>
+    <text x="365" y="280" class="small">Good reasoner: Δ small (stays close)</text>
+    <text x="365" y="294" class="small">Poor reasoner: Δ large (detours, traps)</text>
+    <text x="365" y="306" class="small" fill="#d73027" font-weight="600">Corrupted: Δ driven by heuristic errors</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="340" y="378" text-anchor="middle" class="subtitle">Geodesic deviation is richer than accuracy: it measures the cost of the reasoning process, not just whether the answer is correct.</text>
+  <text x="340" y="394" text-anchor="middle" class="subtitle">A reasoner who reaches the correct answer via a wasteful detour has high Δ despite correct output. The process matters.</text>
+</svg>

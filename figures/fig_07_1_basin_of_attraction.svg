@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .label { font-size: 11px; fill: #444; font-weight: 500; }
+      .small { font-size: 9px; fill: #666; }
+      .annotation { font-size: 9px; fill: #555; font-style: italic; }
+    </style>
+    <linearGradient id="basin-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#2166ac;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#2166ac;stop-opacity:0.02"/>
+    </linearGradient>
+    <marker id="arr-d" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#d73027"/>
+    </marker>
+    <marker id="arr-g" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#1a9850"/>
+    </marker>
+  </defs>
+
+  <text x="340" y="24" text-anchor="middle" class="title">Figure 7.1 — Basin of Attraction: The Geometry of Premature Convergence</text>
+  <text x="340" y="40" text-anchor="middle" class="subtitle">The search descends into a local minimum and cannot escape. The basin depth D(s*) determines the perturbation energy required for escape.</text>
+
+  <g transform="translate(60, 60)">
+    <!-- Landscape curve — W-shaped potential with two basins -->
+    <path d="M 0,100 C 40,100 60,200 120,280 C 160,340 180,340 200,300 C 220,260 240,260 260,300 C 280,340 300,340 320,300 C 340,260 380,100 420,60 C 460,20 500,10 560,20"
+          fill="none" stroke="#333" stroke-width="2"/>
+
+    <!-- Basin fill (left basin — the trap) -->
+    <path d="M 120,280 C 160,340 180,340 200,300 C 220,260 240,260 260,300 C 280,340 300,340 320,300"
+          fill="url(#basin-grad)" stroke="none"/>
+
+    <!-- Basin rim labels -->
+    <circle cx="120" cy="280" r="3" fill="#d73027"/>
+    <text x="105" y="270" text-anchor="end" class="small" fill="#d73027">basin rim</text>
+
+    <circle cx="320" cy="300" r="3" fill="#d73027"/>
+    <text x="335" y="290" class="small" fill="#d73027">basin rim</text>
+
+    <!-- Local minimum -->
+    <circle cx="220" cy="340" r="5" fill="#2166ac"/>
+    <text x="220" y="360" text-anchor="middle" class="label" fill="#2166ac">s* (local minimum)</text>
+    <text x="220" y="374" text-anchor="middle" class="annotation">"anxiety diagnosis"</text>
+
+    <!-- True goal (global minimum) -->
+    <circle cx="520" cy="15" r="5" fill="#1a9850"/>
+    <text x="520" y="8" text-anchor="middle" class="label" fill="#1a9850">goal (global optimum)</text>
+    <text x="520" y="-6" text-anchor="middle" class="annotation">"correct diagnosis"</text>
+
+    <!-- Basin depth annotation -->
+    <line x1="175" y1="280" x2="175" y2="340" stroke="#7570b3" stroke-width="1.5"/>
+    <line x1="170" y1="280" x2="180" y2="280" stroke="#7570b3" stroke-width="1"/>
+    <line x1="170" y1="340" x2="180" y2="340" stroke="#7570b3" stroke-width="1"/>
+    <text x="160" y="315" text-anchor="end" class="label" fill="#7570b3">D(s*)</text>
+    <text x="160" y="328" text-anchor="end" class="annotation" fill="#7570b3">basin depth</text>
+
+    <!-- Trapped trajectory (red, spiraling in) -->
+    <path d="M 90,120 C 110,160 130,220 150,260 C 170,300 190,330 210,340 L 220,340"
+          fill="none" stroke="#d73027" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-d)"/>
+    <text x="100" y="115" class="label" fill="#d73027">trapped trajectory</text>
+    <text x="100" y="130" class="annotation" fill="#d73027">heuristic gradient → local min</text>
+
+    <!-- Escape trajectory (green, if perturbation is large enough) -->
+    <path d="M 220,340 C 250,310 290,260 330,280 C 370,300 400,200 440,120 C 470,60 500,30 520,18"
+          fill="none" stroke="#1a9850" stroke-width="2" marker-end="url(#arr-g)"/>
+    <text x="400" y="105" class="label" fill="#1a9850">escape trajectory</text>
+    <text x="400" y="120" class="annotation" fill="#1a9850">requires perturbation > D(s*)</text>
+
+    <!-- Perturbation arrow -->
+    <line x1="220" y1="330" x2="260" y2="290" stroke="#e7298a" stroke-width="2.5"/>
+    <polygon points="260,290 252,298 256,302" fill="#e7298a"/>
+    <text x="275" y="280" class="label" fill="#e7298a">perturbation</text>
+    <text x="275" y="294" class="annotation" fill="#e7298a">(nurse's challenge,</text>
+    <text x="275" y="306" class="annotation" fill="#e7298a">new lab results)</text>
+
+    <!-- ~38% recovery annotation -->
+    <rect x="350" y="140" width="180" height="45" fill="#fff3e0" stroke="#e65100" stroke-width="0.8" rx="4"/>
+    <text x="440" y="157" text-anchor="middle" class="label" fill="#e65100">~38% Recovery Ceiling</text>
+    <text x="440" y="172" text-anchor="middle" class="annotation" fill="#e65100">Convergent across A1 and E2 benchmarks.</text>
+    <text x="440" y="184" text-anchor="middle" class="annotation" fill="#e65100">Structural, not model-specific.</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="340" y="395" text-anchor="middle" class="subtitle">The anchored diagnosis (Dr. Okafor's "anxiety" label) is a local minimum. Escape requires a perturbation whose energy exceeds the basin depth.</text>
+  <text x="340" y="410" text-anchor="middle" class="subtitle">The ~38% recovery ceiling — consistent across emotional anchoring (E2) and sensory distractors (A1) — suggests a structural limitation of prompt-level interventions.</text>
+</svg>

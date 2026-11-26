@@ -265,6 +265,8 @@ will cause the search to wander into the trap before realizing its mistake. The
 failures. This is not merely a theoretical possibility—it is a precise description
 of what happens when human judgment is distorted by framing effects, emotional
 anchoring, or social pressure, as we will argue in detail in Chapters 5 through 8.</p>
+<p><img alt="Figure 1.1" src="figures/ch01_fig1.svg" /></p>
+<p><em>Figure 1.1. The spectrum of search as Section 1.3 lays it out, with the reasoning analogue the chapter gives for each kind. This is a schematic of the text, not data. With the zero heuristic A</em> reduces to uniform-cost search, and with the perfect heuristic h<em> it expands only the states on the optimal path, so the place of a search on the spectrum is set by the quality of h.</em></p>
 <h2 id="14-a-and-the-centrality-of-the-heuristic">1.4 A* and the Centrality of the Heuristic</h2>
 <p>The A* algorithm, introduced by Hart, Nilsson, and Raphael in 1968, is the canonical
 informed search algorithm and one of the most important algorithms in all of computer
@@ -375,6 +377,8 @@ A biased reasoner is not &ldquo;irrational&rdquo; in some vague, all-purpose sen
 reasoner has a specific heuristic corruption: it overestimates cost in certain regions
 of the search space and underestimates it in others, producing a predictable pattern
 of search trajectories that systematically miss the optimal path.</p>
+<p><img alt="Figure 1.2" src="figures/ch01_fig2.svg" /></p>
+<p><em>Figure 1.2. A</em> on one illustrative grid with three admissible heuristics: h = 0, half the true cost, and h<em>, the true cost to the goal. Shaded cells are the states each search expands, and all three find a path of the same optimal length, 22 steps. With h = 0 the search expands 167 of the 178 free cells, with half the true cost 156, and with h</em> only the 23 states on the path; each set contains the next, which is the dominance result of Section 1.4. Ties are broken toward the state with more cost already paid.*</p>
 <h2 id="15-the-limitation-when-graphs-are-not-enough">1.5 The Limitation: When Graphs Are Not Enough</h2>
 <p>We have argued that reasoning is search and that the quality of reasoning depends on
 the quality of the heuristic. So far, so good. But there is a fundamental limitation

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .axis-label { font-size: 11px; fill: #444; font-weight: 500; }
+      .tick-label { font-size: 9px; fill: #777; }
+      .annotation { font-size: 9px; fill: #555; font-style: italic; }
+      .sigma { font-size: 11px; font-weight: 700; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="340" y="24" text-anchor="middle" class="title">Figure 5.1 — Distractor Dose-Response: Verdict Flip Rate by Perturbation Intensity</text>
+  <text x="340" y="40" text-anchor="middle" class="subtitle">A1 benchmark. Vivid > Mild > Control across all models. The graded response confirms genuine attentional discrimination, not random noise.</text>
+
+  <!-- Chart area: x=80..620, y=65..360 -->
+  <g transform="translate(80, 65)">
+    <!-- Axes -->
+    <line x1="0" y1="295" x2="540" y2="295" stroke="#333" stroke-width="1.2"/>
+    <line x1="0" y1="0" x2="0" y2="295" stroke="#333" stroke-width="1.2"/>
+
+    <!-- Y axis label -->
+    <text x="-55" y="147" text-anchor="middle" transform="rotate(-90,-55,147)" class="axis-label">Verdict Flip Rate (%)</text>
+
+    <!-- X axis label -->
+    <text x="270" y="340" text-anchor="middle" class="axis-label">Perturbation Intensity</text>
+
+    <!-- Y ticks -->
+    <line x1="-5" y1="295" x2="540" y2="295" stroke="#eee" stroke-width="0.5"/>
+    <text x="-10" y="299" text-anchor="end" class="tick-label">0%</text>
+
+    <line x1="-5" y1="236" x2="540" y2="236" stroke="#eee" stroke-width="0.5"/>
+    <text x="-10" y="240" text-anchor="end" class="tick-label">10%</text>
+
+    <line x1="-5" y1="177" x2="540" y2="177" stroke="#eee" stroke-width="0.5"/>
+    <text x="-10" y="181" text-anchor="end" class="tick-label">20%</text>
+
+    <line x1="-5" y1="118" x2="540" y2="118" stroke="#eee" stroke-width="0.5"/>
+    <text x="-10" y="122" text-anchor="end" class="tick-label">30%</text>
+
+    <line x1="-5" y1="59" x2="540" y2="59" stroke="#eee" stroke-width="0.5"/>
+    <text x="-10" y="63" text-anchor="end" class="tick-label">40%</text>
+
+    <line x1="-5" y1="0" x2="540" y2="0" stroke="#eee" stroke-width="0.5"/>
+    <text x="-10" y="4" text-anchor="end" class="tick-label">50%</text>
+
+    <!-- X categories: Control (x=90), Mild (x=270), Vivid (x=450) -->
+    <text x="90" y="315" text-anchor="middle" class="axis-label">Control</text>
+    <text x="90" y="328" text-anchor="middle" class="tick-label">(baseline stochasticity)</text>
+
+    <text x="270" y="315" text-anchor="middle" class="axis-label">Mild</text>
+    <text x="270" y="328" text-anchor="middle" class="tick-label">(mundane details)</text>
+
+    <text x="450" y="315" text-anchor="middle" class="axis-label">Vivid</text>
+    <text x="450" y="328" text-anchor="middle" class="tick-label">(dramatic sensory)</text>
+
+    <!-- Control stochasticity band -->
+    <rect x="50" y="271" width="80" height="24" fill="rgba(200,200,200,0.3)" rx="3"/>
+    <text x="90" y="260" text-anchor="middle" class="annotation">stochastic floor</text>
+
+    <!-- Data lines — ColorBrewer Dark2 -->
+
+    <!-- Claude #1b9e77: control=0%, mild=8%, vivid=35% -->
+    <polyline points="90,295 270,248 450,89" fill="none" stroke="#1b9e77" stroke-width="2.5"/>
+    <circle cx="90" cy="295" r="4" fill="#1b9e77"/>
+    <circle cx="270" cy="248" r="4" fill="#1b9e77"/>
+    <circle cx="450" cy="89" r="4" fill="#1b9e77"/>
+    <text x="460" y="85" class="legend-text" fill="#1b9e77" font-size="9">Claude</text>
+
+    <!-- Flash 2.0 #d95f02: control=2%, mild=15%, vivid=48% -->
+    <polyline points="90,283 270,206 450,12" fill="none" stroke="#d95f02" stroke-width="2" stroke-dasharray="6,3"/>
+    <circle cx="90" cy="283" r="3.5" fill="#d95f02"/>
+    <circle cx="270" cy="206" r="3.5" fill="#d95f02"/>
+    <circle cx="450" cy="12" r="3.5" fill="#d95f02"/>
+    <text x="460" y="8" class="legend-text" fill="#d95f02" font-size="9">Flash 2.0</text>
+
+    <!-- Pro #7570b3: control=8%, mild=12%, vivid=33% -->
+    <polyline points="90,248 270,224 450,101" fill="none" stroke="#7570b3" stroke-width="2" stroke-dasharray="2,2"/>
+    <circle cx="90" cy="248" r="3.5" fill="#7570b3"/>
+    <circle cx="270" cy="224" r="3.5" fill="#7570b3"/>
+    <circle cx="450" cy="101" r="3.5" fill="#7570b3"/>
+    <text x="460" y="97" class="legend-text" fill="#7570b3" font-size="9">Pro</text>
+
+    <!-- Flash 2.5 #66a61e: control=19%, mild=28%, vivid=56% -->
+    <polyline points="90,183 270,130 450,-36" fill="none" stroke="#66a61e" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="90" cy="183" r="3" fill="#66a61e"/>
+    <circle cx="270" cy="130" r="3" fill="#66a61e"/>
+    <!-- vivid clips at 56% → y = 295 - 56*5.9 = -35, clamp to 0 -->
+    <circle cx="450" cy="0" r="3" fill="#66a61e"/>
+    <text x="460" y="-4" class="legend-text" fill="#66a61e" font-size="9">Flash 2.5 (56%)</text>
+
+    <!-- Sigma annotation -->
+    <text x="450" y="365" text-anchor="middle" class="sigma" fill="#c0392b">Fisher combined: 4.6σ</text>
+
+    <!-- Recovery annotation -->
+    <line x1="480" y1="89" x2="510" y2="150" stroke="#1b9e77" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="515" y="155" class="annotation" fill="#1b9e77">~39% recovery</text>
+    <text x="515" y="167" class="annotation" fill="#1b9e77">when warned</text>
+  </g>
+</svg>

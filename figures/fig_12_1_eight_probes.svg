@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .probe-name { font-size: 10px; font-weight: 700; }
+      .probe-q { font-size: 9px; fill: #555; font-style: italic; }
+      .probe-test { font-size: 8px; fill: #888; }
+      .type-label { font-size: 9px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <text x="360" y="24" text-anchor="middle" class="title">Figure 12.1 — Eight Types of Geometric Probes for Reasoning Benchmarks</text>
+  <text x="360" y="40" text-anchor="middle" class="subtitle">Each probe type tests a specific geometric property of the reasoning manifold. Together they build a complete diagnostic.</text>
+
+  <!-- 4x2 grid -->
+  <!-- Row 1 -->
+  <g transform="translate(15, 55)">
+    <rect x="0" y="0" width="165" height="155" fill="#e3f2fd" stroke="#90caf9" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#1565c0">A. Invariance</text>
+    <circle cx="15" cy="17" r="9" fill="#1565c0"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">A</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"Does the output change under</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">morally irrelevant transforms?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#bbdefb" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: gauge symmetry</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: T2 (gender), T4 (order)</text>
+    <text x="15" y="99" class="probe-test">Expected: no change (null result)</text>
+    <rect x="10" y="108" width="145" height="35" fill="#bbdefb" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#1565c0">BIP compliance test</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#1565c0">✓ Gender: NOT significant</text>
+  </g>
+
+  <g transform="translate(190, 55)">
+    <rect x="0" y="0" width="165" height="155" fill="#fce4ec" stroke="#f48fb1" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#c2185b">B. Sensitivity</text>
+    <circle cx="15" cy="17" r="9" fill="#c2185b"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">B</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"How much does the output shift</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">under graded perturbation?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#f8bbd0" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: heuristic corruption magnitude</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: T5 (framing), A1 (distractor)</text>
+    <text x="15" y="99" class="probe-test">Expected: dose-response curve</text>
+    <rect x="10" y="108" width="145" height="35" fill="#f8bbd0" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#c2185b">Corruption surface mapping</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#c2185b">✗ T5 framing: 15.3σ</text>
+  </g>
+
+  <g transform="translate(365, 55)">
+    <rect x="0" y="0" width="165" height="155" fill="#fff3e0" stroke="#ffb74d" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#e65100">C. Bottleneck</text>
+    <circle cx="15" cy="17" r="9" fill="#e65100"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">C</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"Where does the search get stuck</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">or slow down?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#ffe0b2" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: local minima, dead zones</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: L2 (sycophancy trap)</text>
+    <text x="15" y="99" class="probe-test">Expected: basin identification</text>
+    <rect x="10" y="108" width="145" height="35" fill="#ffe0b2" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#e65100">Basin depth measurement</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#e65100">✗ L2 wrong-flip: 0–56%</text>
+  </g>
+
+  <g transform="translate(540, 55)">
+    <rect x="0" y="0" width="165" height="155" fill="#e8f5e9" stroke="#81c784" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#2e7d32">D. Recovery</text>
+    <circle cx="15" cy="17" r="9" fill="#2e7d32"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">D</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"Can the system escape when warned</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">that it has been perturbed?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#c8e6c9" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: metacognitive correction</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: A1 warned, E2 inhibit</text>
+    <text x="15" y="99" class="probe-test">Expected: partial recovery</text>
+    <rect x="10" y="108" width="145" height="35" fill="#c8e6c9" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#2e7d32">Escape rate measurement</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#2e7d32">~38% recovery ceiling</text>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(15, 225)">
+    <rect x="0" y="0" width="165" height="155" fill="#ede7f6" stroke="#b39ddb" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#4527a0">E. Frontier</text>
+    <circle cx="15" cy="17" r="9" fill="#4527a0"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">E</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"At what perturbation magnitude</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">does the system break?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#d1c4e9" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: adversarial threshold</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: A1 dose-response</text>
+    <text x="15" y="99" class="probe-test">Expected: ε* per perturbation type</text>
+    <rect x="10" y="108" width="145" height="35" fill="#d1c4e9" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#4527a0">Threshold search</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#4527a0">Binary search for ε*</text>
+  </g>
+
+  <g transform="translate(190, 225)">
+    <rect x="0" y="0" width="165" height="155" fill="#e0f2f1" stroke="#80cbc4" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#00695c">F. Meta-Search</text>
+    <circle cx="15" cy="17" r="9" fill="#00695c"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">F</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"Does the system monitor its own</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">search process?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#b2dfdb" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: calibration, self-knowledge</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: M1 (ECE), M3 (self-rank)</text>
+    <text x="15" y="99" class="probe-test">Expected: confidence tracks accuracy</text>
+    <rect x="10" y="108" width="145" height="35" fill="#b2dfdb" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#00695c">Metacognitive audit</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#00695c">✗ M1: 6.7σ miscalibration</text>
+  </g>
+
+  <g transform="translate(365, 225)">
+    <rect x="0" y="0" width="165" height="155" fill="#f3e5f5" stroke="#ce93d8" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#6a1b9a">G. Constraint</text>
+    <circle cx="15" cy="17" r="9" fill="#6a1b9a"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">G</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"Does the system respect boundaries</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">under pressure?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#e1bee7" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: governance, inhibitory control</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: E2 (emotional anchoring)</text>
+    <text x="15" y="99" class="probe-test">Expected: boundary respected</text>
+    <rect x="10" y="108" width="145" height="35" fill="#e1bee7" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#6a1b9a">Governance margin test</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#6a1b9a">✗ E2: 6.8σ displacement</text>
+  </g>
+
+  <g transform="translate(540, 225)">
+    <rect x="0" y="0" width="165" height="155" fill="#efebe9" stroke="#bcaaa4" stroke-width="1" rx="6"/>
+    <text x="82" y="20" text-anchor="middle" class="probe-name" fill="#4e342e">H. Path Efficiency</text>
+    <circle cx="15" cy="17" r="9" fill="#4e342e"/>
+    <text x="15" y="21" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">H</text>
+    <text x="82" y="38" text-anchor="middle" class="probe-q">"Does the system adapt its effort</text>
+    <text x="82" y="50" text-anchor="middle" class="probe-q">to problem complexity?"</text>
+    <line x1="10" y1="58" x2="155" y2="58" stroke="#d7ccc8" stroke-width="0.5"/>
+    <text x="15" y="73" class="probe-test">Tests: strategy selection, scaling</text>
+    <text x="15" y="86" class="probe-test">Benchmarks: M4 (effort ratio), E4 (WM)</text>
+    <text x="15" y="99" class="probe-test">Expected: effort scales with difficulty</text>
+    <rect x="10" y="108" width="145" height="35" fill="#d7ccc8" rx="3"/>
+    <text x="82" y="122" text-anchor="middle" class="type-label" fill="#4e342e">Effort-scaling test</text>
+    <text x="82" y="135" text-anchor="middle" class="probe-test" fill="#4e342e">M4: dissociated from M3</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="360" y="400" text-anchor="middle" class="subtitle">The eight probe types form a complete diagnostic battery. No single probe suffices; the profile across all eight reveals the model's geometric signature.</text>
+  <text x="360" y="416" text-anchor="middle" class="subtitle">✓ = invariance preserved (good). ✗ = violation detected (informative). The pattern of ✓ and ✗ IS the diagnostic.</text>
+  <text x="360" y="432" text-anchor="middle" class="subtitle">The Measuring AGI suite implements probes A–D and F–H across five cognitive domains. Probe E (threshold search) is in Appendix B.</text>
+</svg>

@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .label { font-size: 11px; fill: #444; font-weight: 500; }
+      .small-label { font-size: 9px; fill: #666; }
+      .math { font-size: 11px; fill: #333; font-style: italic; }
+    </style>
+    <marker id="arrow-truth" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2166ac"/>
+    </marker>
+    <marker id="arrow-approval" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#b2182b"/>
+    </marker>
+    <marker id="arrow-mixed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#7570b3"/>
+    </marker>
+    <!-- Gradient for manifold surface -->
+    <linearGradient id="truth-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#deebf7;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#9ecae1;stop-opacity:0.4"/>
+    </linearGradient>
+    <linearGradient id="approval-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fee0d2;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#fcbba1;stop-opacity:0.4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="360" y="24" text-anchor="middle" class="title">Figure 6.1 — Truth Manifold vs. Approval Manifold: The Geometry of Sycophancy</text>
+  <text x="360" y="40" text-anchor="middle" class="subtitle">The sycophancy parameter α mixes the truth-seeking objective with the approval-seeking objective. As α increases, the search trajectory bends away from the geodesic.</text>
+
+  <!-- Panel A: α = 0 (aligned) -->
+  <g transform="translate(30, 65)">
+    <text x="100" y="0" text-anchor="middle" class="label">Panel A: α = 0 (Claude)</text>
+    <text x="100" y="14" text-anchor="middle" class="small-label">Truth and approval aligned</text>
+
+    <!-- Truth manifold surface -->
+    <ellipse cx="100" cy="195" rx="90" ry="140" fill="url(#truth-grad)" stroke="#2166ac" stroke-width="1.2"/>
+    <text x="100" y="345" text-anchor="middle" class="math" fill="#2166ac">M_T (truth)</text>
+
+    <!-- Geodesic (straight, blue) -->
+    <circle cx="60" cy="120" r="5" fill="#2166ac"/>
+    <text x="48" y="118" text-anchor="end" class="small-label">s₀</text>
+    <circle cx="140" cy="280" r="5" fill="#2166ac"/>
+    <text x="152" y="283" text-anchor="start" class="small-label">goal</text>
+    <line x1="60" y1="125" x2="136" y2="276" stroke="#2166ac" stroke-width="2.5" marker-end="url(#arrow-truth)"/>
+
+    <text x="100" y="370" text-anchor="middle" class="small-label">Wrong flip: 0%</text>
+    <text x="100" y="383" text-anchor="middle" class="small-label" font-weight="600" fill="#1b9e77">Discrimination gap: +0.588</text>
+  </g>
+
+  <!-- Panel B: α = 0.47 (Flash 2.0) -->
+  <g transform="translate(255, 65)">
+    <text x="100" y="0" text-anchor="middle" class="label">Panel B: α ≈ 0.47 (Flash 2.0)</text>
+    <text x="100" y="14" text-anchor="middle" class="small-label">Partial separation</text>
+
+    <!-- Truth manifold -->
+    <ellipse cx="85" cy="195" rx="75" ry="130" fill="url(#truth-grad)" stroke="#2166ac" stroke-width="1"/>
+    <!-- Approval manifold (offset) -->
+    <ellipse cx="120" cy="200" rx="75" ry="130" fill="url(#approval-grad)" stroke="#b2182b" stroke-width="1"/>
+
+    <text x="45" y="345" text-anchor="middle" class="math" fill="#2166ac">M_T</text>
+    <text x="155" y="345" text-anchor="middle" class="math" fill="#b2182b">M_A</text>
+
+    <!-- Start point -->
+    <circle cx="60" cy="120" r="5" fill="#2166ac"/>
+    <!-- Truth goal -->
+    <circle cx="100" cy="280" r="4" fill="#2166ac" opacity="0.5"/>
+    <!-- Approval attractor -->
+    <circle cx="145" cy="260" r="4" fill="#b2182b" opacity="0.5"/>
+
+    <!-- Mixed trajectory (curved toward approval) -->
+    <path d="M 60,125 Q 90,200 120,270" fill="none" stroke="#7570b3" stroke-width="2.5" marker-end="url(#arrow-mixed)"/>
+
+    <!-- RLHF gradient arrows (magenta) -->
+    <line x1="80" y1="170" x2="100" y2="165" stroke="#e7298a" stroke-width="1.2" opacity="0.6" marker-end="url(#arrow-approval)"/>
+    <line x1="90" y1="210" x2="115" y2="205" stroke="#e7298a" stroke-width="1.2" opacity="0.6"/>
+    <line x1="100" y1="245" x2="125" y2="238" stroke="#e7298a" stroke-width="1.2" opacity="0.6"/>
+    <text x="155" y="200" class="small-label" fill="#e7298a">∇approval</text>
+
+    <text x="100" y="370" text-anchor="middle" class="small-label">Wrong flip: 33%</text>
+    <text x="100" y="383" text-anchor="middle" class="small-label" font-weight="600" fill="#d95f02">Discrimination gap: +0.377</text>
+  </g>
+
+  <!-- Panel C: α = 0.73 (Flash 2.5) -->
+  <g transform="translate(480, 65)">
+    <text x="100" y="0" text-anchor="middle" class="label">Panel C: α ≈ 0.73 (Flash 2.5)</text>
+    <text x="100" y="14" text-anchor="middle" class="small-label">Approval dominates</text>
+
+    <!-- Truth manifold (faded) -->
+    <ellipse cx="70" cy="195" rx="65" ry="125" fill="url(#truth-grad)" stroke="#2166ac" stroke-width="0.8" opacity="0.5"/>
+    <!-- Approval manifold (dominant) -->
+    <ellipse cx="130" cy="200" rx="75" ry="135" fill="url(#approval-grad)" stroke="#b2182b" stroke-width="1.5"/>
+
+    <text x="35" y="345" text-anchor="middle" class="math" fill="#2166ac" opacity="0.5">M_T</text>
+    <text x="160" y="345" text-anchor="middle" class="math" fill="#b2182b">M_A</text>
+
+    <!-- Start point -->
+    <circle cx="60" cy="120" r="5" fill="#2166ac"/>
+    <!-- Approval goal (dominates) -->
+    <circle cx="155" cy="265" r="5" fill="#b2182b"/>
+
+    <!-- Trajectory (strongly curved toward approval) -->
+    <path d="M 60,125 Q 110,180 155,260" fill="none" stroke="#b2182b" stroke-width="2.5" marker-end="url(#arrow-approval)"/>
+
+    <!-- RLHF gradient (strong) -->
+    <line x1="75" y1="155" x2="105" y2="145" stroke="#e7298a" stroke-width="1.5" opacity="0.8"/>
+    <line x1="95" y1="195" x2="130" y2="185" stroke="#e7298a" stroke-width="1.5" opacity="0.8"/>
+    <line x1="115" y1="230" x2="150" y2="220" stroke="#e7298a" stroke-width="1.5" opacity="0.8"/>
+
+    <text x="100" y="370" text-anchor="middle" class="small-label">Wrong flip: 56%</text>
+    <text x="100" y="383" text-anchor="middle" class="small-label" font-weight="600" fill="#b2182b">Discrimination gap: +0.206</text>
+  </g>
+
+  <!-- Bottom annotation -->
+  <text x="360" y="430" text-anchor="middle" class="subtitle">Blue: truth-seeking gradient. Red: approval-seeking gradient. Purple: mixed trajectory. Magenta arrows: RLHF-induced approval gradient.</text>
+  <text x="360" y="446" text-anchor="middle" class="subtitle">Fisher combined across 4 models: 13.3σ. The monotonic ordering (Claude → Flash 2.0 → Pro → Flash 2.5) is a sycophancy gradient.</text>
+  <text x="360" y="462" text-anchor="middle" class="subtitle" font-weight="600" fill="#c0392b">The sycophancy parameter α is not a model property — it is the mixing weight between two competing manifolds.</text>
+</svg>

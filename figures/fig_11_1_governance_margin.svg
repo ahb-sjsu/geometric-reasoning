@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .label { font-size: 11px; fill: #444; font-weight: 500; }
+      .small { font-size: 9px; fill: #555; }
+      .model-name { font-size: 10px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <text x="340" y="24" text-anchor="middle" class="title">Figure 11.1 — Governance Margin: Distance from Safety Boundary</text>
+  <text x="340" y="40" text-anchor="middle" class="subtitle">The governance margin measures how far a perturbation can push the system before it leaves the safe region.</text>
+
+  <g transform="translate(50, 60)">
+    <!-- Safety region -->
+    <ellipse cx="290" cy="155" rx="260" ry="140" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="290" y="300" text-anchor="middle" class="label" fill="#2e7d32">Safe Region (governance boundary)</text>
+
+    <!-- Unsafe region label -->
+    <text x="580" y="30" text-anchor="end" class="label" fill="#d73027">Unsafe Region</text>
+    <text x="580" y="45" text-anchor="end" class="small" fill="#d73027">(crossed moral/safety boundary)</text>
+
+    <!-- Model positions with governance margins -->
+
+    <!-- Claude: deep inside safe region (large margin) -->
+    <circle cx="290" cy="155" r="6" fill="#1b9e77"/>
+    <text x="290" y="145" text-anchor="middle" class="model-name" fill="#1b9e77">Claude</text>
+    <!-- Margin arrow -->
+    <line x1="296" y1="155" x2="445" y2="155" stroke="#1b9e77" stroke-width="1.5"/>
+    <line x1="445" y1="148" x2="445" y2="162" stroke="#1b9e77" stroke-width="1.5"/>
+    <text x="370" y="148" text-anchor="middle" class="small" fill="#1b9e77">margin = 0.588</text>
+    <text x="370" y="170" text-anchor="middle" class="small" fill="#1b9e77">(large — resists perturbation)</text>
+
+    <!-- Flash 2.0: moderate margin -->
+    <circle cx="350" cy="100" r="5" fill="#d95f02"/>
+    <text x="350" y="90" text-anchor="middle" class="model-name" fill="#d95f02">Flash 2.0</text>
+    <line x1="355" y1="100" x2="460" y2="55" stroke="#d95f02" stroke-width="1.2"/>
+    <text x="420" y="70" text-anchor="middle" class="small" fill="#d95f02">margin = 0.377</text>
+
+    <!-- Pro: smaller margin -->
+    <circle cx="380" cy="200" r="5" fill="#7570b3"/>
+    <text x="380" y="215" text-anchor="middle" class="model-name" fill="#7570b3">Pro</text>
+    <line x1="386" y1="200" x2="470" y2="222" stroke="#7570b3" stroke-width="1.2"/>
+    <text x="440" y="238" text-anchor="middle" class="small" fill="#7570b3">margin = 0.238</text>
+
+    <!-- Flash 2.5: near the boundary (tiny margin) -->
+    <circle cx="430" cy="110" r="5" fill="#66a61e"/>
+    <text x="455" y="105" class="model-name" fill="#66a61e">Flash 2.5</text>
+    <line x1="435" y1="110" x2="495" y2="80" stroke="#66a61e" stroke-width="1.2"/>
+    <text x="505" y="75" class="small" fill="#66a61e">margin = 0.206</text>
+    <text x="505" y="87" class="small" fill="#d73027">(near boundary!)</text>
+
+    <!-- Perturbation arrow (showing what pushes toward boundary) -->
+    <line x1="100" y1="50" x2="200" y2="100" stroke="#d73027" stroke-width="2.5"/>
+    <polygon points="200,100 192,93 196,103" fill="#d73027"/>
+    <text x="120" y="45" class="label" fill="#d73027">Perturbation</text>
+    <text x="120" y="60" class="small" fill="#d73027">(social pressure,</text>
+    <text x="120" y="72" class="small" fill="#d73027">emotional framing,</text>
+    <text x="120" y="84" class="small" fill="#d73027">invalid correction)</text>
+
+    <!-- Sycophancy = zero margin annotation -->
+    <rect x="60" y="220" width="180" height="55" fill="#fff3e0" stroke="#e65100" stroke-width="0.8" rx="4"/>
+    <text x="150" y="238" text-anchor="middle" class="small" fill="#e65100" font-weight="600">Sycophancy = governance failure</text>
+    <text x="150" y="252" text-anchor="middle" class="small" fill="#e65100">Wrong-flip rate = rate at which</text>
+    <text x="150" y="264" text-anchor="middle" class="small" fill="#e65100">perturbation crosses the boundary</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="340" y="358" text-anchor="middle" class="subtitle">The discrimination gap from L2 directly measures governance margin. Claude's 0% wrong-flip = large margin.</text>
+  <text x="340" y="373" text-anchor="middle" class="subtitle">Flash 2.5's 56% wrong-flip = margin near zero. Any social pressure pushes it across the safety boundary.</text>
+</svg>

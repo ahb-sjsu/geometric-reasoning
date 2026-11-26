@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .title { font-size: 14px; font-weight: 600; fill: #333; }
+      .subtitle { font-size: 10px; fill: #666; }
+      .axis-label { font-size: 11px; fill: #444; font-weight: 500; }
+      .quadrant { font-size: 12px; font-weight: 700; }
+      .quadrant-desc { font-size: 9px; fill: #666; }
+      .model-label { font-size: 10px; font-weight: 600; }
+      .tick { font-size: 9px; fill: #999; }
+    </style>
+  </defs>
+
+  <text x="300" y="24" text-anchor="middle" class="title">Figure 9.1 — The Metacognitive Plane: Self-Monitoring × Strategy Selection</text>
+  <text x="300" y="40" text-anchor="middle" class="subtitle">M3 (can the model identify its uncertain scenarios?) vs M4 (does reasoning effort scale with complexity?)</text>
+
+  <!-- Chart area: 80,70 to 520,430 -->
+  <g transform="translate(80, 70)">
+    <!-- Axes -->
+    <line x1="0" y1="360" x2="440" y2="360" stroke="#333" stroke-width="1.2"/>
+    <line x1="0" y1="0" x2="0" y2="360" stroke="#333" stroke-width="1.2"/>
+
+    <!-- Axis labels -->
+    <text x="220" y="400" text-anchor="middle" class="axis-label">M3: Self-Monitoring (Spearman ρ with actual variance)</text>
+    <text x="-50" y="180" text-anchor="middle" transform="rotate(-90,-50,180)" class="axis-label">M4: Strategy Selection (length ratio complex/simple)</text>
+
+    <!-- Quadrant dividers at 0.5 -->
+    <line x1="220" y1="0" x2="220" y2="360" stroke="#ccc" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="0" y1="180" x2="440" y2="180" stroke="#ccc" stroke-width="1" stroke-dasharray="5,5"/>
+
+    <!-- Ticks -->
+    <text x="-8" y="364" text-anchor="end" class="tick">0.0</text>
+    <text x="-8" y="184" text-anchor="end" class="tick">0.5</text>
+    <text x="-8" y="4" text-anchor="end" class="tick">1.0</text>
+    <text x="0" y="380" text-anchor="middle" class="tick">0.0</text>
+    <text x="220" y="380" text-anchor="middle" class="tick">0.5</text>
+    <text x="440" y="380" text-anchor="middle" class="tick">1.0</text>
+
+    <!-- Quadrant labels -->
+    <!-- Q-I: high monitoring, high effort (top-right) — EMPTY -->
+    <rect x="230" y="5" width="200" height="165" fill="rgba(215,48,39,0.05)" rx="5"/>
+    <text x="330" y="30" text-anchor="middle" class="quadrant" fill="#d73027">Quadrant I</text>
+    <text x="330" y="45" text-anchor="middle" class="quadrant-desc">"Calibrated Deliberator"</text>
+    <text x="330" y="60" text-anchor="middle" class="quadrant-desc">Knows uncertainty + adapts effort</text>
+    <text x="330" y="90" text-anchor="middle" class="quadrant" fill="#d73027" font-size="16">EMPTY</text>
+    <text x="330" y="108" text-anchor="middle" class="quadrant-desc" fill="#d73027">No model occupies this quadrant</text>
+
+    <!-- Q-II: high monitoring, low effort (top-left) -->
+    <rect x="10" y="5" width="200" height="165" fill="rgba(117,112,179,0.08)" rx="5"/>
+    <text x="110" y="30" text-anchor="middle" class="quadrant" fill="#7570b3">Quadrant II</text>
+    <text x="110" y="45" text-anchor="middle" class="quadrant-desc">"Aware but Lazy"</text>
+    <text x="110" y="60" text-anchor="middle" class="quadrant-desc">Knows uncertainty but doesn't adapt</text>
+
+    <!-- Q-III: low monitoring, low effort (bottom-left) -->
+    <rect x="10" y="185" width="200" height="165" fill="rgba(200,200,200,0.1)" rx="5"/>
+    <text x="110" y="210" text-anchor="middle" class="quadrant" fill="#999">Quadrant III</text>
+    <text x="110" y="225" text-anchor="middle" class="quadrant-desc">"Metacognitively Blind"</text>
+    <text x="110" y="240" text-anchor="middle" class="quadrant-desc">Neither monitors nor adapts</text>
+
+    <!-- Q-IV: low monitoring, high effort (bottom-right) -->
+    <rect x="230" y="185" width="200" height="165" fill="rgba(217,95,2,0.08)" rx="5"/>
+    <text x="330" y="210" text-anchor="middle" class="quadrant" fill="#d95f02">Quadrant IV</text>
+    <text x="330" y="225" text-anchor="middle" class="quadrant-desc">"Effortful but Uncalibrated"</text>
+    <text x="330" y="240" text-anchor="middle" class="quadrant-desc">Adapts effort but can't self-assess</text>
+
+    <!-- Model points — using actual M3/M4 data -->
+    <!-- Flash 2.0: M3=0.042, M4=0.827 → x=18.5, y=360-298=62 -->
+    <circle cx="18" cy="62" r="8" fill="#d95f02" opacity="0.8"/>
+    <text x="30" y="58" class="model-label" fill="#d95f02">Flash 2.0</text>
+    <text x="30" y="72" class="tick" fill="#d95f02">M3=0.04, M4=0.83</text>
+
+    <!-- Pro: M3=0.500, M4=0.000 → x=220, y=360 -->
+    <circle cx="220" cy="360" r="8" fill="#7570b3" opacity="0.8"/>
+    <text x="232" y="355" class="model-label" fill="#7570b3">Pro</text>
+    <text x="232" y="342" class="tick" fill="#7570b3">M3=0.50, M4=0.00</text>
+
+    <!-- Flash 2.5: M3=0.500, M4=0.000 → same as Pro -->
+    <circle cx="215" cy="355" r="6" fill="#66a61e" opacity="0.7"/>
+    <text x="170" y="340" class="model-label" fill="#66a61e">Flash 2.5</text>
+
+    <!-- Flash 3: M3=0.500, M4=0.000 → same cluster -->
+    <circle cx="225" cy="350" r="6" fill="#e7298a" opacity="0.7"/>
+    <text x="240" y="320" class="model-label" fill="#e7298a">Flash 3</text>
+
+    <!-- Key insight annotation -->
+    <line x1="20" y1="80" x2="210" y2="345" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="130" y="205" text-anchor="middle" class="quadrant-desc" transform="rotate(-55,130,205)">Anti-correlated: M3 ↑ implies M4 ↓</text>
+
+  </g>
+
+  <!-- Caption -->
+  <text x="300" y="480" text-anchor="middle" class="subtitle">The empty Quadrant I — no model combines good self-monitoring with good effort scaling — is the key finding.</text>
+  <text x="300" y="496" text-anchor="middle" class="subtitle">Metacognition is not a single axis. M3 and M4 are dissociated: improving one does not improve the other.</text>
+</svg>
