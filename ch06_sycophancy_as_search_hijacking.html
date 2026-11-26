@@ -581,10 +581,10 @@
 <p><strong>The Critical Surface in the $(\alpha, \theta)$ Plane</strong></p>
 <p><strong>Proposition 6.1.</strong> <em>For the combined objective $f_\alpha = (1 - \alpha) f_T + \alpha f_A$ with $\|\nabla f_T\| = r_T$ and $\|\nabla f_A\| = r_A$, the search trajectory has a net component toward truth if and only if:</em></p>
 <p>$$\alpha &lt; \alpha^*(\theta) = \frac{r_T}{r_T - r_A \cos\theta}$$</p>
-<p><em>for $\theta &gt; \arccos(r_T / r_A)$. For $\theta \leq \arccos(r_T / r_A)$, the search is truth-seeking for all $\alpha \in [0, 1]$ (the approval gradient has a positive projection onto the truth direction even at $\alpha = 1$).</em></p>
+<p><em>for $\theta &gt; \pi/2$. For $\theta \leq \pi/2$, the search is truth-seeking for all $\alpha \in [0, 1)$ (the approval gradient has a non-negative projection onto the truth direction).</em></p>
 <p><em>Proof.</em> The component of $\nabla f_\alpha$ along the truth direction $\hat{e}_T$ is:</p>
 <p>$$(1 - \alpha) r_T + \alpha r_A \cos\theta$$</p>
-<p>Setting this to zero and solving for $\alpha$ gives the critical value. The condition $\theta &gt; \arccos(r_T / r_A)$ ensures that $\cos\theta &lt; r_T / r_A$, which is required for $\alpha^* \in (0, 1)$. When $\cos\theta \geq r_T / r_A$, the approval gradient has a sufficiently large truth-aligned component that the combined gradient always has a positive truth projection. $\square$</p>
+<p>Setting this to zero and solving for $\alpha$ gives the critical value. The condition $\theta &gt; \pi/2$ ensures that $\cos\theta &lt; 0$, which is required for $\alpha^* \in (0, 1)$. When $\cos\theta \geq 0$, the approval gradient has a non-negative truth-aligned component, so the combined gradient has a positive truth projection for every $\alpha &lt; 1$. $\square$</p>
 <p><strong>Corollary 6.1.</strong> <em>In the symmetric case $r_T = r_A$ with $\theta = \pi$ (equal-strength, perfectly opposed signals), $\alpha^* = 0.5$. Any system with $\alpha &gt; 0.5$ is net sycophantic.</em></p>
 <p><strong>The Confidence Tensor</strong></p>
 <p>The confidence response data (Section 6.5) define a <em>confidence tensor</em> $K_{ij}$ that maps correction conditions to confidence shifts:</p>

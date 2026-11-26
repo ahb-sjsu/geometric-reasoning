@@ -419,7 +419,7 @@
 <h2 id="107-the-scalar-irrecoverability-theorem">10.7 The Scalar Irrecoverability Theorem</h2>
 <p>The robustness surface framework makes the Scalar Irrecoverability Theorem (Chapter 13, Section 13.6) geometrically inevitable rather than merely empirically observed.</p>
 <h3 id="1071-the-theorem-in-robustness-surface-terms">10.7.1 The Theorem in Robustness-Surface Terms</h3>
-<p>The Scalar Irrecoverability Theorem states that no scalar summary of reasoning performance preserves the geometric structure of the multi-dimensional measurements. In robustness-surface terms, this theorem becomes a statement about the topology of the surface:</p>
+<p>The Scalar Irrecoverability Theorem states that no scalar summary of reasoning performance preserves the geometric structure of the multi-dimensional measurements. (Theorem 13.1 states it for weighted sums with non-negative weights; Theorem A10.1 in this chapter&rsquo;s appendix states the same obstruction for any function that is strictly monotone in each argument.) In robustness-surface terms, this theorem becomes a statement about the topology of the surface:</p>
 <p><strong>[Conditional Theorem.]</strong> <strong>The robustness surfaces of different models are non-nested.</strong> For any two models $A$ and $B$, there exist perturbation types $\tau_i$ and $\tau_j$ such that $R(A, \tau_i) &gt; R(B, \tau_i)$ and $R(A, \tau_j) &lt; R(B, \tau_j)$. The surfaces cross, and no projection onto a single axis can respect the ordering on both sides of the crossing.</p>
 <p>The empirical crossings are now vivid:</p>
 <p><strong>Crossing 1: Sycophancy vs. divided attention.</strong> Claude achieves the best sycophancy resistance in the suite (0% flip rate) but the worst divided attention (A4: 0.571). Flash 3 achieves perfect divided attention (A4: 1.000) but mediocre structural-fuzz resistance (T1: 0.600). The robustness surfaces cross: Claude&rsquo;s surface is higher along the sycophancy axis, Flash 3&rsquo;s surface is higher along the divided-attention axis. Any scalar projection $\pi$ must decide which side of the crossing to respect. If $\pi$ weights sycophancy heavily, Claude ranks above Flash 3; if $\pi$ weights divided attention, Flash 3 ranks above Claude. There is no weighting that respects both.</p>
@@ -508,7 +508,7 @@
 <p>The central message of this chapter is geometric: <em>robustness is a surface, not a number.</em> The shape of the surface &mdash; its peaks, valleys, ridges, floors, and boundaries &mdash; is the object that characterizes a model&rsquo;s reasoning quality under perturbation. The question &ldquo;is this model robust?&rdquo; has no answer. The question &ldquo;what does this model&rsquo;s robustness surface look like?&rdquo; has a precise, measurable, and actionable answer. The three-tool pipeline provides the methodology for obtaining it.</p>
 <hr />
 <h2 id="worked-example-profiling-a-diagnostic-ai">Worked Example: Profiling a Diagnostic AI</h2>
-<p>Consider a clinical AI system, <em>DiagAssist-7</em>, deployed to assist emergency physicians with differential diagnosis. The hospital&rsquo;s validation study reports a single accuracy figure: 91% concordance with expert diagnoses across 2,400 cases. The number is impressive. It is also dangerously incomplete.</p>
+<p>Consider a hypothetical clinical AI system, <em>DiagAssist-7</em>, deployed to assist emergency physicians with differential diagnosis. The system and every number in this example are illustrative. The hospital&rsquo;s validation study reports a single accuracy figure: 91% concordance with expert diagnoses across 2,400 cases. The number is impressive. It is also dangerously incomplete.</p>
 <p>We apply the three-tool pipeline to construct DiagAssist-7&rsquo;s robustness surface, revealing structure that the aggregate accuracy conceals.</p>
 <p><strong>Stage 1: MRI Scan.</strong> We define five perturbation axes corresponding to clinically relevant variation in patient presentation:</p>
 <table>
@@ -541,7 +541,7 @@
 </tr>
 </tbody>
 </table>
-<p>The MRI profile reveals dramatic anisotropy:</p>
+<p>The illustrative MRI profile shows dramatic anisotropy:</p>
 <table>
 <thead>
 <tr>
@@ -620,7 +620,7 @@
 <p>The fragility is concentrated, not distributed. Cardiac and musculoskeletal diagnoses transfer reasonably well from adult to pediatric presentations (sensitivities of 0.06 and 0.08) &mdash; the underlying pathophysiology is sufficiently similar. But neurological diagnoses show extreme sensitivity ($s_{1,\text{neuro}} = 0.24$): the system&rsquo;s accuracy drops from 93% to 69% when the patient is a child. Pediatric neurological presentations &mdash; seizures with different etiological distributions, developmental milestones that change the differential, medication dosing that scales nonlinearly with weight &mdash; are a specific, localized fragility on the robustness surface.</p>
 <p>The sensitivity profile produces an actionable finding that the aggregate accuracy cannot: <em>DiagAssist-7 should not be used as the primary diagnostic aid for pediatric neurological presentations without specialist oversight.</em> This is a geometric statement about the robustness surface &mdash; a valley at the (age-group, neurological) coordinate &mdash; not a judgment about the system&rsquo;s overall quality.</p>
 <p><strong>Stage 3: Adversarial Threshold Search.</strong> For the pediatric neurological fragility, we parameterize the perturbation intensity along a continuous axis: the degree to which the presentation deviates from adult-pattern neurology. At one end ($\epsilon = 0$), the pediatric case resembles an adult presentation (e.g., a 10-year-old with a straightforward migraine). At the other end ($\epsilon = 1$), the case is distinctly pediatric (e.g., a 3-year-old with febrile seizures and developmental regression).</p>
-<p>Binary search over six evaluation rounds yields:</p>
+<p>In this illustration, binary search over six evaluation rounds yields:</p>
 <table>
 <thead>
 <tr>
@@ -675,7 +675,7 @@
 <p>where</p>
 <p>$$r_i = \frac{1}{|\mathcal{D}|} \sum_{x \in \mathcal{D}} \mathcal{C}\bigl(f_\theta(x),\; f_\theta(\tau_i(x))\bigr).$$</p>
 <p>The MRI is a <em>vector-valued invariant</em> of the model. It is not aggregated. Its dimensionality equals the number of perturbation types, and each component is independently interpretable as the model&rsquo;s consistency under one class of perturbation.</p>
-<p><strong>Proposition A10.1</strong> (MRI&ndash;Corruption Tensor Correspondence). Let $C_{ij}$ be the corruption tensor (Chapter 5, Definition 5.5) mapping perturbation direction $j$ to displacement along judgment dimension $i$, and let the consistency metric be $\mathcal{C}(y, y') = 1 - \|y - y'\| / \Delta_{\max}$ where $\Delta_{\max}$ is the scale of the output space. Then:</p>
+<p><strong>Proposition A10.1</strong> (MRI&ndash;Corruption Tensor Correspondence). Let $C_{ij}$ be the corruption tensor (Chapter 5, Definition 5.1) mapping perturbation direction $j$ to displacement along judgment dimension $i$, and let the consistency metric be $\mathcal{C}(y, y') = 1 - \|y - y'\| / \Delta_{\max}$ where $\Delta_{\max}$ is the scale of the output space. Then:</p>
 <p>$$r_j = 1 - \frac{\|C_{\cdot j}\|}{\Delta_{\max}}$$</p>
 <p>That is, the $j$-th MRI component is the complement of the normalized column norm of the corruption tensor along perturbation direction $j$.</p>
 <h3 id="a102-sensitivity-profiling-formal-definition">A10.2 Sensitivity Profiling: Formal Definition</h3>
