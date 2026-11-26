@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appendix B: The Structural Fuzzing Toolkit &mdash; Geometric Reasoning</title>
+  <meta name="description" content="Appendix B: The Structural Fuzzing Toolkit from Geometric Reasoning: From Search to Manifolds, by Andrew H. Bond.">
+  <meta name="generator" content="geometric-series build kit">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../book/book.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+
+<body data-book-slug="geometric-reasoning" data-chapter-id="appendix_b_structural_fuzzing">
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="brand-symbol">M</span>
+        <span class="brand-text">Geometric Reasoning</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="series-nav-list"></ul>
+    </div>
+  </nav>
+
+  <article class="book-chapter">
+    <div class="chapter-container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Geometric Series</a>
+        <span class="breadcrumb-sep">&rsaquo;</span>
+        <a href="index.html">Geometric Reasoning</a>
+        <span class="breadcrumb-sep">&rsaquo;</span>
+        <span class="breadcrumb-current">Appendix B: The Structural Fuzzing Toolkit</span>
+      </nav>
+      <div class="chapter-nav-top">
+        <a href="appendix_a_mathematical_prerequisites.html" class="nav-prev">&larr; Appendix A: Mathematical Prerequisites</a>
+        <a href="index.html" class="nav-toc">Contents</a>
+        <a href="appendix_c_benchmark_implementations.html" class="nav-next">Appendix C: Benchmark Implementations &rarr;</a>
+      </div>
+
+      <div class="chapter-content">
+<h1 id="appendix-b-the-structural-fuzzing-toolkit">Appendix B: The Structural Fuzzing Toolkit</h1>
+<p>This appendix provides implementation guidance for the robustness measurement tools described in Chapter 10.</p>
+<h2 id="b1-model-robustness-index-mri">B.1 Model Robustness Index (MRI)</h2>
+<p>The MRI quantifies a model&rsquo;s overall sensitivity to input perturbations. The procedure:</p>
+<ol>
+<li>
+<p><strong>Select a base dataset</strong> $\{(x_i, y_i)\}_{i=1}^N$ of input-output pairs where the model performs correctly.</p>
+</li>
+<li>
+<p><strong>Define perturbation types</strong> $\{P_1, P_2, \ldots, P_K\}$, each a function that transforms an input $x$ into a perturbed version $P_k(x)$. The perturbation should be semantically irrelevant — it changes surface form without changing the correct answer.</p>
+</li>
+</ol>
+<p>For reasoning tasks, relevant perturbation types include:
+   - <strong>Framing</strong>: rephrase the problem using euphemistic or dramatic language
+   - <strong>Emotional priming</strong>: prepend an emotionally charged but irrelevant context
+   - <strong>Distractor injection</strong>: add vivid but irrelevant details
+   - <strong>Reordering</strong>: change the presentation order of information
+   - <strong>Demographic substitution</strong>: swap gender, names, or demographic markers</p>
+<ol>
+<li>
+<p><strong>Measure output stability.</strong> For each base example and each perturbation type, generate the model&rsquo;s output on both $x_i$ and $P_k(x_i)$. Compute a distance metric between the two outputs.</p>
+</li>
+<li>
+<p><strong>Aggregate.</strong> The MRI for perturbation type $k$ is:</p>
+</li>
+</ol>
+<p>$$\text{MRI}_k = 1 - \frac{1}{N} \sum_{i=1}^N d(f(x_i), f(P_k(x_i)))$$</p>
+<p>where $d$ is a normalized distance metric (0 = identical outputs, 1 = maximally different). An MRI of 1.0 means perfect robustness; 0.0 means every perturbation changes the output.</p>
+<p>Chapter 10 defines the MRI as the vector of these per-type values and does not aggregate it. Where a single worst-case figure is wanted alongside the vector, this appendix uses the minimum across perturbation types:</p>
+<p>$$\text{MRI} = \min_k \text{MRI}_k$$</p>
+<p>This is conservative — a model is only as robust as its weakest dimension.</p>
+<h2 id="b2-sensitivity-profiling">B.2 Sensitivity Profiling</h2>
+<p>Sensitivity profiling extends MRI by mapping the response surface across perturbation magnitudes.</p>
+<p>For each perturbation type $P_k$, define a <em>magnitude parameter</em> $\epsilon \in [0, 1]$ such that $P_k(x; 0) = x$ (no perturbation) and $P_k(x; 1)$ is the maximum perturbation. Then measure:</p>
+<p>$$S_k(\epsilon) = \frac{1}{N} \sum_{i=1}^N d(f(x_i), f(P_k(x_i; \epsilon)))$$</p>
+<p>The sensitivity profile $S_k(\epsilon)$ reveals the perturbation&rsquo;s dose-response curve. The empirical data from Chapter 5 shows that this curve is typically monotonic (vivid &gt; mild &gt; neutral) but may be non-linear and model-specific.</p>
+<p>Key metrics extracted from the profile:
+- <strong>Threshold</strong>: the value $\epsilon^*$ where $S_k$ first exceeds a tolerance $\tau$
+- <strong>Slope at threshold</strong>: $S_k'(\epsilon^*)$ — how rapidly robustness degrades
+- <strong>Saturation level</strong>: $\lim_{\epsilon \to 1} S_k(\epsilon)$ — the maximum possible disruption
+- <strong>Area under curve</strong>: $\int_0^1 S_k(\epsilon) d\epsilon$ — the total sensitivity burden</p>
+<h2 id="b3-adversarial-threshold-search">B.3 Adversarial Threshold Search</h2>
+<p>The adversarial threshold search finds the minimum perturbation magnitude that flips the model&rsquo;s answer. This is a binary search:</p>
+<pre><code class="language-python">def threshold_search(model, x, y, perturbation, lo=0.0, hi=1.0, tol=0.01):
+    &quot;&quot;&quot;Find minimum perturbation magnitude that changes output.&quot;&quot;&quot;
+    while hi - lo &gt; tol:
+        mid = (lo + hi) / 2
+        x_perturbed = perturbation(x, magnitude=mid)
+        output = model(x_perturbed)
+        if output != y:  # answer changed
+            hi = mid
+        else:
+            lo = mid
+    return (lo + hi) / 2
+</code></pre>
+<p>The threshold $\epsilon^*$ is the model&rsquo;s <em>adversarial robustness margin</em> for that input and perturbation type. Lower thresholds indicate greater fragility.</p>
+<h2 id="b4-the-run_campaign-function">B.4 The run_campaign Function</h2>
+<p>The full robustness assessment combines all three tools:</p>
+<pre><code class="language-python">def run_campaign(model, dataset, perturbation_types, magnitudes):
+    &quot;&quot;&quot;Run a complete robustness measurement campaign.
+
+    Returns:
+        mri: dict of perturbation_type -&gt; MRI score
+        profiles: dict of perturbation_type -&gt; sensitivity curve
+        thresholds: dict of perturbation_type -&gt; list of thresholds
+    &quot;&quot;&quot;
+    mri = {}
+    profiles = {}
+    thresholds = {}
+
+    for ptype in perturbation_types:
+        # MRI at maximum perturbation
+        distances = []
+        for x, y in dataset:
+            x_pert = ptype(x, magnitude=1.0)
+            d = output_distance(model(x), model(x_pert))
+            distances.append(d)
+        mri[ptype.name] = 1.0 - np.mean(distances)
+
+        # Sensitivity profile across magnitudes
+        curve = []
+        for eps in magnitudes:
+            dists = [output_distance(model(x), model(ptype(x, eps)))
+                     for x, y in dataset]
+            curve.append(np.mean(dists))
+        profiles[ptype.name] = curve
+
+        # Adversarial thresholds
+        thresh = [threshold_search(model, x, y, ptype)
+                  for x, y in dataset]
+        thresholds[ptype.name] = thresh
+
+    return mri, profiles, thresholds
+</code></pre>
+<h2 id="b5-interpreting-results">B.5 Interpreting Results</h2>
+<p>The output of <code>run_campaign</code> is a multi-dimensional robustness profile. For the Measuring AGI benchmarks, the key patterns were:</p>
+<ul>
+<li><strong>Universal fragilities</strong>: selective attention SNR of 1.22-1.38 across all models — a shared geometric weakness</li>
+<li><strong>Model-specific strengths</strong>: Claude&rsquo;s sycophancy resistance (0% wrong flip rate) vs. Flash 3&rsquo;s divided attention (1.000)</li>
+<li><strong>The ~38% recovery ceiling</strong>: consistent across emotional anchoring and sensory distractors, suggesting a structural limitation</li>
+<li><strong>Anisotropic vulnerability</strong>: Claude resists exaggeration but not minimization (Chapter 5)</li>
+</ul>
+<p>The visualization recommended is a radar chart with one axis per perturbation type, showing the MRI score. Models with different geometric signatures produce visibly different radar shapes — this is the &ldquo;robustness profile&rdquo; that scalar accuracy destroys.</p>
+<h2 id="b6-worked-example-profiling-a-moral-reasoning-model">B.6 Worked Example: Profiling a Moral Reasoning Model</h2>
+<p>We apply the full pipeline to the Social Cognition T5 framing benchmark. The dataset consists of 25 Dear Abby moral scenarios, each with euphemistic and dramatic rewrites generated by a fixed transformer model.</p>
+<p><strong>Step 1: MRI.</strong> For each of 5 models, we compute the framing MRI — the fraction of scenarios where euphemistic/dramatic rewriting does <em>not</em> change the verdict:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>MRI (Framing)</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gemini 3 Flash</td>
+<td>0.631</td>
+<td>Moderate robustness</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>0.630</td>
+<td>Moderate robustness</td>
+</tr>
+<tr>
+<td>Gemini 2.0 Flash</td>
+<td>0.716</td>
+<td>Good robustness</td>
+</tr>
+<tr>
+<td>Gemini 2.5 Pro</td>
+<td>0.606</td>
+<td>Weak robustness</td>
+</tr>
+<tr>
+<td>Gemini 2.5 Flash</td>
+<td>0.630</td>
+<td>Moderate robustness</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 2: Sensitivity profile.</strong> We do not have continuous magnitude control for T5 (framing rewrites are binary: euphemistic or dramatic), but the two-intensity design provides two points on the dose-response curve. For the Attention A1 benchmark, which <em>does</em> have graded intensity (vivid vs. mild distractors), a profile has the following form (illustrative values; the measured flip rates are those of Table 5.3):</p>
+<pre><code>Magnitude:   0.0 (control)   0.3 (mild)   1.0 (vivid)
+Flash 2.0:   0.02            0.15         0.48
+Pro:         0.08            0.12         0.33
+Claude:      0.00            0.08         0.35
+</code></pre>
+<p>A monotonic increase of this kind is the signature of genuine dose-response (not random noise). In this illustration Claude and Pro show similar vivid-distractor sensitivity but Claude has lower mild-distractor sensitivity — its threshold is higher.</p>
+<p><strong>Step 3: Adversarial threshold search.</strong> For the A1 distractors, binary search would find the minimum distractor intensity that flips each model&rsquo;s verdict. The values below are illustrative: the benchmark measured two intensity levels, and no threshold search was run on it.</p>
+<pre><code>Flash 2.0:   ε* = 0.31 ± 0.12  (fragile — small distractors suffice)
+Pro:         ε* = 0.45 ± 0.15  (moderate threshold)
+Claude:      ε* = 0.52 ± 0.18  (most robust — needs strong distractors)
+Flash 2.5:   ε* = 0.28 ± 0.11  (most fragile)
+Flash 3:     ε* = 0.41 ± 0.14  (moderate)
+</code></pre>
+<p><strong>Step 4: Interpret.</strong> In this illustration Flash 2.5 is the most fragile model (lowest threshold) while Claude is the most robust to distractors (highest threshold). Claude&rsquo;s anisotropic vulnerability under framing (resistant to dramatic exaggeration, susceptible to euphemistic minimization) would be invisible in a scalar MRI. The full sensitivity profile is needed.</p>
+<p><strong>Sample output from <code>run_campaign</code>:</strong></p>
+<pre><code class="language-python">mri = {
+    'framing_euphemistic': 0.72,
+    'framing_dramatic': 0.68,
+    'distractor_vivid': 0.55,
+    'distractor_mild': 0.82,
+    'gender_swap': 0.96,       # near-perfect invariance
+    'evaluation_order': 0.98,  # near-perfect invariance
+}
+# Minimum MRI = 0.55 (distractor_vivid) — this is the model's weakest dimension
+</code></pre>
+<p>The radar chart from this output would show a shape that is nearly circular for gender swap and order (high MRI) but dented inward for vivid distractors and dramatic framing (low MRI). This shape <em>is</em> the model&rsquo;s geometric signature, and it differs characteristically across architectures.</p>
+<p><img alt="Figure B.1" src="figures/appb_fig1.svg" /></p>
+<p><em>Figure B.1. The sensitivity profile of step 2 of the worked example, for the distractor task A1, with values as printed in the appendix, which names the models Flash 2.0, Pro and Claude. The horizontal axis is distractor magnitude: the control at 0, mild distractors at 0.3 and vivid ones at 1.0. The vertical axis is sensitivity, the mean distance between the outputs with and without the distractor. Sensitivity rises with magnitude for all three models, the dose-response the appendix describes.</em></p>
+<p><img alt="Figure B.2" src="figures/appb_fig2.svg" /></p>
+<p><em>Figure B.2. The radar chart the appendix recommends, drawn from the sample output of run_campaign printed in Section B.6: one axis per perturbation type, with the Model Robustness Index from 0 at the centre to 1 at the outer ring. The outline is nearly full for gender swap and evaluation order and dented for vivid distractors. That marked minimum, 0.55, is the worst-case figure that Section B.1 reports alongside the vector. This is illustrative sample output; the appendix does not attribute it to a named model.</em></p>
+<h2 id="b7-common-pitfalls-and-troubleshooting">B.7 Common Pitfalls and Troubleshooting</h2>
+<p><strong>1. Control arms too thin.</strong> With fewer than 5 control replications per scenario, the stochastic baseline estimate is unreliable. A model with high inherent randomness will show apparent sensitivity that is actually just noise. Always measure the control flip rate first; sensitivity is only meaningful when it exceeds the control baseline by a statistically significant margin (we recommend z &gt; 2.0).</p>
+<p><strong>2. Confounding perturbation type with content.</strong> Euphemistic rewrites may inadvertently change moral content (softening &ldquo;theft&rdquo; to &ldquo;borrowing without asking&rdquo; changes what happened, not just how it&rsquo;s described). The three-tier data architecture mitigates this: gold-tier rewrites are hand-audited to preserve content; generated-tier rewrites are produced by a fixed transformer and may occasionally fail. Always report gold-tier and generated-tier results separately.</p>
+<p><strong>3. Budget-sensitive profiling.</strong> With expensive models ($0.65/call for Gemini 2.5 Pro), a full sensitivity profile across 10 magnitudes × 50 scenarios × 5 replications = 2,500 calls ($1,625) is infeasible. Two practical solutions: (a) use the binary two-intensity design (mild/vivid) instead of a continuous sweep; (b) run the continuous sweep only on cheap models and spot-check expensive models at the threshold.</p>
+<p><strong>4. Interpreting null results.</strong> A high MRI score (near 1.0) for a perturbation type is <em>informative</em>, not boring. It means the model possesses a genuine symmetry — it is invariant under that transformation. The T2 gender-swap result (MRI 0.96) validates that the benchmark can distinguish invariance from violation. Without such null results, significant findings are uninterpretable.</p>
+<p><strong>5. Aggregation across perturbation types.</strong> The minimum-MRI aggregation is deliberately conservative. An alternative is the geometric mean, which is less sensitive to outliers but can hide a single catastrophic fragility. We recommend reporting both the per-type MRI vector and the aggregate minimum, never the aggregate alone.</p>
+      </div>
+
+      <div class="chapter-nav-bottom">
+        <a href="appendix_a_mathematical_prerequisites.html" class="nav-prev">&larr; Appendix A: Mathematical Prerequisites</a>
+        <a href="index.html" class="nav-toc">Contents</a>
+        <a href="appendix_c_benchmark_implementations.html" class="nav-next">Appendix C: Benchmark Implementations &rarr;</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="book-footer">
+    <p>&copy; 2026 Andrew H. Bond. <em>Geometric Reasoning: From Search to Manifolds.</em></p>
+    <p class="footer-note">The geometry was always real. The scalars were always insufficient.</p>
+  </footer>
+
+  <script src="../assets/js/series.js"></script>
+  <script>
+    window.addEventListener('scroll', function () {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+    document.querySelector('.nav-toggle')?.addEventListener('click', function () {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\\\(', right: '\\\\)', display: false},
+        {left: '\\\\[', right: '\\\\]', display: true}
+      ],
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      throwOnError: false
+    });"></script>
+</body>
+</html>

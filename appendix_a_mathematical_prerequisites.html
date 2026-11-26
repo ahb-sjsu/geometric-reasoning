@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appendix A: Mathematical Prerequisites &mdash; Geometric Reasoning</title>
+  <meta name="description" content="Appendix A: Mathematical Prerequisites from Geometric Reasoning: From Search to Manifolds, by Andrew H. Bond.">
+  <meta name="generator" content="geometric-series build kit">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../book/book.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+
+<body data-book-slug="geometric-reasoning" data-chapter-id="appendix_a_mathematical_prerequisites">
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="brand-symbol">M</span>
+        <span class="brand-text">Geometric Reasoning</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="series-nav-list"></ul>
+    </div>
+  </nav>
+
+  <article class="book-chapter">
+    <div class="chapter-container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Geometric Series</a>
+        <span class="breadcrumb-sep">&rsaquo;</span>
+        <a href="index.html">Geometric Reasoning</a>
+        <span class="breadcrumb-sep">&rsaquo;</span>
+        <span class="breadcrumb-current">Appendix A: Mathematical Prerequisites</span>
+      </nav>
+      <div class="chapter-nav-top">
+        <a href="ch16_geometric_reasoning_as_a_field.html" class="nav-prev">&larr; Chapter 16: Geometric Reasoning as a Field</a>
+        <a href="index.html" class="nav-toc">Contents</a>
+        <a href="appendix_b_structural_fuzzing.html" class="nav-next">Appendix B: The Structural Fuzzing Toolkit &rarr;</a>
+      </div>
+
+      <div class="chapter-content">
+<h1 id="appendix-a-mathematical-prerequisites">Appendix A: Mathematical Prerequisites</h1>
+<p>This appendix provides a concise review of the mathematical tools used throughout the book. It is not a substitute for a textbook treatment; the goal is to establish notation, state key definitions, and build the intuitions that the main text relies on. Readers seeking a fuller development should consult do Carmo (1992) for Riemannian geometry, Bhatia (2007) for SPD manifolds, Edelsbrunner and Harer (2010) for persistent homology, and Artin (1991) for group theory.</p>
+<hr />
+<h2 id="a1-manifolds-and-tangent-spaces">A.1 Manifolds and Tangent Spaces</h2>
+<h3 id="smooth-manifolds">Smooth Manifolds</h3>
+<p>A <strong>smooth manifold</strong> of dimension $n$ is a topological space $M$ that is locally homeomorphic to $\mathbb{R}^n$ and equipped with a smooth structure. &ldquo;Locally homeomorphic&rdquo; means that every point $p \in M$ has a neighborhood $U$ and a homeomorphism $\varphi: U \to \varphi(U) \subseteq \mathbb{R}^n$. The pair $(U, \varphi)$ is a <strong>chart</strong>, and the components of $\varphi(p) = (x^1, \ldots, x^n)$ are <strong>local coordinates</strong> of $p$.</p>
+<p>A collection of charts $\{(U_\alpha, \varphi_\alpha)\}$ that covers $M$ (i.e., $\bigcup_\alpha U_\alpha = M$) is an <strong>atlas</strong>. The smooth structure requires that whenever two charts overlap &mdash; $U_\alpha \cap U_\beta \neq \emptyset$ &mdash; the <strong>transition map</strong> $\varphi_\beta \circ \varphi_\alpha^{-1}: \varphi_\alpha(U_\alpha \cap U_\beta) \to \varphi_\beta(U_\alpha \cap U_\beta)$ is a smooth (infinitely differentiable) map between open subsets of $\mathbb{R}^n$.</p>
+<p><strong>The key intuition.</strong> A manifold is a space that looks like $\mathbb{R}^n$ in every small neighborhood, but may have a different global shape. The surface of a sphere is a 2-manifold: every small patch looks flat, but the global topology is that of $S^2$, not $\mathbb{R}^2$. The reasoning manifold of this book (Chapter 2) is, by hypothesis, a manifold: every small neighborhood of reasoning states is parameterizable by a finite number of coordinates, even though the global structure may be complex.</p>
+<h3 id="tangent-vectors-and-the-tangent-bundle">Tangent Vectors and the Tangent Bundle</h3>
+<p>At each point $p \in M$, the <strong>tangent space</strong> $T_p M$ is the vector space of all &ldquo;directions&rdquo; in which one can move from $p$. Formally, a tangent vector $v \in T_p M$ can be defined as a derivation &mdash; a linear map $v: C^\infty(M) \to \mathbb{R}$ satisfying the Leibniz rule $v(fg) = f(p)v(g) + g(p)v(f)$.</p>
+<p>In local coordinates $(x^1, \ldots, x^n)$, the partial derivatives $\partial / \partial x^1 |_p, \ldots, \partial / \partial x^n |_p$ form a basis for $T_p M$, and any tangent vector can be written as $v = v^i \frac{\partial}{\partial x^i}|_p$ (using the Einstein summation convention: repeated upper and lower indices are summed over).</p>
+<p>The <strong>tangent bundle</strong> $TM = \bigsqcup_{p \in M} T_p M$ is the disjoint union of all tangent spaces, itself a smooth manifold of dimension $2n$. A point in $TM$ is a pair $(p, v)$ where $p \in M$ and $v \in T_p M$. A smooth curve $\gamma: [0,1] \to M$ has a velocity vector $\dot{\gamma}(t) = \frac{d\gamma^i}{dt} \frac{\partial}{\partial x^i} \in T_{\gamma(t)} M$ at each time $t$ &mdash; the velocity is a section of the tangent bundle along the curve.</p>
+<p>In the reasoning framework, a tangent vector at a reasoning state represents an <em>infinitesimal reasoning step</em>: the direction and rate of change of the state at a particular instant. The velocity $\dot{\gamma}(t)$ of a reasoning trajectory is the &ldquo;direction of thought&rdquo; at time $t$.</p>
+<hr />
+<h2 id="a2-riemannian-metrics-and-distance">A.2 Riemannian Metrics and Distance</h2>
+<h3 id="the-metric-tensor">The Metric Tensor</h3>
+<p>A <strong>Riemannian metric</strong> on a smooth manifold $M$ is a smooth assignment of an inner product $g_p: T_p M \times T_p M \to \mathbb{R}$ to each tangent space $T_p M$. In local coordinates, the metric is represented by a symmetric positive definite matrix:</p>
+<p>$$g = g_{ij}(x) \, dx^i \otimes dx^j$$</p>
+<p>where $g_{ij}(x) = g\left(\frac{\partial}{\partial x^i}, \frac{\partial}{\partial x^j}\right)$. The matrix $(g_{ij})$ is positive definite at each point, which ensures that the inner product is non-degenerate: every nonzero tangent vector has positive length.</p>
+<p>The metric determines the <strong>length of a tangent vector</strong>: $\|v\|_g = \sqrt{g_{ij} v^i v^j}$, the <strong>angle between tangent vectors</strong>: $\cos \theta = g_{ij} v^i w^j / (\|v\| \|w\|)$, and the <strong>length of a curve</strong> $\gamma: [a,b] \to M$:</p>
+<p>$$L[\gamma] = \int_a^b \sqrt{g_{ij}(\gamma(t)) \dot{\gamma}^i(t) \dot{\gamma}^j(t)} \, dt$$</p>
+<p>The <strong>geodesic distance</strong> between two points $p, q \in M$ is the infimum of the lengths of all smooth curves connecting them:</p>
+<p>$$d(p, q) = \inf_{\gamma: \gamma(0) = p, \gamma(1) = q} L[\gamma]$$</p>
+<p>This is a true metric in the topological sense (non-negative, symmetric, satisfies the triangle inequality) and makes $(M, d)$ a metric space compatible with its manifold topology.</p>
+<h3 id="the-levi-civita-connection-and-christoffel-symbols">The Levi-Civita Connection and Christoffel Symbols</h3>
+<p>To differentiate vector fields on a manifold, we need a <strong>connection</strong>: a rule for comparing tangent vectors at different points. The Riemannian metric determines a unique connection &mdash; the <strong>Levi-Civita connection</strong> $\nabla$ &mdash; characterized by two properties:</p>
+<ol>
+<li><strong>Metric compatibility</strong>: $\nabla g = 0$, i.e., parallel transport preserves inner products.</li>
+<li><strong>Torsion-free</strong>: $\nabla_X Y - \nabla_Y X = [X, Y]$ for all vector fields $X, Y$.</li>
+</ol>
+<p>In local coordinates, the connection is encoded by the <strong>Christoffel symbols of the second kind</strong>:</p>
+<p>$$\Gamma^k_{ij} = \frac{1}{2} g^{kl}\left(\frac{\partial g_{jl}}{\partial x^i} + \frac{\partial g_{il}}{\partial x^j} - \frac{\partial g_{ij}}{\partial x^l}\right)$$</p>
+<p>where $g^{kl}$ is the inverse metric: $g^{kl} g_{lm} = \delta^k_m$. The Christoffel symbols measure how the coordinate basis vectors change from point to point and are needed for the geodesic equation and curvature computations.</p>
+<hr />
+<h2 id="a3-geodesics-and-curvature">A.3 Geodesics and Curvature</h2>
+<h3 id="the-geodesic-equation">The Geodesic Equation</h3>
+<p>A <strong>geodesic</strong> is a curve $\gamma(t)$ that parallel-transports its own velocity vector &mdash; intuitively, a curve that is &ldquo;as straight as possible&rdquo; given the curvature of the manifold. In local coordinates, it satisfies:</p>
+<p>$$\frac{d^2 \gamma^k}{dt^2} + \Gamma^k_{ij} \frac{d\gamma^i}{dt} \frac{d\gamma^j}{dt} = 0$$</p>
+<p>This is a system of $n$ coupled second-order ODEs. Given an initial point $\gamma(0) = p$ and initial velocity $\dot{\gamma}(0) = v \in T_p M$, the geodesic exists and is unique in a neighborhood of $p$ (by the standard existence and uniqueness theorem for ODEs). In flat Euclidean space ($\Gamma^k_{ij} = 0$), geodesics are straight lines: $\gamma(t) = p + tv$. On a sphere, they are great circles. The derivation from the energy functional via the Euler-Lagrange equations is given in Chapter 4.</p>
+<h3 id="curvature">Curvature</h3>
+<p>Curvature measures how the manifold deviates from being flat. There are several notions, each capturing a different aspect of the geometry.</p>
+<p><strong>The Riemann curvature tensor</strong> $R^l_{\ ijk}$ is the fundamental curvature object, measuring the failure of parallel transport around an infinitesimal loop:</p>
+<p>$$R^l_{\ ijk} = \frac{\partial \Gamma^l_{jk}}{\partial x^i} - \frac{\partial \Gamma^l_{ik}}{\partial x^j} + \Gamma^l_{im} \Gamma^m_{jk} - \Gamma^l_{jm} \Gamma^m_{ik}$$</p>
+<p><strong>Sectional curvature</strong> $K(\sigma)$ is the curvature of a 2-dimensional section of the tangent space. Given two linearly independent tangent vectors $u, v \in T_p M$ spanning a 2-plane $\sigma$:</p>
+<p>$$K(\sigma) = \frac{R_{ijkl} u^i v^j u^k v^l}{(g_{ik} g_{jl} - g_{il} g_{jk}) u^i v^j u^k v^l}$$</p>
+<p>where $R_{ijkl} = g_{lm} R^m_{\ ijk}$.</p>
+<p><strong>Ricci curvature</strong> $\text{Ric}_{ij}$ is the trace of the Riemann tensor over two indices:</p>
+<p>$$\text{Ric}_{ij} = R^k_{\ ikj}$$</p>
+<p>It measures the average sectional curvature over all 2-planes containing a given direction. <strong>Scalar curvature</strong> $R = g^{ij} \text{Ric}_{ij}$ is the full trace &mdash; a single number at each point summarizing the average curvature.</p>
+<p><strong>Geometric effects of curvature.</strong> The sign of curvature determines how geodesics behave:</p>
+<ul>
+<li><strong>Positive curvature</strong> (like a sphere): initially parallel geodesics converge. Triangles have angle sums greater than $\pi$. The manifold is &ldquo;compact&rdquo; in a local sense.</li>
+<li><strong>Zero curvature</strong> (like flat space): initially parallel geodesics remain parallel. Triangles have angle sum exactly $\pi$.</li>
+<li><strong>Negative curvature</strong> (like a saddle or hyperbolic space): initially parallel geodesics diverge. Triangles have angle sums less than $\pi$. There is &ldquo;more room&rdquo; at each point than in flat space.</li>
+</ul>
+<p>In the reasoning framework, positive curvature means that distinct reasoning trajectories starting from nearby initial states tend to converge &mdash; the manifold funnels reasoning toward a shared conclusion. Negative curvature means they diverge &mdash; small differences in initial state lead to increasingly different reasoning paths. This is why the hyperbolic geometry of Section 14.5 is natural for hierarchical reasoning: the exponential growth of volume with distance in negatively curved space matches the branching structure of hierarchical decomposition.</p>
+<hr />
+<h2 id="a4-the-spd-manifold">A.4 The SPD Manifold</h2>
+<h3 id="definition">Definition</h3>
+<p>The space $\text{SPD}(n)$ consists of all $n \times n$ real symmetric matrices $P$ such that $x^T P x &gt; 0$ for all nonzero $x \in \mathbb{R}^n$. Equivalently, $P \in \text{SPD}(n)$ if and only if $P = P^T$ and all eigenvalues of $P$ are strictly positive.</p>
+<p>$\text{SPD}(n)$ is an open cone in the vector space of symmetric matrices: it is closed under addition and positive scalar multiplication, and it is an open subset of $\mathbb{R}^{n(n+1)/2}$ (the space of symmetric matrices). As an open subset of Euclidean space, it is automatically a smooth manifold of dimension $n(n+1)/2$.</p>
+<h3 id="the-affine-invariant-metric">The Affine-Invariant Metric</h3>
+<p>The standard Riemannian metric on $\text{SPD}(n)$ is the <strong>affine-invariant metric</strong>. At a point $P \in \text{SPD}(n)$, the tangent space $T_P \text{SPD}(n)$ is the space of symmetric matrices, and the inner product is:</p>
+<p>$$\langle S_1, S_2 \rangle_P = \text{tr}(P^{-1} S_1 P^{-1} S_2)$$</p>
+<p>where $S_1, S_2$ are symmetric matrices (tangent vectors). The resulting geodesic distance between $P, Q \in \text{SPD}(n)$ is:</p>
+<p>$$d(P, Q) = \|\log(P^{-1/2} Q P^{-1/2})\|_F = \left(\sum_{i=1}^n \log^2 \lambda_i\right)^{1/2}$$</p>
+<p>where $\lambda_1, \ldots, \lambda_n$ are the eigenvalues of $P^{-1} Q$ and $\|\cdot\|_F$ is the Frobenius norm. This metric is <strong>affine-invariant</strong>: for any invertible matrix $A$, $d(A P A^T, A Q A^T) = d(P, Q)$.</p>
+<h3 id="the-log-euclidean-approximation">The Log-Euclidean Approximation</h3>
+<p>Computing the affine-invariant distance requires matrix square roots and logarithms, which can be expensive for large $n$. The <strong>log-Euclidean metric</strong> provides a computationally cheaper alternative:</p>
+<p>$$d_{\text{LE}}(P, Q) = \|\log P - \log Q\|_F$$</p>
+<p>where $\log$ is the matrix logarithm. This maps each SPD matrix to the vector space of symmetric matrices via $P \mapsto \log P$, after which the Euclidean (Frobenius) distance is used. The log-Euclidean metric is a first-order approximation to the affine-invariant metric and is exact when $P$ and $Q$ commute.</p>
+<h3 id="why-spd-matters">Why SPD Matters</h3>
+<p>SPD matrices arise naturally in several contexts relevant to this book:</p>
+<ul>
+<li><strong>Covariance matrices.</strong> The sample covariance matrix of a multivariate distribution is SPD (when the sample size exceeds the dimension). Comparing covariance matrices &mdash; e.g., comparing the spectral characteristics of different audio recordings (Section 14.4) &mdash; is a problem on $\text{SPD}(n)$.</li>
+<li><strong>Fisher information matrices.</strong> The Fisher information matrix $g_{ij}(\theta)$ is an SPD matrix (under regularity conditions). The space of Fisher information matrices, as the parameter $\theta$ varies, traces a curve on $\text{SPD}(n)$.</li>
+<li><strong>Diffusion tensors.</strong> In diffusion MRI, each voxel&rsquo;s diffusion characteristics are described by a $3 \times 3$ SPD matrix.</li>
+</ul>
+<p>The BirdCLEF pipeline of Section 14.4 uses $\text{SPD}(16)$: 16-band covariance matrices computed from mel spectrograms. The 136-dimensional feature vector (the upper triangle of the $16 \times 16$ covariance matrix) lives on the SPD manifold, and the log-Euclidean distance between these feature vectors measures spectral dissimilarity in a geometrically principled way.</p>
+<hr />
+<h2 id="a5-persistent-homology">A.5 Persistent Homology</h2>
+<h3 id="simplicial-complexes-and-filtrations">Simplicial Complexes and Filtrations</h3>
+<p>A <strong>simplicial complex</strong> $K$ is a collection of simplices &mdash; vertices (0-simplices), edges (1-simplices), triangles (2-simplices), tetrahedra (3-simplices), etc. &mdash; that is closed under taking faces. A <strong>filtration</strong> is a nested sequence of simplicial complexes:</p>
+<p>$$\emptyset = K_0 \subseteq K_1 \subseteq K_2 \subseteq \cdots \subseteq K_N = K$$</p>
+<p>typically parameterized by a scale parameter $\epsilon$: $K_\epsilon$ includes all simplices whose vertices are within distance $\epsilon$ of each other. As $\epsilon$ increases, more simplices are added, and the complex grows.</p>
+<p>The two standard constructions are:</p>
+<ul>
+<li><strong>Vietoris-Rips complex</strong> $\text{VR}_\epsilon(X)$: a simplex $\{x_0, \ldots, x_k\}$ is included if $d(x_i, x_j) \leq \epsilon$ for all $i, j$. Easy to compute; may be large.</li>
+<li><strong>Cech complex</strong> $\check{C}_\epsilon(X)$: a simplex $\{x_0, \ldots, x_k\}$ is included if the balls $B_\epsilon(x_0), \ldots, B_\epsilon(x_k)$ have a common intersection. Harder to compute; gives exact topological information via the Nerve Theorem.</li>
+</ul>
+<h3 id="betti-numbers">Betti Numbers</h3>
+<p>The <strong>Betti numbers</strong> $\beta_0, \beta_1, \beta_2, \ldots$ of a simplicial complex count its topological features:</p>
+<ul>
+<li>$\beta_0$: the number of connected components.</li>
+<li>$\beta_1$: the number of independent loops (1-dimensional holes).</li>
+<li>$\beta_2$: the number of independent voids (2-dimensional cavities).</li>
+<li>$\beta_k$: the number of independent $k$-dimensional holes.</li>
+</ul>
+<p>Formally, $\beta_k = \text{rank}(H_k(K))$, where $H_k(K)$ is the $k$-th homology group of $K$. These are computed as $\beta_k = \text{rank}(\ker \partial_k) - \text{rank}(\text{im} \, \partial_{k+1})$, where $\partial_k$ is the boundary operator mapping $k$-chains to $(k-1)$-chains.</p>
+<h3 id="persistence-diagrams-and-stability">Persistence Diagrams and Stability</h3>
+<p>As the filtration parameter $\epsilon$ increases, topological features appear (are &ldquo;born&rdquo;) and disappear (&ldquo;die&rdquo;). A connected component is born when a new vertex appears and dies when it merges with another component. A loop is born when a cycle of edges forms and dies when a triangle fills it in.</p>
+<p>A <strong>persistence diagram</strong> is a multiset of points $(b_i, d_i)$ in the plane, where $b_i$ is the birth time and $d_i$ is the death time of the $i$-th feature. Points far from the diagonal $d = b$ represent persistent (long-lived) features &mdash; likely genuine topological structure. Points near the diagonal represent short-lived features &mdash; likely noise.</p>
+<p>The <strong>stability theorem</strong> (Cohen-Steiner, Edelsbrunner, and Harer, 2007) guarantees that small perturbations of the input data produce small perturbations of the persistence diagram (in the bottleneck or Wasserstein distance). This makes persistent homology robust to noise.</p>
+<h3 id="the-takens-embedding-theorem">The Takens Embedding Theorem</h3>
+<p>Takens&rsquo; theorem (1981) provides the bridge from time series to topology. Given a dynamical system with state space $M$ and a smooth observation function $\phi: M \to \mathbb{R}$, the <strong>delay embedding</strong> $\Phi: M \to \mathbb{R}^d$ defined by:</p>
+<p>$$\Phi(x) = (\phi(x), \phi(F(x)), \phi(F^2(x)), \ldots, \phi(F^{d-1}(x)))$$</p>
+<p>where $F$ is the dynamics map, is generically an embedding when $d &gt; 2 \dim(M)$. That is, the delay embedding recovers the topology of the state space from a single scalar time series.</p>
+<p>The BirdCLEF pipeline (Section 14.4) uses Takens embedding with delay $\tau = 10$ and embedding dimension $d = 3$ to reconstruct the attractor of the audio signal dynamics. Persistent homology is then applied to the embedded point cloud to extract topological features: $\beta_0$ (number of components &mdash; related to the number of distinct spectral modes), $\beta_1$ (number of loops &mdash; related to periodicity in the signal). The resulting 16-dimensional TDA feature vector (persistence statistics across multiple frequency bands) captures topological structure that is invisible to pointwise spectral features.</p>
+<hr />
+<h2 id="a6-group-theory-for-data-augmentation">A.6 Group Theory for Data Augmentation</h2>
+<h3 id="groups-and-subgroups">Groups and Subgroups</h3>
+<p>A <strong>group</strong> $(G, \cdot)$ is a set $G$ equipped with a binary operation $\cdot$ satisfying:</p>
+<ol>
+<li><strong>Closure</strong>: $a \cdot b \in G$ for all $a, b \in G$.</li>
+<li><strong>Associativity</strong>: $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ for all $a, b, c \in G$.</li>
+<li><strong>Identity</strong>: There exists $e \in G$ such that $e \cdot a = a \cdot e = a$ for all $a$.</li>
+<li><strong>Inverses</strong>: For each $a \in G$, there exists $a^{-1} \in G$ such that $a \cdot a^{-1} = a^{-1} \cdot a = e$.</li>
+</ol>
+<p>A <strong>subgroup</strong> $H \leq G$ is a subset that is itself a group under the same operation. The <strong>order</strong> $|G|$ is the number of elements (for finite groups).</p>
+<h3 id="key-examples">Key Examples</h3>
+<p><strong>The symmetric group</strong> $S_n$ is the group of all permutations of $\{1, 2, \ldots, n\}$, with composition as the group operation. It has order $|S_n| = n!$. In Section 14.1, $S_8$ acts on bit positions (permuting which bit is which), $S_{26}$ acts on the alphabet (permuting letters in a cipher), and $S_n$ acts on symbols (permuting symbol labels).</p>
+<p><strong>The dihedral group</strong> $D_n$ is the group of symmetries of a regular $n$-gon, consisting of $n$ rotations and $n$ reflections, with order $|D_n| = 2n$. In Section 14.1, $D_8$ (often written $D_4$ in the convention that indexes by the polygon rather than the group order) acts on 2D grids by rotation and reflection. The Hohfeldian $D_4$ of Section 8.8 acts on the four-element set $\{O, C, L, N\}$ (Obligation, Claim, Liberty, No-Right) by the symmetries of the Hohfeldian square.</p>
+<p><strong>The cyclic group</strong> $\mathbb{Z}_n$ is the group of integers modulo $n$ under addition. $\mathbb{Z}_2 = \{0, 1\}$ acts as a binary flip: in Section 14.1, it is the bitwise complement operation.</p>
+<p><strong>Continuous groups.</strong> The multiplicative group $\mathbb{R}^+ = (\mathbb{R}_{&gt;0}, \times)$ of positive reals under multiplication is a one-dimensional Lie group. In Section 14.1, it acts by rescaling physical constants (gravitational constant, conversion factors).</p>
+<h3 id="group-actions">Group Actions</h3>
+<p>A <strong>group action</strong> of $G$ on a set $X$ is a map $\rho: G \times X \to X$, written $\rho(g, x) = g \cdot x$, satisfying:</p>
+<ol>
+<li>$e \cdot x = x$ for all $x \in X$ (the identity acts trivially).</li>
+<li>$(gh) \cdot x = g \cdot (h \cdot x)$ for all $g, h \in G$ and $x \in X$ (the action is compatible with the group operation).</li>
+</ol>
+<p>The <strong>orbit</strong> of a point $x$ under $G$ is $G \cdot x = \{g \cdot x : g \in G\}$ &mdash; the set of all points reachable from $x$ by applying group elements. The <strong>stabilizer</strong> of $x$ is $G_x = \{g \in G : g \cdot x = x\}$ &mdash; the subgroup of elements that fix $x$.</p>
+<h3 id="invariant-and-equivariant-maps">Invariant and Equivariant Maps</h3>
+<p>A function $f: X \to Y$ is <strong>$G$-invariant</strong> if $f(g \cdot x) = f(x)$ for all $g \in G$ and $x \in X$. The function&rsquo;s output does not depend on which element of the orbit $G \cdot x$ is presented as input. This is the mathematical formulation of the Bond Invariance Principle (Chapter 8): a reasoning process should be invariant under gauge transformations.</p>
+<p>A function $f: X \to Y$ is <strong>$G$-equivariant</strong> (where $G$ also acts on $Y$) if $f(g \cdot x) = g \cdot f(x)$ for all $g \in G$ and $x \in X$. The function commutes with the group action: transforming the input and then applying $f$ gives the same result as applying $f$ and then transforming the output. Equivariance is a weaker condition than invariance but still imposes strong structural constraints.</p>
+<h3 id="the-orbit-stabilizer-theorem">The Orbit-Stabilizer Theorem</h3>
+<p><strong>Theorem.</strong> <em>For a finite group $G$ acting on a set $X$, and any $x \in X$:</em></p>
+<p>$$|G| = |G \cdot x| \times |G_x|$$</p>
+<p><em>That is, the order of the group equals the size of the orbit times the order of the stabilizer.</em></p>
+<p>This theorem is directly relevant to data augmentation. If we augment a training example $x$ by applying all elements of a symmetry group $G$, the number of distinct augmented examples is $|G \cdot x| = |G| / |G_x|$. If $x$ has no symmetries (the stabilizer is trivial, $G_x = \{e\}$), we get $|G|$ augmented examples. If $x$ has symmetries (e.g., a palindromic bit string is fixed by certain permutations), we get fewer.</p>
+<p>In the Nemotron pipeline (Section 14.1), the orbit-stabilizer theorem explains why the augmentation expansion factor varies: some training examples have non-trivial stabilizers under the relevant symmetry group (e.g., a bit manipulation rule that is invariant under certain bit permutations), yielding fewer distinct augmented versions. The 1.5&ndash;2.5x expansion range reflects the average orbit size across the dataset &mdash; a direct consequence of the distribution of stabilizer sizes.</p>
+<p>This completes the mathematical prerequisites. The main text uses these tools freely; this appendix is intended as a reference for readers who encounter an unfamiliar definition or who wish to verify the precise formulation of a statement used in the argument.</p>
+      </div>
+
+      <div class="chapter-nav-bottom">
+        <a href="ch16_geometric_reasoning_as_a_field.html" class="nav-prev">&larr; Chapter 16: Geometric Reasoning as a Field</a>
+        <a href="index.html" class="nav-toc">Contents</a>
+        <a href="appendix_b_structural_fuzzing.html" class="nav-next">Appendix B: The Structural Fuzzing Toolkit &rarr;</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="book-footer">
+    <p>&copy; 2026 Andrew H. Bond. <em>Geometric Reasoning: From Search to Manifolds.</em></p>
+    <p class="footer-note">The geometry was always real. The scalars were always insufficient.</p>
+  </footer>
+
+  <script src="../assets/js/series.js"></script>
+  <script>
+    window.addEventListener('scroll', function () {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+    document.querySelector('.nav-toggle')?.addEventListener('click', function () {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\\\(', right: '\\\\)', display: false},
+        {left: '\\\\[', right: '\\\\]', display: true}
+      ],
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      throwOnError: false
+    });"></script>
+</body>
+</html>

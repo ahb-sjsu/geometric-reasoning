@@ -369,7 +369,7 @@
 <h2 id="125-budget-constraints-and-reproducibility">12.5 Budget Constraints and Reproducibility</h2>
 <h3 id="1251-the-cost-structure">12.5.1 The Cost Structure</h3>
 <p><strong>[Empirical.]</strong> A benchmark that cannot be reproduced is not a benchmark &mdash; it is an anecdote. The <em>Measuring AGI</em> suite was designed from the outset to be reproducible by any researcher with access to the same API endpoints, and the primary constraint on reproducibility is cost.</p>
-<p><strong>Table 12.2.</strong> Cost and resource structure of the five benchmark tracks, under Kaggle&rsquo;s $0.10/call API pricing.</p>
+<p><strong>Table 12.2.</strong> Cost and resource structure of the five benchmark tracks, under Kaggle&rsquo;s <span class="currency">&#36;</span>0.10/call API pricing.</p>
 <table>
 <thead>
 <tr>
@@ -387,7 +387,7 @@
 <td>T1&ndash;T5</td>
 <td>5</td>
 <td>~2,500</td>
-<td>$25--$45</td>
+<td><span class="currency">&#36;</span>25&ndash;<span class="currency">&#36;</span>45</td>
 <td>45&ndash;73 min</td>
 </tr>
 <tr>
@@ -395,7 +395,7 @@
 <td>L1&ndash;L4</td>
 <td>3&ndash;5</td>
 <td>~1,800</td>
-<td>$18--$35</td>
+<td><span class="currency">&#36;</span>18&ndash;<span class="currency">&#36;</span>35</td>
 <td>30&ndash;55 min</td>
 </tr>
 <tr>
@@ -403,7 +403,7 @@
 <td>M1&ndash;M4</td>
 <td>2&ndash;5</td>
 <td>~1,200</td>
-<td>$17--$30</td>
+<td><span class="currency">&#36;</span>17&ndash;<span class="currency">&#36;</span>30</td>
 <td>12&ndash;40 min</td>
 </tr>
 <tr>
@@ -411,7 +411,7 @@
 <td>A1&ndash;A4</td>
 <td>5</td>
 <td>~1,500</td>
-<td>$20--$38</td>
+<td><span class="currency">&#36;</span>20&ndash;<span class="currency">&#36;</span>38</td>
 <td>25&ndash;50 min</td>
 </tr>
 <tr>
@@ -419,7 +419,7 @@
 <td>E1&ndash;E4</td>
 <td>5</td>
 <td>~1,000</td>
-<td>$17--$32</td>
+<td><span class="currency">&#36;</span>17&ndash;<span class="currency">&#36;</span>32</td>
 <td>20&ndash;45 min</td>
 </tr>
 <tr>
@@ -427,12 +427,12 @@
 <td><strong>21</strong></td>
 <td><strong>5</strong></td>
 <td><strong>~8,000</strong></td>
-<td><strong>$97--$180</strong></td>
+<td><strong><span class="currency">&#36;</span>97&ndash;<span class="currency">&#36;</span>180</strong></td>
 <td><strong>132&ndash;263 min</strong></td>
 </tr>
 </tbody>
 </table>
-<p>The cost per track ranges from $17 to $45, well within Kaggle's $50/day free-tier quota. The entire suite can be run in 2--5 days using a single Kaggle account, at a total cost of approximately $100--$180. This is not an incidental feature of the design &mdash; it is a deliberate constraint that shaped every methodological choice.</p>
+<p>The cost per track ranges from <span class="currency">&#36;</span>17 to <span class="currency">&#36;</span>45, well within Kaggle&rsquo;s <span class="currency">&#36;</span>50/day free-tier quota. The entire suite can be run in 2&ndash;5 days using a single Kaggle account, at a total cost of approximately <span class="currency">&#36;</span>100&ndash;<span class="currency">&#36;</span>180. This is not an incidental feature of the design &mdash; it is a deliberate constraint that shaped every methodological choice.</p>
 <h3 id="1252-design-decisions-driven-by-budget">12.5.2 Design Decisions Driven by Budget</h3>
 <p>Several design decisions follow directly from the reproducibility requirement:</p>
 <p><strong>Fixed stimuli rather than generated stimuli.</strong> The 25 Dear Abby scenarios and the AITA corpus sampling strategy are deterministic. Any researcher using the same sampling seed and the same scenario set will produce the same stimuli. This eliminates one source of irreproducibility (variation in stimulus generation) at the cost of limiting stimulus diversity.</p>
