@@ -122,7 +122,7 @@ These could not be settled from anything in the repository. The benchmark's run 
 
 ## Figures and captions made stale
 
-- **Figure 11.2 and its caption.** Drawn from the old table of Section 11.4.1 (0.333 and 0.333, 0.444 and 0.440, 0.563 and 0.560). The caption says "Three models flip at nearly the same rate either way", which is no longer what the table shows. Needs redrawing from the corrected table.
+- **Figure 11.2 and its caption.** Drawn from the old table of Section 11.4.1 (0.333 and 0.333, 0.444 and 0.440, 0.563 and 0.560). The caption says "Three models flip at nearly the same rate either way", which is no longer what the table shows. Redrawn from the corrected table the same day, with the caption reworded (tools/figs_ch09_16.py).
 - **Figure 4.1.** The drawing and caption carry no cost figures and remain correct (lowest point x = -0.11).
 - **Figures 7.2 and 9.2.** Still agree with the text. Both rest on the 0.38 of Unresolved item 1. The caption of Figure 9.2 says none of the five points lies in Quadrant I, which is still right; the text now also says one lies in Quadrant III, which the figure already shows.
 - **Figures B.1 and B.2.** Drawn from the listings of Section B.6, which were not changed. The text now calls the step 2 values illustrative; the caption of Figure B.1 says "values as printed in the appendix" and could add the word. The caption of Figure B.2 refers to "the minimum rule of Section B.1", which the text now describes as a worst-case figure alongside the vector.
