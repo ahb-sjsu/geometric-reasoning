@@ -11,7 +11,7 @@
 >
 > *Dr. Okafor's hospital has decided to implement the geometric framework. The diagnostic AI that assists her triage will be rebuilt using the engineering tools developed in this chapter --- not as post-hoc patches but as principled applications of the geometric theory.*
 >
-> *First, group-theoretic data augmentation. The training data for the triage AI currently contains each clinical case described once, in the style of the physician who wrote it. But the same STEMI can present eight ways: the patient describes it calmly or frantically, in clinical or colloquial language, with or without dramatic accompanying symptoms, with or without a family member narrating. These eight presentations are the elements of a dihedral group $D_4$ acting on two binary framing dimensions (register and affect). The augmentation pipeline generates all eight variants of every training case and tags them with the same ground-truth severity label. The model, seeing the same diagnosis emerge from eight surface-different presentations, learns a $D_4$-invariant representation --- one where framing transformations act as the identity on the diagnostic output.*
+> *First, group-theoretic data augmentation. The training data for the triage AI currently contains each clinical case described once, in the style of the physician who wrote it. But the same STEMI can present eight ways: the patient describes it calmly or frantically, in clinical or colloquial language, with or without a family member narrating. These eight presentations come from three binary framing choices (affect, register and narrator), whose flips commute and generate the group $\mathbb{Z}_2^3$, of order 8. The augmentation pipeline generates all eight variants of every training case and tags them with the same ground-truth severity label. The model, seeing the same diagnosis emerge from eight surface-different presentations, learns a representation invariant under these flips --- one where framing transformations act as the identity on the diagnostic output.*
 >
 > *Second, LoRA fine-tuning as local curvature adjustment. The base model already knows medicine, language, and reasoning. What it needs is local expertise in Dr. Okafor's specific domain: urban emergency triage with the particular patient demographics, resource constraints, and disease prevalence of her hospital. A rank-32 LoRA adapter adjusts the curvature of the reasoning manifold along the 32 directions most relevant to this local expertise, without disturbing the global structure that encodes general medical knowledge. The model becomes locally expert while remaining globally competent.*
 >
@@ -99,7 +99,7 @@ To make the local curvature interpretation precise, consider the weight matrix $
 
 A full-rank update $\Delta W \in \mathbb{R}^{m \times n}$ can change this metric arbitrarily. A rank-$r$ update $\Delta W = BA$ where $B \in \mathbb{R}^{m \times r}$ and $A \in \mathbb{R}^{r \times n}$ can only change the metric along $r$ directions in the input space (the row space of $A$) and $r$ directions in the output space (the column space of $B$). All other directions are left unchanged.
 
-For $r = 32$ and $n = m = 4096$ (typical transformer dimensions), the update affects only $32/4096 \approx 0.8\%$ of the metric's degrees of freedom. This is why LoRA preserves global structure: it adjusts the geometry along a thin slice of the manifold while leaving the rest intact. The thin slice corresponds to the subspace of the representation that is most relevant to the fine-tuning task --- the directions that need the most curvature adjustment.
+For $r = 32$ and $n = m = 4096$ (typical transformer dimensions), the update reaches only $32/4096 \approx 0.8\%$ of the directions on each side, and its $r(m+n)$ parameters are about 1.6% of the full matrix's $mn$ degrees of freedom (Definition 14.4). This is why LoRA preserves global structure: it adjusts the geometry along a thin slice of the manifold while leaving the rest intact. The thin slice corresponds to the subspace of the representation that is most relevant to the fine-tuning task --- the directions that need the most curvature adjustment.
 
 ### Practical Implementation on Atlas
 
@@ -196,7 +196,7 @@ The choice of $\tau = 10$ and $d = 3$ deserves explanation, as these parameters 
 
 **The delay parameter $\tau = 10$.** Takens' embedding theorem (1981) guarantees that for a smooth dynamical system with attractor dimension $d_A$, a time-delay embedding with dimension $d > 2d_A$ and generic delay $\tau$ reconstructs the attractor topology. But the theorem does not specify the optimal $\tau$. Too small a delay produces an embedding that is stretched along the diagonal of the delay-coordinate space --- the coordinates are nearly identical, and the attractor structure is compressed into a thin sliver. Too large a delay produces an embedding where the coordinates are effectively independent, losing the temporal structure entirely.
 
-For bird vocalizations sampled at standard audio rates (22,050 Hz after resampling), $\tau = 10$ samples corresponds to approximately 0.45 milliseconds of delay. This is chosen to be longer than the correlation time of microphone noise (which decorrelates within 1-2 samples) but shorter than the fundamental period of even the highest-pitched bird calls (above 10 kHz, period $\approx 100$ $\mu$s $\approx 2.2$ samples at 22,050 Hz). The delay therefore opens up the embedding space enough to reveal the signal structure while remaining within the temporal coherence window of the vocalization.
+For bird vocalizations sampled at standard audio rates (22,050 Hz after resampling), $\tau = 10$ samples corresponds to approximately 0.45 milliseconds of delay. This is chosen to be longer than the correlation time of microphone noise (which decorrelates within 1-2 samples) and it is shorter than the fundamental period of calls below about 2.2 kHz. For the highest-pitched bird calls (above 10 kHz, period $\approx 100$ $\mu$s $\approx 2.2$ samples at 22,050 Hz) it spans several periods. The delay therefore opens up the embedding space enough to reveal the signal structure while remaining within the temporal coherence window of the vocalization.
 
 **The embedding dimension $d = 3$.** For a quasiperiodic signal (a sum of incommensurate frequencies), the attractor is a torus whose dimension equals the number of independent frequencies. Most bird calls have 1-3 dominant frequency components, so the attractor dimension is $d_A \leq 3$, and Takens' theorem requires $d > 2d_A = 6$. We use $d = 3$ rather than $d = 7$ for computational efficiency --- the Vietoris-Rips complex on 1000 points in $\mathbb{R}^3$ is tractable, while in $\mathbb{R}^7$ it is prohibitively expensive. The lower dimension means we may miss some topological features of high-dimensional attractors, but for the dominant structures (loops and connected components) it is sufficient.
 
@@ -220,7 +220,7 @@ The full geometric feature vector is:
 - 16 TDA features (topological invariants)
 - **Total: 156 dimensions**
 
-This pipeline runs on CPU only (no GPU required), extracts in parallel across 56 cores, and produces features that are invariant to amplitude scaling, noise level, and recording equipment --- exactly the gauge invariances that matter for species identification.
+This pipeline runs on CPU only (no GPU required), extracts in parallel across 48 threads, and produces features that are invariant to amplitude scaling, noise level, and recording equipment --- exactly the gauge invariances that matter for species identification.
 
 ## 14.5 Hyperbolic Geometry for Hierarchical Reasoning
 
@@ -291,7 +291,7 @@ All of the engineering described in this chapter operates under real-world const
 
 **Budget.** The Measuring AGI benchmarks cost $17-$45 per track, well within the Kaggle $50/day API quota. Total API calls: ~8,000 across all five tracks. The entire empirical program of this book was conducted for less than $300 in API costs.
 
-**Time.** Training Nemotron takes ~32 hours. BirdCLEF feature extraction runs in minutes on 56 CPU cores. The benchmark experiments run in 12-73 minutes per track. No experiment in this book required more than two days of compute.
+**Time.** Training Nemotron takes ~32 hours. BirdCLEF feature extraction runs in minutes on 48 CPU threads. The benchmark experiments run in 12-73 minutes per track. No experiment in this book required more than two days of compute.
 
 **Software.** All code is open-source Python. The geometric feature pipeline uses numpy, scipy, and scikit-learn. The training pipeline uses transformers, peft, and bitsandbytes. The qpatch library (213 lines of code, MIT license) resolves all QLoRA compatibility issues.
 
@@ -365,7 +365,7 @@ The result is a training set that is 1.5--2.5x larger than the original and, mor
 
 **Definition 14.1 (Task Symmetry Group).** For a reasoning task with input space $\mathcal{X}$ and output space $\mathcal{Y}$, the *task symmetry group* $G$ is the largest group of transformations $g: \mathcal{X} \to \mathcal{X}$ such that the ground-truth labeling function $\ell: \mathcal{X} \to \mathcal{Y}$ satisfies $\ell(g(x)) = \ell(x)$ for all $g \in G$ and all $x \in \mathcal{X}$.
 
-**Definition 14.2 (Consistent Augmentation).** An augmentation of training example $(x, y)$ by group element $g \in G$ is *consistent* if the augmented example is $(g(x), y)$ --- the group acts on the input while the label is held fixed. An augmentation is *inconsistent* if the label is modified independently of the group action.
+**Definition 14.2 (Consistent Augmentation).** An augmentation of training example $(x, y)$ by group element $g \in G$ is *consistent* if the augmented example is $(g(x), y)$ --- the group acts on the input while the label is held fixed. Where the output itself transforms under the group, as for the grids of Definition 14.3 and the bit strings of Section 14.1, consistency means the same element is applied to input and output, $(g(x), g(y))$; the form above is the case in which $g$ acts trivially on labels. An augmentation is *inconsistent* if the label is modified independently of the group action.
 
 **Proposition 14.1.** Consistent augmentation by $G$ produces a training set whose empirical distribution is $G$-invariant: for any $g \in G$, the augmented dataset $\{(g(x_i), y_i)\}_{i=1}^N$ has the same empirical distribution (over input-output pairs) as the original. A model trained to minimize empirical risk on the augmented set will, in the limit of sufficient capacity and training, learn a $G$-invariant function $f: \mathcal{X} \to \mathcal{Y}$ satisfying $f(g(x)) = f(x)$ for all $g \in G$.
 

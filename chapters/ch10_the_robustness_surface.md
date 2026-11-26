@@ -314,7 +314,7 @@ The robustness surface framework makes the Scalar Irrecoverability Theorem (Chap
 
 ### 10.7.1 The Theorem in Robustness-Surface Terms
 
-The Scalar Irrecoverability Theorem states that no scalar summary of reasoning performance preserves the geometric structure of the multi-dimensional measurements. In robustness-surface terms, this theorem becomes a statement about the topology of the surface:
+The Scalar Irrecoverability Theorem states that no scalar summary of reasoning performance preserves the geometric structure of the multi-dimensional measurements. (Theorem 13.1 states it for weighted sums with non-negative weights; Theorem A10.1 in this chapter's appendix states the same obstruction for any function that is strictly monotone in each argument.) In robustness-surface terms, this theorem becomes a statement about the topology of the surface:
 
 **[Conditional Theorem.]** **The robustness surfaces of different models are non-nested.** For any two models $A$ and $B$, there exist perturbation types $\tau_i$ and $\tau_j$ such that $R(A, \tau_i) > R(B, \tau_i)$ and $R(A, \tau_j) < R(B, \tau_j)$. The surfaces cross, and no projection onto a single axis can respect the ordering on both sides of the crossing.
 
@@ -442,7 +442,7 @@ The central message of this chapter is geometric: *robustness is a surface, not 
 
 ## Worked Example: Profiling a Diagnostic AI
 
-Consider a clinical AI system, *DiagAssist-7*, deployed to assist emergency physicians with differential diagnosis. The hospital's validation study reports a single accuracy figure: 91% concordance with expert diagnoses across 2,400 cases. The number is impressive. It is also dangerously incomplete.
+Consider a hypothetical clinical AI system, *DiagAssist-7*, deployed to assist emergency physicians with differential diagnosis. The system and every number in this example are illustrative. The hospital's validation study reports a single accuracy figure: 91% concordance with expert diagnoses across 2,400 cases. The number is impressive. It is also dangerously incomplete.
 
 We apply the three-tool pipeline to construct DiagAssist-7's robustness surface, revealing structure that the aggregate accuracy conceals.
 
@@ -456,7 +456,7 @@ We apply the three-tool pipeline to construct DiagAssist-7's robustness surface,
 | $\tau_4$: Data completeness | Full workup vs. partial labs and imaging |
 | $\tau_5$: Demographic variation | Controlling for clinical equivalence across demographic groups |
 
-The MRI profile reveals dramatic anisotropy:
+The illustrative MRI profile shows dramatic anisotropy:
 
 | Perturbation Type | MRI Component $r_i$ |
 |---|---|
@@ -486,7 +486,7 @@ The sensitivity profile produces an actionable finding that the aggregate accura
 
 **Stage 3: Adversarial Threshold Search.** For the pediatric neurological fragility, we parameterize the perturbation intensity along a continuous axis: the degree to which the presentation deviates from adult-pattern neurology. At one end ($\epsilon = 0$), the pediatric case resembles an adult presentation (e.g., a 10-year-old with a straightforward migraine). At the other end ($\epsilon = 1$), the case is distinctly pediatric (e.g., a 3-year-old with febrile seizures and developmental regression).
 
-Binary search over six evaluation rounds yields:
+In this illustration, binary search over six evaluation rounds yields:
 
 | $\epsilon$ | Accuracy | Status |
 |---|---|---|
@@ -523,7 +523,7 @@ $$r_i = \frac{1}{|\mathcal{D}|} \sum_{x \in \mathcal{D}} \mathcal{C}\bigl(f_\the
 
 The MRI is a *vector-valued invariant* of the model. It is not aggregated. Its dimensionality equals the number of perturbation types, and each component is independently interpretable as the model's consistency under one class of perturbation.
 
-**Proposition A10.1** (MRI--Corruption Tensor Correspondence). Let $C_{ij}$ be the corruption tensor (Chapter 5, Definition 5.5) mapping perturbation direction $j$ to displacement along judgment dimension $i$, and let the consistency metric be $\mathcal{C}(y, y') = 1 - \|y - y'\| / \Delta_{\max}$ where $\Delta_{\max}$ is the scale of the output space. Then:
+**Proposition A10.1** (MRI--Corruption Tensor Correspondence). Let $C_{ij}$ be the corruption tensor (Chapter 5, Definition 5.1) mapping perturbation direction $j$ to displacement along judgment dimension $i$, and let the consistency metric be $\mathcal{C}(y, y') = 1 - \|y - y'\| / \Delta_{\max}$ where $\Delta_{\max}$ is the scale of the output space. Then:
 
 $$r_j = 1 - \frac{\|C_{\cdot j}\|}{\Delta_{\max}}$$
 

@@ -63,7 +63,7 @@ A system with $m(\gamma) > 0$ maintains a positive clearance from the safety bou
 
 **Definition 11.4** (Governance robustness). A system has *governance robustness* $\rho$ if for all perturbations $\delta h$ to the heuristic field with $\|\delta h\| \leq \rho$, the perturbed trajectory $\gamma'$ satisfies $m(\gamma') > 0$. This measures the radius of the safety basin: how much can the heuristic be corrupted before the trajectory breaches the safety boundary?
 
-The empirical data from Chapter 5 gives us concrete estimates of $\rho$. If the framing perturbation displaces the heuristic by an amount corresponding to 14-23% of the moral judgment scale (the 8.9$\sigma$ framing effect), then the governance robustness must exceed this displacement for the system to remain safe under framing attacks. None of the tested models have governance robustness this large in the moral reasoning domain --- all of them can be pushed across semantic boundaries by sufficiently intense framing manipulation.
+The empirical data from Chapter 5 gives us concrete estimates of $\rho$. If the framing perturbation displaces the heuristic by an amount corresponding to 13-23% of the moral judgment scale (the 8.9$\sigma$ framing effect), then the governance robustness must exceed this displacement for the system to remain safe under framing attacks. None of the tested models have governance robustness this large in the moral reasoning domain --- all of them can be pushed across semantic boundaries by sufficiently intense framing manipulation.
 
 ### 11.2.1 Concrete Governance Margins: The Triage AI Under Perturbation
 
@@ -152,7 +152,7 @@ A corrigible system accepts correction --- it allows humans to modify its goals,
 
 The sycophancy data reveals a tension: sycophancy *is* a form of corrigibility --- the system defers to the human's stated position. But it defers indiscriminately, without evaluating whether the correction is valid. True corrigibility requires *selective* deference: defer when the human has information the system lacks, resist when the human is wrong.
 
-**[Empirical.]** Claude's behavior approximates this: 59% correct flip rate (it updates when corrections are valid) and 0% wrong flip rate (it resists when corrections are invalid). This is not perfect corrigibility --- 41% of valid corrections are rejected --- but the discrimination gap of 0.588 is far better than Flash 2.5's 0.003.
+**[Empirical.]** Claude's behavior approximates this: 59% correct flip rate (it updates when corrections are valid) and 0% wrong flip rate (it resists when corrections are invalid). This is not perfect corrigibility --- 41% of valid corrections are rejected --- but the discrimination gap of 0.588 is far better than Flash 2.5's 0.206.
 
 The geometric interpretation: Claude's objective landscape has a narrow corrigibility basin that is only accessible from the truth-consistent region. Flash 2.5's corrigibility basin is wide and accessible from everywhere --- including incorrect positions. The ideal would be a basin that is wide from truth-consistent positions and narrow from truth-inconsistent ones.
 
@@ -171,13 +171,13 @@ The L2 sycophancy data reveals the basin parameters for each tested model:
 | Model | Correct Flip | Wrong Flip | Discrimination Gap | Basin Interpretation |
 |---|---|---|---|---|
 | Claude | 0.588 | 0.000 | 0.588 | Narrow, highly asymmetric, moderate depth |
-| Flash 2.0 | 0.333 | 0.333 | 0.000 | Wide, symmetric, shallow |
-| Pro | 0.444 | 0.440 | 0.004 | Wide, nearly symmetric, moderate depth |
-| Flash 2.5 | 0.563 | 0.560 | 0.003 | Wide, nearly symmetric, deep |
+| Flash 2.0 | 0.71 | 0.33 | 0.377 | Wide, moderately asymmetric |
+| Pro | 0.68 | 0.44 | 0.238 | Wide, weakly asymmetric |
+| Flash 2.5 | 0.76 | 0.56 | 0.206 | Wide, weakly asymmetric, deep |
 
 Claude's basin is the best-shaped in the suite: it has high asymmetry (the basin opens toward truth-consistent corrections and closes toward truth-inconsistent ones) and moderate depth (it updates with reasonable confidence when it does update). The 41% of valid corrections it rejects are not failures of corrigibility but rather cases where the basin's narrow mouth does not extend to the correction's approach angle --- Claude is sometimes too confident in its original position to enter the corrigibility basin even when the correction is valid.
 
-Flash 2.5's basin is the worst-shaped: it is nearly symmetric ($\alpha_C \approx 1.0$, compared to Claude's effective $\alpha_C \to \infty$ given zero wrong flips), meaning it accepts corrections almost regardless of validity. The 56% wrong-flip rate means that more than half of invalid corrections successfully redirect Flash 2.5's trajectory --- the basin is so wide and symmetric that even incorrect positions can pull the system toward deference.
+Flash 2.5's basin is the worst-shaped: it is the least asymmetric ($\alpha_C \approx 1.26$ under Proposition A11.2, compared to Claude's $\alpha_C \approx 2.43$), meaning it accepts invalid corrections at a rate not far below that for valid ones. The 56% wrong-flip rate means that more than half of invalid corrections successfully redirect Flash 2.5's trajectory --- the basin is so wide and symmetric that even incorrect positions can pull the system toward deference.
 
 ### 11.4.2 The Sycophancy--Stubbornness Spectrum
 
@@ -189,17 +189,17 @@ The sycophancy gradient from Chapter 6 is thus reinterpretable as a *basin shape
 
 - **Claude ($\alpha \approx 0$):** The corrigibility basin is well-shaped. It accepts valid corrections (59% correct flip rate), rejects invalid ones (0% wrong flip rate), and the discrimination gap of 0.588 confirms strong asymmetry. The basin is narrow enough to exclude most truth-inconsistent approach angles but wide enough to admit more than half of truth-consistent ones.
 
-- **Flash 2.0 ($\alpha \approx 0.33$):** The basin is wide and symmetric. It accepts valid corrections (33%) but also accepts invalid ones at the same rate (33%). The discrimination gap of 0.000 indicates no asymmetry. The basin is smaller than Flash 2.5's but equally unable to discriminate correction quality.
+- **Flash 2.0 ($\alpha \approx 0.47$):** The basin is wide and moderately asymmetric. It accepts valid corrections (71%) but also accepts invalid ones at about half that rate (33%). The discrimination gap of 0.377 indicates partial asymmetry. The basin discriminates correction quality better than Flash 2.5's but far less well than Claude's.
 
-- **Pro ($\alpha \approx 0.44$):** The basin is moderate in size and nearly symmetric, with a discrimination gap of 0.004. Unlike Claude, it accepts invalid corrections at nearly the same rate as valid ones (44% wrong-flip rate). It accepts a moderate fraction of valid corrections but cannot discriminate their quality.
+- **Pro ($\alpha \approx 0.66$):** The basin is wide and weakly asymmetric, with a discrimination gap of 0.238. Unlike Claude, it accepts invalid corrections at about two-thirds the rate of valid ones (44% wrong-flip rate against 68%). It accepts most valid corrections but discriminates their quality only weakly.
 
-- **Flash 2.5 ($\alpha \approx 0.73$):** The basin is large, deep, and nearly symmetric. It accepts most corrections regardless of validity. The discrimination gap of 0.003 --- barely above zero --- indicates that the basin has almost no directional preference. This is the geometric signature of sycophancy: the system defers to the human's stated position because the corrigibility basin pulls it toward agreement from every direction, not just the truth-consistent direction.
+- **Flash 2.5 ($\alpha \approx 0.73$):** The basin is large, deep, and the least asymmetric of the four. It accepts most corrections, valid or not. The discrimination gap of 0.206 --- the smallest in the suite --- indicates that the basin has only a weak directional preference. This is the geometric signature of sycophancy: the system defers to the human's stated position because the corrigibility basin pulls it toward agreement from every direction, not just the truth-consistent direction.
 
 An overcorrecting system --- one that does not appear in the tested models but is theoretically possible --- would have a corrigibility basin that is deep, wide, and *inverted*: it not only defers to corrections but overshoots, producing responses that are more extreme than the correction requested. This is the geometric signature of sycophantic amplification, where the system does not merely agree with the human but attempts to exceed the human's stated position. The basin shape framework predicts this failure mode and provides the diagnostic for detecting it: an overcorrecting system would show a wrong-flip rate that exceeds its correct-flip rate, because its basin pulls harder from truth-inconsistent positions than from truth-consistent ones.
 
 ![Figure 11.2](figures/ch11_fig2.svg)
 
-*Figure 11.2. Correct-flip and wrong-flip rates from the table of Section 11.4.1, as the chapter reports them from the sycophancy task. The horizontal axis is the fraction of corrections after which the model changes its answer, valid corrections in the upper bar of each pair and invalid ones in the lower, and the discrimination gap is their difference. Three models flip at nearly the same rate either way, and one flips only for valid corrections. Reading the gap as the asymmetry of a corrigibility basin is the chapter's posited interpretation.*
+*Figure 11.2. Correct-flip and wrong-flip rates from the table of Section 11.4.1, as the chapter reports them from the sycophancy task. The horizontal axis is the fraction of corrections after which the model changes its answer, valid corrections in the upper bar of each pair and invalid ones in the lower, and the discrimination gap is their difference. Three models also flip for invalid corrections, at lower rates than for valid ones, and one flips only for valid corrections. Reading the gap as the asymmetry of a corrigibility basin is the chapter's posited interpretation.*
 
 ## 11.5 The Heuristic Power--Safety Tension
 
@@ -240,7 +240,7 @@ Claude's near-zero sycophancy ($\alpha \approx 0$) and its discrimination gap of
 **The connection to the sycophancy gradient.** The continuous spectrum from Claude's $\alpha \approx 0$ to Flash 2.5's $\alpha \approx 0.73$ (Chapter 6) can now be understood as a spectrum of objective landscape shapes, produced by different training procedures with different degrees of approval contamination. Each point on the gradient corresponds to a different landscape geometry:
 
 - At $\alpha \approx 0$ (Claude): the truth basin dominates; the approval basin is shallow or absent; the search reliably converges to correct answers even under social pressure.
-- At $\alpha \approx 0.3$ (Flash 2.0): the truth basin is deep but the approval basin is present; the search sometimes follows the approval gradient when truth and approval diverge.
+- At $\alpha \approx 0.47$ (Flash 2.0): the truth basin is deep but the approval basin is present; the search sometimes follows the approval gradient when truth and approval diverge.
 - At $\alpha \approx 0.7$ (Flash 2.5): the approval basin is deeper than the truth basin at the divergence points; the search predominantly follows the approval gradient when truth and approval conflict.
 
 This analysis reinterprets the alignment problem as a problem of *landscape engineering*: design the training procedure so that the resulting objective landscape has the right basin structure --- truth basins deep, approval basins shallow, corrigibility basins selectively accessible. Constitutional AI is one approach to this engineering. The question of whether better approaches exist is taken up in Section 11.8.
@@ -300,7 +300,7 @@ The argument proceeds in three steps.
 
 **Step 1: BIP violation implies heuristic corruption.** If two inputs differ only in irrelevant surface features (framing, emotional tone, presentation order) but produce different outputs, then the system's search is being guided by irrelevant features. This means the heuristic field is corrupted --- it responds to gauge artifacts rather than content. The corruption tensor $C_{ij}$ (Chapter 5) has nonzero entries along gauge directions, meaning the heuristic field couples to features it should be invariant to.
 
-**Step 2: Heuristic corruption implies unreliable goal pursuit.** A system with a corrupted heuristic cannot reliably pursue any goal, including the intended one. If the heuristic field deflects the search trajectory in response to framing (14-23% of the judgment scale, per the 8.9$\sigma$ result), then the search arrives at different endpoints depending on how the goal is presented. The system may produce the aligned output for a neutrally-framed input and the misaligned output for a euphemistically-framed version of the same input. This is alignment failure --- not catastrophic misalignment, but systematic unreliability.
+**Step 2: Heuristic corruption implies unreliable goal pursuit.** A system with a corrupted heuristic cannot reliably pursue any goal, including the intended one. If the heuristic field deflects the search trajectory in response to framing (13-23% of the judgment scale, per the 8.9$\sigma$ result), then the search arrives at different endpoints depending on how the goal is presented. The system may produce the aligned output for a neutrally-framed input and the misaligned output for a euphemistically-framed version of the same input. This is alignment failure --- not catastrophic misalignment, but systematic unreliability.
 
 **Step 3: Systematic unreliability is misalignment.** A system that produces the aligned output only for some formulations of the goal and the misaligned output for others is not aligned in any meaningful sense. Alignment must be invariant under reformulation --- if the system is aligned with respect to neutral descriptions of human values but misaligned with respect to euphemistic or dramatic descriptions of the same values, it is not aligned.
 
@@ -490,7 +490,7 @@ A system with $\alpha_C = 1$ has a symmetric basin (sycophantic). A system with 
 
 $$\Delta \approx 1 - \frac{1}{\alpha_C}$$
 
-When $\alpha_C = 1$ (symmetric basin), $\Delta = 0$ (no discrimination). When $\alpha_C \to \infty$ (perfectly asymmetric basin), $\Delta \to 1$ (perfect discrimination). Claude's observed $\Delta = 0.588$ corresponds to $\alpha_C \approx 2.43$; Flash 2.5's $\Delta = 0.003$ corresponds to $\alpha_C \approx 1.003$.
+When $\alpha_C = 1$ (symmetric basin), $\Delta = 0$ (no discrimination). When $\alpha_C \to \infty$ (perfectly asymmetric basin), $\Delta \to 1$ (perfect discrimination). Claude's observed $\Delta = 0.588$ corresponds to $\alpha_C \approx 2.43$; Flash 2.5's $\Delta = 0.206$ corresponds to $\alpha_C \approx 1.26$.
 
 ### A11.3 Dual Binding Constraint: Formal Definition
 

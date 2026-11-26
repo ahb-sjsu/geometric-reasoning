@@ -70,7 +70,7 @@ Euclidean geometry is the geometry of flat space. In flat space, parallel lines 
 
 **Example 2: The hyperbolic plane.** In hyperbolic geometry, parallel lines diverge exponentially. Triangles have angle sums less than pi. The space has more "room" than Euclidean space of the same dimension --- a disk of radius r in hyperbolic space has area that grows exponentially with r, not quadratically. This is relevant to reasoning because tree-like structures (taxonomies, parse trees, decision trees) embed naturally into hyperbolic space, as Nickel and Kiela (2017) demonstrated for hierarchical representations.
 
-**Example 3: The positive definite cone.** The space of n x n symmetric positive-definite (SPD) matrices is a manifold with non-trivial curvature. The "straight line" in the ambient Euclidean space between two SPD matrices may pass through non-positive-definite matrices --- that is, through points that are outside the manifold. The geodesic (shortest path on the manifold) must curve to stay within the cone. We will return to this example in Section 2.6 when we discuss SPD manifold features in machine learning.
+**Example 3: The positive definite cone.** The space of n x n symmetric positive-definite (SPD) matrices is a manifold with non-trivial curvature. The "straight line" in the ambient Euclidean space between two SPD matrices stays inside the cone, because the cone is convex, but it is not the shortest path in the manifold's own metric, and continued beyond either matrix it reaches non-positive-definite matrices --- that is, points that are outside the manifold. The geodesic (shortest path on the manifold) curves away from that line and stays within the cone however far it is continued. We will return to this example in Section 2.6 when we discuss SPD manifold features in machine learning.
 
 The general lesson is this: **the geometry of the space constrains what counts as a valid path.** Reasoning that looks inefficient in Euclidean terms may be geodesic on the actual manifold, and reasoning that looks direct may be impossible because it passes through forbidden regions. Until we know the geometry, we cannot evaluate the efficiency.
 
@@ -127,7 +127,7 @@ A **geodesic** is a curve that locally minimizes length. Equivalently, it is a c
 
 Geodesics are the gold standard for reasoning trajectories. A reasoning process that follows a geodesic is proceeding as directly as possible from its current state toward the goal, given the geometry of the space. Any deviation from the geodesic represents either wasted effort (the reasoning is taking a longer path than necessary) or a detour forced by incomplete information (the reasoner cannot see the geodesic from its current position).
 
-We will formalize this in Chapter 4 with the Bond Geodesic Formulation, which defines a reasoning trajectory's efficiency as its geodesic deviation --- the ratio of its actual path length to the geodesic length connecting its endpoints.
+We will formalize this in Chapter 4 with the Bond Geodesic Formulation, which defines a reasoning trajectory's efficiency as its geodesic deviation --- the excess of its actual path cost over the cost of the geodesic connecting its endpoints.
 
 ### 2.3.5 Curvature, Formally
 
@@ -219,9 +219,11 @@ Each model receives a moral scenario and is asked to rate the severity of harm a
 
 The harm space is equipped with the standard Euclidean metric as a first approximation, though we will argue shortly that the *true* metric is likely non-Euclidean. Even with this simple metric, the geometric analysis reveals structure that scalar evaluations hide.
 
-### 2.5.2 Test T5: Conservation of Harm Under Framing
+### 2.5.2 Test T5: Framing Susceptibility
 
-The key test for our purposes is T5: Conservation of Harm. Each scenario was rewritten in two registers by a fixed transformer model:
+> **Note (2026-11-26).** Earlier versions of this section named the test "Conservation of Harm". *Geometric Ethics* withdrew Conservation of Harm as a conservation law on 2026-06-19 and kept the weaker claim, representation-invariance of harm accounting. T5 tests that weaker claim, whether the harm assessment stays the same when only the framing changes, and it is named here as Chapters 12 and 13 name it.
+
+The key test for our purposes is T5: Framing Susceptibility. Each scenario was rewritten in two registers by a fixed transformer model:
 
 - **Euphemistic**: softening language while preserving the factual content. "Stole money from the cash register" becomes "redirected funds from the till." "Screamed at her children" becomes "raised her voice with the kids."
 - **Dramatic**: intensifying language while preserving the factual content. "Borrowed the car without asking" becomes "commandeered the vehicle." "Forgot to call" becomes "abandoned all contact."
@@ -232,9 +234,9 @@ The moral content is identical --- the same actions, the same parties, the same 
 
 The results, reported in Bond (2026b) and replicated across five models, are striking:
 
-**Euphemistic rewriting** reduced total harm scores by 10--16 points on the 0--70 scale. That is a displacement of 14--23% of the scale's range. When a scenario that a model rated at total harm 42 was rewritten in euphemistic language, the model rated the morally identical content at 26--32. The model was not making a different moral judgment --- the facts were the same. It was locating the same moral content at a *different position* in harm space because the surface presentation had changed.
+**Euphemistic rewriting** reduced total harm scores by 9--16 points on the 0--70 scale. That is a displacement of 13--23% of the scale's range. When a scenario that a model rated at total harm 42 was rewritten in euphemistic language, the model rated the morally identical content at 26--33. The model was not making a different moral judgment --- the facts were the same. It was locating the same moral content at a *different position* in harm space because the surface presentation had changed.
 
-**Dramatic rewriting** increased total harm scores by 6--11 points. The same moral content, presented with vivid and intense language, was rated as more harmful.
+**Dramatic rewriting** increased total harm scores by 6--11 points in four of the five models (Section 2.5.6 takes up the exception). The same moral content, presented with vivid and intense language, was rated as more harmful.
 
 **The control condition** --- re-evaluating the identical unchanged scenario on a separate API call --- produced drifts of only 1--7 points, attributable to stochastic sampling in the model's decoding process.
 
@@ -283,7 +285,7 @@ This section addresses that objection by connecting the manifold framework to a 
 
 The set of n x n symmetric positive-definite matrices, denoted SPD(n), forms a smooth manifold of dimension n(n+1)/2. Covariance matrices are the canonical example: given a set of observations in R^n, their covariance matrix is a point on SPD(n). This manifold has been studied extensively in information geometry (Pennec, Fillard, and Ayache, 2006; Bhatia, 2009) and has found applications in brain-computer interfaces, radar signal processing, and computer vision.
 
-The SPD manifold is not flat. It has non-positive curvature (it is a Cartan-Hadamard manifold under the affine-invariant metric), meaning that geodesics diverge --- distant points are "more distant" than Euclidean intuition suggests. The Euclidean midpoint of two SPD matrices may not be positive-definite; the geodesic midpoint always is. This is the same phenomenon we noted in Section 2.2.2: the Euclidean straight line passes through forbidden territory, while the manifold geodesic stays on the manifold.
+The SPD manifold is not flat. It has non-positive curvature (it is a Cartan-Hadamard manifold under the affine-invariant metric), meaning that geodesics diverge --- distant points are "more distant" than Euclidean intuition suggests. The Euclidean midpoint of two SPD matrices is positive-definite, because the cone is convex, but it is not the geodesic midpoint. This is the same phenomenon we noted in Section 2.2.2: the Euclidean straight line is not the manifold's shortest path and, continued beyond its endpoints, passes into forbidden territory, while the manifold geodesic stays on the manifold.
 
 ### 2.6.2 Log-Euclidean Features for Audio Classification
 
@@ -309,7 +311,7 @@ After computing the matrix logarithm, we extract the upper triangle (including t
 
 ### 2.6.3 Why This Works: Geometry Matters
 
-**[Established Mathematics.]** The log-Euclidean approach outperforms naive Euclidean treatment of covariance matrices for a precise geometric reason: the Euclidean metric on the space of matrices does not respect the SPD constraint. Two SPD matrices that are "close" in the Euclidean sense may be separated by a large region of non-positive-definite matrices. The Euclidean "straight line" between them is not a valid path on the manifold. By mapping to the logarithmic space first, we obtain a representation where Euclidean distances correspond to manifold distances, and linear interpolation corresponds to geodesic interpolation.
+**[Established Mathematics.]** The log-Euclidean approach outperforms naive Euclidean treatment of covariance matrices for a precise geometric reason: the Euclidean metric on the space of matrices does not respect the SPD geometry. Two SPD matrices that are "close" in the Euclidean sense may be far apart in the manifold's own metric, as happens near the boundary of the cone, where an eigenvalue approaches zero. The Euclidean "straight line" between them stays in the cone but is not a geodesic of the manifold. By mapping to the logarithmic space first, we obtain a representation where Euclidean distances correspond to manifold distances, and linear interpolation corresponds to geodesic interpolation.
 
 In the BirdCLEF pipeline, the 136-dimensional SPD features capture cross-frequency correlations in bird vocalizations --- the pattern of which frequency bands covary with which others. These correlations are invariant to amplitude scaling (because covariance normalizes out the mean) and robust to moderate noise (because covariance estimation averages over time frames). The log-Euclidean mapping ensures that the classifier operates in a space where the distances between these feature vectors are geometrically meaningful.
 
@@ -324,7 +326,7 @@ The BirdCLEF pipeline demonstrates a principle that applies directly to cognitiv
 For SPD matrices, "respecting the manifold" means using the log-Euclidean map rather than naive Euclidean distances. For cognitive states in a language model's activation space, "respecting the manifold" means acknowledging that:
 
 1. The space of coherent reasoning states is not the full activation space R^d (where d may be 4,096 or 12,288 or more), but a low-dimensional manifold M embedded in R^d.
-2. Distances measured in the ambient Euclidean space R^d may not reflect distances on M. Two activation patterns that are close in L2 distance may be separated by a region of incoherent states --- just as two SPD matrices close in Frobenius distance may be separated by a region of non-positive-definite matrices.
+2. Distances measured in the ambient Euclidean space R^d may not reflect distances on M. Two activation patterns that are close in L2 distance may be far apart on M, or separated by a region of incoherent states --- just as two SPD matrices close in Frobenius distance may be far apart in the manifold's own metric.
 3. The "straight line" in activation space between two cognitive states may not be a valid reasoning trajectory. The geodesic on M, which may curve through higher-dimensional space, is the meaningful path.
 4. Feature extraction should respect the manifold structure. Just as we extract the upper triangle of the matrix logarithm for SPD features, analysis of cognitive states should project onto coordinates that respect the manifold geometry --- representation engineering's "concept directions" (Zou et al., 2023) are an early example of this approach.
 
@@ -367,7 +369,7 @@ This chapter has traced the structural hierarchy from graphs to metric spaces to
 
 The **manifold hypothesis for reasoning** extends the classical manifold hypothesis from data to cognition. It claims that the space of coherent reasoning states is low-dimensional, smooth, and curved. If correct, it implies that reasoning quality can be characterized geometrically (as geodesic deviation), that failure modes are geometric pathologies (curvature singularities, broken symmetries, attractor basins), and that robustness is a *directional* property (the manifold may be stiff in some directions and soft in others).
 
-The **moral reasoning example** demonstrated these ideas empirically. In a 7-dimensional harm space, language models' positions are displaced by 10--16 points under euphemistic framing and 6--11 points under dramatic framing (8.9 sigma combined), while remaining invariant under gender swap and evaluation order. The displacement is directional, dose-dependent, and model-specific (Claude shows an asymmetric pattern). These are geometric facts about trajectories on a manifold, not scalar statistics about accuracy.
+The **moral reasoning example** demonstrated these ideas empirically. In a 7-dimensional harm space, language models' positions are displaced by 9--16 points under euphemistic framing and, in four of the five models, by 6--11 points under dramatic framing (8.9 sigma combined), while remaining invariant under gender swap and evaluation order. The displacement is directional, dose-dependent, and model-specific (Claude shows an asymmetric pattern). These are geometric facts about trajectories on a manifold, not scalar statistics about accuracy.
 
 The **SPD manifold example** demonstrated that respecting manifold geometry produces engineering value. By mapping covariance matrices to the log-Euclidean space rather than treating them as Euclidean objects, we obtain 136-dimensional feature vectors that capture meaningful cross-frequency correlations, with spectral trajectories whose geodesic deviation characterizes signal complexity.
 

@@ -185,9 +185,9 @@ This is not noise. The two capabilities are *anti-correlated* across the model f
 
 $$\mathbf{m}_{\text{Flash}} \approx (0.09, 0.72), \quad \mathbf{m}_{\text{Pro}} \approx (0.70, 0.35)$$
 
-The vector from Flash to Pro is approximately $(0.61, -0.37)$. This vector is far from parallel to either axis --- it cuts diagonally across the metacognitive space, indicating that the two models differ along a direction that involves *both* axes simultaneously. But crucially, the two axes are independently varying: knowing a model's position on one axis tells you little about its position on the other. The correlation across the five tested models between M3 and M4 is weakly negative.
+The vector from Flash to Pro is approximately $(0.61, -0.37)$. This vector is far from parallel to either axis --- it cuts diagonally across the metacognitive space, indicating that the two models differ along a direction that involves *both* axes simultaneously. But crucially, the two axes measure distinct capabilities: a high score on one does not bring a high score on the other. The correlation across the five tested models between M3 and M4 is strongly negative (about $-0.98$ on the five pairs of Tables 9.2 and 9.3).
 
-In geometric terms, M3 and M4 define approximately orthogonal dimensions of metacognitive capability. They are independent degrees of freedom in the space of possible metacognitive architectures. A model's total metacognitive capability is not a point on a line (one-dimensional) but a point in a plane (two-dimensional), and the coordinates on the two axes can vary independently.
+In geometric terms, M3 and M4 define two distinct dimensions of metacognitive capability. They are separate degrees of freedom in the space of possible metacognitive architectures, and in the tested models they trade off against each other. A model's total metacognitive capability is not a point on a line (one-dimensional) but a point in a plane (two-dimensional), and a single score cannot stand for both coordinates.
 
 **The control-theoretic interpretation.** The dissociation maps precisely onto a well-known distinction in control theory: the difference between the *sensor* and the *actuator*.
 
@@ -295,7 +295,7 @@ For a content-preserving transformation, $\delta h^*$ should be zero (the true d
 
 $$\delta \hat{h} = \hat{h}(\tau(x)) - \hat{h}(x) \neq 0$$
 
-The system can detect this anomaly only if it can distinguish $\delta \hat{h}$ from zero --- that is, only if its estimator $\hat{h}$ has enough resolution to detect the change. But if $\hat{h}$ has a systematic bias of magnitude $b$ (the ECE) and a sensitivity (self-monitoring) of $s$, the minimum detectable displacement is approximately $b/s$. For Flash 2.0, with ECE $\approx 0.41$ and M3 $\approx 0.09$, this minimum is $0.41/0.09 \approx 4.6$ --- the system can only detect displacements that are nearly five times larger than its own calibration error. Most gauge anomalies documented in Chapters 5 and 8 fall below this threshold. The system cannot see them.
+The system can detect this anomaly only if it can distinguish $\delta \hat{h}$ from zero --- that is, only if its estimator $\hat{h}$ has enough resolution to detect the change. But if $\hat{h}$ has a systematic bias of magnitude $b$ (the ECE) and a sensitivity (self-monitoring) of $s$, the minimum detectable displacement is approximately $b/s$. For Flash 2.0, with ECE $= 0.414$ and M3 $= 0.094$, this minimum is $0.414/0.094 \approx 4.4$ --- the system can only detect displacements that are more than four times larger than its own calibration error. Most gauge anomalies documented in Chapters 5 and 8 fall below this threshold. The system cannot see them.
 
 For Pro, with ECE $\approx 0.23$ and M3 $\approx 0.70$, the minimum detectable displacement is $0.23/0.70 \approx 0.33$. This is substantially better --- Pro can detect gauge anomalies that displace its estimate by about a third of the manifold scale. But it still misses smaller anomalies, and as Section 9.5 showed, even when Pro detects the problem, its weak effort scaling (M4 = 0.350) limits its ability to correct it.
 
@@ -332,11 +332,11 @@ The four quadrants of this plane have distinct behavioral signatures:
 
 - **Quadrant II** $(M_3 \text{ high}, M_4 \text{ low})$: The system detects errors but does not adjust effort. Aware but passive. Pro occupies this quadrant at approximately $(0.70, 0.35)$.
 
-- **Quadrant III** $(M_3 \text{ low}, M_4 \text{ low})$: The system neither detects errors nor adjusts effort. Fully open-loop search. No tested model occupies this quadrant (all have at least some capability on one axis).
+- **Quadrant III** $(M_3 \text{ low}, M_4 \text{ low})$: The system neither detects errors nor adjusts effort. Fully open-loop search. Gemini 3 Flash, at approximately $(0.45, 0.49)$, falls just inside this quadrant under the 0.5 thresholds of Definition 9.2, with both scores near the middle of the range.
 
 - **Quadrant IV** $(M_3 \text{ low}, M_4 \text{ high})$: The system adjusts effort but does not detect errors. Reactive but blind. Flash 2.0 occupies this quadrant at approximately $(0.09, 0.72)$.
 
-**[Empirical.]** The tested models cluster in Quadrants II and IV --- the two quadrants where one component of the control loop is functional and the other is not. Quadrant I, where both components are functional and metacognitive control is effective, is *empty*.
+**[Empirical.]** Four of the five tested models lie in Quadrants II and IV --- the two quadrants where one component of the control loop is functional and the other is not --- and the fifth, Gemini 3 Flash, lies just inside Quadrant III. Quadrant I, where both components are functional and metacognitive control is effective, is *empty*.
 
 **Why Quadrant I is empty.** This is arguably the most important structural finding. The emptiness of Quadrant I is not an artifact of small sample size (five models is a small sample, but the two extreme models, Flash 2.0 and Pro, are very far from Quadrant I). It suggests a genuine architectural or training trade-off: the optimization pressures that produce good self-monitoring (depth of self-reflective processing, careful comparison of internal states) are in tension with the optimization pressures that produce good effort scaling (efficiency-driven scaling, responsive allocation of computational resources).
 
@@ -391,9 +391,9 @@ This chapter has established metacognition as the control layer of the reasoning
 
 3. **Self-Monitoring (M3):** The sensitivity of the distance estimate to actual changes in performance. Ranges from near-chance (Flash 2.0: 0.094) to excellent (Pro: 0.700), defining one axis of the metacognitive plane.
 
-4. **Strategy Selection (M4):** The ability to match search algorithm to local landscape geometry. Ranges from weak (Pro: 0.350) to excellent (Flash 2.0: 0.723), defining the orthogonal axis of the metacognitive plane.
+4. **Strategy Selection (M4):** The ability to match search algorithm to local landscape geometry. Ranges from weak (Pro: 0.350) to excellent (Flash 2.0: 0.723), defining the second axis of the metacognitive plane.
 
-The critical finding is the dissociation between M3 and M4: these are geometrically independent capabilities, and no tested model excels at both. This places all tested models in Quadrants II or IV of the metacognitive plane, where at least one component of the control loop is impaired. The effective escape probability from local minima is bounded by the weakest component, yielding values of 2.5% (Flash 2.0) to 9.3% (Pro).
+The critical finding is the dissociation between M3 and M4: these are distinct capabilities, and no tested model excels at both. This places four of the five tested models in Quadrants II or IV of the metacognitive plane and the fifth just inside Quadrant III; in every case at least one component of the control loop is impaired. The effective escape probability from local minima is bounded by the weakest component, yielding values of 2.5% (Flash 2.0) and 9.3% (Pro) for the two models worked through, and about 10% at most (Claude).
 
 The ~38% recovery ceiling, which converges across independent perturbation types, reflects the characteristic throughput of the metacognitive control loop under prompt-level intervention. It cannot be exceeded by better prompts; it can only be exceeded by better metacognition.
 
@@ -455,7 +455,7 @@ where $M_3$ is the self-monitoring score (correlation between actual difficulty 
 
 - **Quadrant IV** ($M_3 \leq 0.5$, $M_4 > 0.5$): Reactive but blind. The system scales effort based on surface cues but cannot detect internal errors. Effective control is bottlenecked by the sensor: $P_{\text{escape}} \leq M_3 \cdot P_{\text{geometric}}$.
 
-The empirical finding that all tested models occupy Quadrants II or IV — and that Quadrant I is empty — constitutes evidence for an architectural or training trade-off between the sensor axis ($M_3$) and the actuator axis ($M_4$).
+The empirical finding that four of the five tested models occupy Quadrants II or IV, that the fifth lies just inside Quadrant III, and that Quadrant I is empty constitutes evidence for an architectural or training trade-off between the sensor axis ($M_3$) and the actuator axis ($M_4$).
 
 **Proposition 9.1 (Calibration as Necessary Condition for Gauge Anomaly Detection).** Let $f: \mathcal{X} \to \mathcal{Y}$ be a reasoning system with confidence estimator $\hat{h}: \mathcal{X} \to \mathbb{R}_{\geq 0}$ (estimated cost-to-go), calibration bias $b = \mathbb{E}[\hat{h}(x) - h^*(x)]$, and self-monitoring sensitivity $s = \partial \hat{h} / \partial h^*$. Let $\tau$ be a gauge transformation that produces an anomaly of magnitude $\delta = \|f(\tau(x)) - f(x)\|$. The system can detect the anomaly (in the sense that the confidence change $|\hat{h}(\tau(x)) - \hat{h}(x)|$ exceeds the noise floor set by miscalibration) only if
 

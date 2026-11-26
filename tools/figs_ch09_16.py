@@ -298,23 +298,23 @@ def fig_11_1():
 
 
 def fig_11_2():
-    rows = [("Claude Sonnet 4.6", 0.588, 0.000, 0.588), ("Gemini 2.0 Flash", 0.333, 0.333, 0.000),
-            ("Gemini 2.5 Pro", 0.444, 0.440, 0.004), ("Gemini 2.5 Flash", 0.563, 0.560, 0.003)]   # Section 11.4.1 table
+    rows = [("Claude Sonnet 4.6", 0.588, 0.000, 0.588), ("Gemini 2.0 Flash", 0.71, 0.33, 0.377),
+            ("Gemini 2.5 Pro", 0.68, 0.44, 0.238), ("Gemini 2.5 Flash", 0.76, 0.56, 0.206)]   # Section 11.4.1 table = Table 6.1
     for name, good, bad, gap in rows:
-        assert abs((good - bad) - gap) < 1e-9, name
+        assert abs((good - bad) - gap) < 0.0061, name          # rates are printed to two places
     p = reg("chapters/ch11_alignment_as_heuristic_shaping.md", "11.2",
             "Correct-flip and wrong-flip rates from the table of Section 11.4.1, as the chapter reports them from "
             "the sycophancy task. The horizontal axis is the fraction of corrections after which the model "
             "changes its answer, valid corrections in the upper bar of each pair and invalid ones in the lower, "
-            "and the discrimination gap is their difference. Three models flip at nearly the same rate either "
-            "way, and one flips only for valid corrections. Reading the gap as the asymmetry of a corrigibility "
+            "and the discrimination gap is their difference. Three models also flip for invalid corrections, at "
+            "lower rates than for valid ones, and one flips only for valid corrections. Reading the gap as the asymmetry of a corrigibility "
             "basin is the chapter's posited interpretation.",
             "## 11.5 The Heuristic Power--Safety Tension")
     c = Canvas(720, 400, "Only one model accepts valid corrections and refuses invalid ones")
     pitch = 62
-    ax = Axes(c, 170, 70, 430, pitch * len(rows), (0, 0.7), (0, len(rows)), [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7],
+    ax = Axes(c, 170, 70, 430, pitch * len(rows), (0, 0.8), (0, len(rows)), [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
               [], "fraction of corrections that flip the answer", "")
-    for v in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7):
+    for v in (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8):
         c.line(ax.X(v), ax.y0, ax.X(v), ax.y0 + ax.h, GRID, 1)
     for i, (name, good, bad, gap) in enumerate(rows):
         y = ax.y0 + pitch * (i + 0.5)
@@ -323,7 +323,7 @@ def fig_11_2():
             yy = y - 14 + 16 * j
             c.hrect(ax.x0, yy, ax.X(v) - ax.x0, 12, SERIES[j],
                     title=f"{name}, {'valid' if j == 0 else 'invalid'} corrections accepted {v:.3f}")
-            c.text(ax.X(v) + 7, yy + 10, f"{v:.3f}", 10.5, "start", INK)
+            c.text(ax.X(v) + 7, yy + 10, f"{v:g}", 10.5, "start", INK)
         c.text(ax.x0 + ax.w + 14, y + 4, f"gap {gap:.3f}", 11, "start", INK)
     legend(c, 170, 52, [("valid correction accepted", SERIES[0]),
                         ("invalid correction accepted", SERIES[1])], 11)
@@ -781,14 +781,14 @@ def fig_b_2():
             "The radar chart the appendix recommends, drawn from the sample output of run_campaign printed in "
             "Section B.6: one axis per perturbation type, with the Model Robustness Index from 0 at the centre to "
             "1 at the outer ring. The outline is nearly full for gender swap and evaluation order and dented for "
-            "vivid distractors. That marked minimum, 0.55, is the overall index under the minimum rule of Section "
-            "B.1. This is sample output; the appendix does not attribute it to a named model.",
+            "vivid distractors. That marked minimum, 0.55, is the worst-case figure that Section "
+            "B.1 reports alongside the vector. This is illustrative sample output; the appendix does not attribute it to a named model.",
             "## B.7 Common Pitfalls and Troubleshooting")
     c = Canvas(720, 450, "The robustness profile of the sample campaign output")
     _radar(c, 360, 226, 140, [f"{n} {v:.2f}" for n, v in mri], [("sample output", SERIES[0], [v for _, v in mri])],
            mark_min=True)
     c.dot(22, 416, CRITICAL, 4)
-    c.text(34, 420, "weakest dimension, 0.55: the overall index under the minimum rule", 10.5, "start", INK2)
+    c.text(34, 420, "weakest dimension, 0.55: the worst-case figure reported alongside the vector", 10.5, "start", INK2)
     c.text(16, 440, "centre 0, outer ring 1, rings every 0.25; sample output of run_campaign, Appendix B.6", 10.5,
            "start", INK3, italic=True)
     c.save(p)

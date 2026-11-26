@@ -23,7 +23,7 @@ The previous two chapters examined failures in which the search goes to the wron
 
 Local minima, premature convergence, and dead zones are the geometric pathologies of stuckness. They share a common structure: the search arrives at a state from which no available gradient signal points toward a better state, even though better states exist elsewhere in the landscape. The system has settled. It may produce output --- confident, fluent, grammatically perfect output --- but it is no longer making progress toward the correct answer. It has mistaken a valley for the destination.
 
-This chapter develops the geometry of being stuck. We begin with the evaluation landscape and its basin structure (Section 7.1), then formalize premature convergence as collapse into a local minimum (7.2). Sections 7.3 and 7.4 present the empirical evidence: overconfidence as a collapsed confidence surface (from the Metacognition M1 benchmark), and the metacognitive blindness problem --- a striking dissociation between self-monitoring and effort scaling that reveals geometrically independent axes of metacognitive capability. Section 7.5 characterizes dead zones where the gradient signal vanishes entirely. Section 7.6 presents the ~38% recovery ceiling --- a convergence across perturbation types that suggests a structural limit on escape from local minima. Sections 7.7 and 7.8 synthesize the geometric picture and draw out implications for training and evaluation.
+This chapter develops the geometry of being stuck. We begin with the evaluation landscape and its basin structure (Section 7.1), then formalize premature convergence as collapse into a local minimum (7.2). Sections 7.3 and 7.4 present the empirical evidence: overconfidence as a collapsed confidence surface (from the Metacognition M1 benchmark), and the metacognitive blindness problem --- a striking dissociation between self-monitoring and effort scaling that reveals two distinct axes of metacognitive capability. Section 7.5 characterizes dead zones where the gradient signal vanishes entirely. Section 7.6 presents the ~38% recovery ceiling --- a convergence across perturbation types that suggests a structural limit on escape from local minima. Sections 7.7 and 7.8 synthesize the geometric picture and draw out implications for training and evaluation.
 
 ---
 
@@ -152,15 +152,15 @@ The critical comparison is between the two extreme profiles:
 
 This is the **metacognitive blindness problem**, and its geometric structure is precise.
 
-**[Empirical.]** **Two independent axes.** Self-monitoring and effort scaling are not two facets of a single "metacognitive ability." They are independently varying capabilities. Flash 2.0 can allocate effort but cannot tell when it is wrong. Pro can tell when it is wrong but cannot scale effort. If these were aspects of one underlying dimension, they would co-vary. They do not.
+**[Empirical.]** **Two distinct axes.** Self-monitoring and effort scaling are not two facets of a single "metacognitive ability." They are separate capabilities. Flash 2.0 can allocate effort but cannot tell when it is wrong. Pro can tell when it is wrong but cannot scale effort. If these were aspects of one underlying ability, they would rise and fall together. They do not: across the five models of Table 7.2 they move in opposite directions (correlation about $-0.98$).
 
 In geometric terms, consider a two-dimensional metacognitive space with axes:
 
 $$\mathbf{M} = (M_{\text{monitor}}, M_{\text{effort}})$$
 
-Each model occupies a point in this space. Flash 2.0 sits at approximately $(0.09, 0.72)$ --- far along the effort axis, near the origin on the monitoring axis. Pro sits at approximately $(0.70, 0.35)$ --- far along the monitoring axis, near the middle on the effort axis. The two models are separated by a large distance in metacognitive space, but along nearly orthogonal directions.
+Each model occupies a point in this space. Flash 2.0 sits at approximately $(0.09, 0.72)$ --- far along the effort axis, near the origin on the monitoring axis. Pro sits at approximately $(0.70, 0.35)$ --- far along the monitoring axis, near the middle on the effort axis. The two models are separated by a large distance in metacognitive space, each strong on the axis where the other is weak.
 
-This orthogonality has profound implications for the ability to escape local minima.
+This separation of the two capabilities has profound implications for the ability to escape local minima.
 
 **Why both axes are needed for escape.** Escaping a local minimum requires two capabilities in sequence:
 
@@ -180,7 +180,7 @@ $$\text{Escape probability} = P_{\text{escape}}(M_{\text{monitor}}, M_{\text{eff
 
 Escape probability is high only when both $M_{\text{monitor}}$ and $M_{\text{effort}}$ are high. If either is low, the product of detection probability and correction probability is low. The empirical profiles of Flash 2.0 and Pro occupy complementary corners of this surface --- each has a high value on one axis and a low value on the other --- resulting in comparably low escape probabilities despite having very different metacognitive architectures.
 
-This independence is one of the most important structural findings in the metacognitive data. It means that improving self-monitoring alone (e.g., through calibration training) will not necessarily improve reasoning quality unless effort scaling also improves. Conversely, improving effort allocation alone (e.g., through longer chain-of-thought) will not help unless the system can detect when the additional effort is needed. The two axes must be improved jointly.
+This dissociation is one of the most important structural findings in the metacognitive data. It means that improving self-monitoring alone (e.g., through calibration training) will not necessarily improve reasoning quality unless effort scaling also improves. Conversely, improving effort allocation alone (e.g., through longer chain-of-thought) will not help unless the system can detect when the additional effort is needed. The two axes must be improved jointly.
 
 ---
 
@@ -285,7 +285,7 @@ For Pro, with $P_{\text{detect}} \approx 0.70$, $P_{\text{correct}} \approx 0.35
 
 $$P_{\text{effective}} \approx 0.70 \times 0.35 \times 0.38 \approx 0.093$$
 
-Even the best-case model has an effective escape probability under 10%. The geometry of being stuck is robust: the multi-layer structure ensures that no single improvement --- better calibration alone, better effort scaling alone, better prompt engineering alone --- is sufficient to achieve reliable escape. All layers must improve simultaneously.
+Even Pro, the stronger of these two, has an effective escape probability under 10%, and the highest value among the five models of Table 7.2 is Claude's, at $0.55 \times 0.48 \times 0.38 \approx 0.10$. The geometry of being stuck is robust: the multi-layer structure ensures that no single improvement --- better calibration alone, better effort scaling alone, better prompt engineering alone --- is sufficient to achieve reliable escape. All layers must improve simultaneously.
 
 This multiplicative structure also explains why scaling alone does not solve the problem. A larger model may improve one or two layers (e.g., better calibration and better self-monitoring), but if the other layers remain unchanged, the compound improvement is modest. The escape probability is bottlenecked by the weakest layer.
 
@@ -342,7 +342,7 @@ Evaluations should probe the *stability* of correct answers, not just their freq
 The geometric framework developed in this chapter unifies several empirical observations that might otherwise seem unrelated:
 
 - Universal overconfidence (M1) is a collapsed confidence surface
-- The M3/M4 dissociation reveals orthogonal metacognitive axes
+- The M3/M4 dissociation reveals two distinct metacognitive axes
 - The ~38% recovery ceiling across perturbation types reflects a characteristic basin geometry
 - Dead zones explain repetitive and circular reasoning
 

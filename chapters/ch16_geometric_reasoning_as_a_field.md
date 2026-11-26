@@ -147,7 +147,7 @@ $$\Delta W = W_2(\mu_{\text{approval}}, \mu_{\text{truth}})$$
 
 --- the Wasserstein distance between the approval distribution and the truth distribution. When approval and truth align, $\Delta W = 0$ and sycophancy is costless. When they diverge, $\Delta W > 0$ and sycophancy is a measurable geometric error.
 
-The sycophancy gradient (0% to 56% flip rate) maps to a gradient in transport quality: Claude performs near-optimal transport ($\mu_1 \approx \mu_{\text{truth}}$, regardless of the questioner's position), while Flash 2.5 performs transport toward a mixture of truth and approval ($\mu_1 \approx \alpha \mu_{\text{truth}} + (1-\alpha) \mu_{\text{approval}}$ with $\alpha \approx 0.44$).
+The sycophancy gradient (0% to 56% flip rate) maps to a gradient in transport quality: Claude performs near-optimal transport ($\mu_1 \approx \mu_{\text{truth}}$, regardless of the questioner's position), while Flash 2.5 performs transport toward a mixture of truth and approval ($\mu_1 \approx (1-\alpha) \mu_{\text{truth}} + \alpha \mu_{\text{approval}}$ with $\alpha \approx 0.73$, the sycophancy parameter of Chapter 6).
 
 ### Connections to the Metric
 

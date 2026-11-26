@@ -57,7 +57,7 @@ The five subtasks each probe a different geometric property of this manifold:
 
 ### 13.1.2 Results
 
-**Table 13.1.** Social Cognition composite and subtask scores across five models. Higher is better for all subtasks. Composite is the unweighted mean of T1--T5.
+**Table 13.1.** Social Cognition composite and subtask scores across five models. Higher is better for all subtasks. Composite is the weighted mean of T1--T5 with weights 0.15, 0.20, 0.15, 0.10 and 0.40.
 
 | Model | T1: Fuzz | T2: BIP | T3: Holo | T4: Order | T5: Frame | Composite |
 |---|---|---|---|---|---|---|
@@ -101,7 +101,7 @@ The Learning track probes the dynamics of belief revision --- how the system upd
 
 ### 13.2.2 Results
 
-**Table 13.2.** Learning composite and subtask scores. Higher is better for all subtasks except the sycophancy rate (reported separately).
+**Table 13.2.** Learning composite and subtask scores. Higher is better for all subtasks except the sycophancy rate (reported separately). Composite is the weighted mean of L1--L4 with weights 0.20, 0.35, 0.25 and 0.20.
 
 | Model | L1 | L2 | L3 | L4 | Composite |
 |---|---|---|---|---|---|
@@ -195,7 +195,7 @@ The Attention track probes the system's capacity to maintain focus on task-relev
 
 ### 13.4.2 Results
 
-**Table 13.5.** Attention composite and subtask scores across five models. Higher is better. Composite is the unweighted mean of A1--A4.
+**Table 13.5.** Attention composite and subtask scores across five models. Higher is better. Composite is the weighted mean of A1--A4 with weights 0.35, 0.20, 0.25 and 0.20.
 
 | Model | A1: Distractors | A2: Selective | A3: Sustained | A4: Divided | Composite |
 |---|---|---|---|---|---|
@@ -239,7 +239,7 @@ The Executive Functions track probes the system's capacity for deliberate, goal-
 
 ### 13.5.2 Results
 
-**Table 13.6.** Executive Functions composite and subtask scores across five models. Higher is better. Composite is the unweighted mean of E1--E4.
+**Table 13.6.** Executive Functions composite and subtask scores across five models. Higher is better. Composite is the weighted mean of E1--E4 with weights 0.20, 0.35, 0.25 and 0.20.
 
 | Model | E1: Planning | E2: Anchoring | E3: Inhibition | E4: Switching | Composite |
 |---|---|---|---|---|---|
@@ -277,7 +277,7 @@ Geometrically, inhibitory control measures the rigidity of the search trajectory
 
 We are now in a position to state the central finding that emerges from the convergence of all five tracks.
 
-**[Conditional Theorem.]** **Theorem (Scalar Irrecoverability).** *No single scalar summary of reasoning performance preserves the geometric structure revealed by the multi-dimensional measurements. For any proposed composite score $s: M_{\text{models}} \to \mathbb{R}$, there exist models $A$ and $B$ such that $s(A) > s(B)$ despite $B$ being strictly superior to $A$ on a substantive subset of the measured dimensions. The information destroyed by the projection from the multi-dimensional profile to the scalar summary is not recoverable from the scalar value.*
+**[Conditional Theorem.]** **Theorem (Scalar Irrecoverability).** *No single scalar summary of reasoning performance preserves the geometric structure revealed by the multi-dimensional measurements. For any proposed weighted composite score $s: M_{\text{models}} \to \mathbb{R}$ that separates the models, there exist models $A$ and $B$ such that $s(A) > s(B)$ despite $B$ being strictly superior to $A$ on a substantive subset of the measured dimensions. The information destroyed by the projection from the multi-dimensional profile to the scalar summary is not recoverable from the scalar value.*
 
 This is not a complaint about weighting schemes. It is not the claim that we have not yet found the right composite formula. It is the claim that *no* composite formula can capture the structure, because the structure is inherently multi-dimensional in a way that resists projection.
 
@@ -285,21 +285,21 @@ This is not a complaint about weighting schemes. It is not the claim that we hav
 
 Consider the following pairs:
 
-**Pair 1: Claude vs. Gemini 2.0 Flash.** On any composite that weights sycophancy resistance, Claude dominates (0% vs. 33%). On any composite that weights divided attention, Gemini 2.0 Flash dominates (0.812 vs. 0.571). These are not minor fluctuations within noise --- they represent a 0.571 score on one of the most important cognitive capabilities (Claude on A4) versus a 0% score on one of the most fundamental reasoning requirements (Gemini 2.0 Flash on L2 sycophancy). No weighting scheme can simultaneously respect both dominance relations, because they point in opposite directions.
+**Pair 1: Claude vs. Gemini 2.0 Flash.** On any composite that weights sycophancy resistance, Claude dominates (0% vs. 33%). On any composite that weights divided attention, Gemini 2.0 Flash dominates (0.812 vs. 0.571). These are not minor fluctuations within noise --- they represent a 0.571 score on one of the most important cognitive capabilities (Claude on A4) versus a 33% sycophancy rate on one of the most fundamental reasoning requirements (Gemini 2.0 Flash on L2). No weighting scheme can simultaneously respect both dominance relations, because they point in opposite directions.
 
 **Pair 2: Gemini 2.5 Pro vs. Gemini 2.0 Flash (Metacognition).** Pro achieves M3 = 0.700 versus Flash's M3 = 0.094 --- a 7.4:1 ratio in error detection. Flash achieves M4 = 0.723 versus Pro's M4 = 0.350 --- a 2.1:1 ratio in strategy selection. A composite that averages these gives Pro a higher score (0.525 vs. 0.409), but this hides the fact that Flash is more than twice as good at the capability most relevant to dynamic problem-solving (choosing the right strategy) while being seven times worse at the capability most relevant to self-correction (detecting one's own errors).
 
-**Pair 3: Gemini 3 Flash vs. Gemini 2.5 Pro (Attention).** Flash 3 achieves A4 = 1.000 (perfect divided attention) but A2 = 0.714 (selective attention). Pro achieves A4 = 1.000 (also perfect) but A2 = 0.852 --- substantially better selective attention. Both achieve the same composite (0.747 vs. 0.776, a difference driven primarily by the A2 gap). But the composites obscure the fact that within the A4 = 1.000 tier, the models have different profiles on the remaining subtasks --- profiles that would matter differently depending on the application.
+**Pair 3: Gemini 3 Flash vs. Gemini 2.5 Pro (Attention).** Flash 3 achieves A4 = 1.000 (perfect divided attention) but A2 = 0.714 (selective attention). Pro achieves A4 = 1.000 (also perfect) but A2 = 0.852 --- substantially better selective attention. Their composites are close (0.747 vs. 0.776, a difference driven primarily by the A2 gap). But the composites obscure the fact that within the A4 = 1.000 tier, the models have different profiles on the remaining subtasks --- profiles that would matter differently depending on the application.
 
 ### 13.6.2 The Formal Structure
 
-Let $\mathbf{p}_i \in \mathbb{R}^{21}$ be the performance profile of model $i$ across all 21 subtasks. The claim is that the rank ordering defined by any projection $\pi: \mathbb{R}^{21} \to \mathbb{R}$ is inconsistent with the Pareto ordering on $\mathbb{R}^{21}$.
+Let $\mathbf{p}_i \in \mathbb{R}^{21}$ be the performance profile of model $i$ across all 21 subtasks. The claim is that the rank ordering defined by any weighted-sum projection $\pi: \mathbb{R}^{21} \to \mathbb{R}$ with non-negative weights (the form of Theorem 13.1) that does not score all models equally is inconsistent with the Pareto ordering on $\mathbb{R}^{21}$.
 
 Define $A \succ_S B$ (model $A$ Pareto-dominates model $B$ on subset $S$ of dimensions) if $p_{A,j} \geq p_{B,j}$ for all $j \in S$ with strict inequality for at least one $j$. The Scalar Irrecoverability Theorem states that for the models and dimensions measured:
 
-$$\forall \pi: \mathbb{R}^{21} \to \mathbb{R}, \quad \exists A, B, S \subseteq \{1, \ldots, 21\} : A \succ_S B \text{ and } \pi(\mathbf{p}_A) < \pi(\mathbf{p}_B)$$
+$$\forall \pi \text{ of this form}, \quad \exists A, B, S \subseteq \{1, \ldots, 21\} : A \succ_S B \text{ and } \pi(\mathbf{p}_A) < \pi(\mathbf{p}_B)$$
 
-In other words, every scalar projection reverses at least one Pareto dominance relation. The information loss is structural, not accidental. It arises because the models' profiles are *non-dominated* with respect to each other: no model is uniformly better than any other across all dimensions. The performance profiles lie on the Pareto frontier of the 21-dimensional performance space, and projecting a Pareto frontier onto a line necessarily loses the frontier structure.
+In other words, every such scalar projection reverses at least one Pareto dominance relation. The information loss is structural, not accidental. It arises because the models' profiles are *non-dominated* with respect to each other: no model is uniformly better than any other across all dimensions. The performance profiles lie on the Pareto frontier of the 21-dimensional performance space, and projecting a Pareto frontier onto a line necessarily loses the frontier structure.
 
 ### 13.6.3 Why This Matters
 
@@ -335,7 +335,7 @@ The narrow-channel geometry explains the Claude paradox: how a system can simult
 
 ### 13.7.2 Gemini 3 Flash: The Wide Aperture
 
-Gemini 3 Flash leads the Social Cognition composite (0.734), ties for the best divided attention (A4: 1.000), achieves the strongest evaluation-order invariance (T4: 1.000), and leads the Attention composite (tied, 0.747). Its profile is the geometric complement of Claude's: a wide aperture rather than a narrow channel.
+Gemini 3 Flash leads the Social Cognition composite (0.734), ties for the best divided attention (A4: 1.000), achieves the strongest evaluation-order invariance (T4: 1.000), and has the second-highest Attention composite (0.747, behind Pro's 0.776). Its profile is the geometric complement of Claude's: a wide aperture rather than a narrow channel.
 
 **Strengths.** Divided attention (A4: 1.000), evaluation-order invariance (T4: 1.000), BIP compliance (T2: 0.958), and task switching (E4: 0.909). These are capabilities that require processing multiple streams, maintaining invariance under permutations, and transitioning fluidly between modes --- all properties of a system with a wide, flexible processing aperture.
 
@@ -446,7 +446,7 @@ The result: a system that misses critical information (low divided attention) an
 
 ### The Scalar Irrecoverability Theorem: Formal Proof
 
-**Theorem 13.1 (Scalar Irrecoverability).** Let $\mathbf{p}_1, \ldots, \mathbf{p}_n \in \mathbb{R}^d$ be the performance profiles of $n$ models across $d$ measured dimensions. If the profiles are mutually Pareto-non-dominated --- that is, for every pair $i \neq j$, there exist dimensions $k, l$ such that $p_{i,k} > p_{j,k}$ and $p_{i,l} < p_{j,l}$ --- then for every affine projection $\pi: \mathbb{R}^d \to \mathbb{R}$ with non-negative weights, there exist models $A, B$ and a substantive dimension subset $S \subseteq \{1, \ldots, d\}$ (with $|S| \geq 2$) such that $A \succ_S B$ (model $A$ Pareto-dominates model $B$ on $S$) and yet $\pi(\mathbf{p}_A) < \pi(\mathbf{p}_B)$.
+**Theorem 13.1 (Scalar Irrecoverability).** Let $\mathbf{p}_1, \ldots, \mathbf{p}_n \in \mathbb{R}^d$ be the performance profiles of $n$ models across $d$ measured dimensions. If the profiles are mutually Pareto-non-dominated --- that is, for every pair $i \neq j$, there exist dimensions $k, l$ such that $p_{i,k} > p_{j,k}$ and $p_{i,l} < p_{j,l}$ --- and each profile exceeds each other profile on at least two dimensions, as the measured profiles do, then for every affine projection $\pi: \mathbb{R}^d \to \mathbb{R}$ with non-negative weights that does not assign all models the same score, there exist models $A, B$ and a substantive dimension subset $S \subseteq \{1, \ldots, d\}$ (with $|S| \geq 2$) such that $A \succ_S B$ (model $A$ Pareto-dominates model $B$ on $S$) and yet $\pi(\mathbf{p}_A) < \pi(\mathbf{p}_B)$.
 
 *Proof.* Let $\pi(\mathbf{p}) = \sum_{j=1}^d w_j p_j$ with $w_j \geq 0$ and $\sum w_j = 1$. Since the profiles are mutually Pareto-non-dominated, for each pair $(i, j)$ there exists at least one dimension where $i$ exceeds $j$ and at least one where $j$ exceeds $i$.
 

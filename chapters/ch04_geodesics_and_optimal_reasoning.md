@@ -119,7 +119,7 @@ To make the geodesic framework tangible, we trace a complete worked example on a
 
 $$ds^2 = dx^2 + e^{2x} \, dy^2$$
 
-This is a surface of non-constant curvature. The metric component $g_{22} = e^{2x}$ means that "lateral" movement (in the $y$-direction) is cheap when $x$ is negative (small $e^{2x}$) and expensive when $x$ is positive (large $e^{2x}$). In reasoning terms, think of $x$ as the "depth" of reasoning and $y$ as the "breadth" — exploring alternative approaches. The metric encodes the empirical observation that deep reasoning makes breadth-first exploration increasingly costly: once you are far along one line of argument, switching to another becomes expensive.
+This is a surface of constant negative curvature, $K = -1$ (the hyperbolic plane in these coordinates), on which the cost of a move nonetheless depends on where it is made. The metric component $g_{22} = e^{2x}$ means that "lateral" movement (in the $y$-direction) is cheap when $x$ is negative (small $e^{2x}$) and expensive when $x$ is positive (large $e^{2x}$). In reasoning terms, think of $x$ as the "depth" of reasoning and $y$ as the "breadth" — exploring alternative approaches. The metric encodes the empirical observation that deep reasoning makes breadth-first exploration increasingly costly: once you are far along one line of argument, switching to another becomes expensive.
 
 **Step 1: Compute the Christoffel symbols.** The non-zero metric components are $g_{11} = 1$, $g_{22} = e^{2x}$, $g_{12} = g_{21} = 0$. The inverse metric has $g^{11} = 1$, $g^{22} = e^{-2x}$.
 
@@ -141,7 +141,7 @@ The second equation has a useful simplification. Note that $\frac{d}{dt}(e^{2x} 
 
 **Step 3: Solve for a specific boundary value problem.** Suppose the problem state is $(x_0, y_0) = (0, 0)$ and the goal state is $(x_1, y_1) = (0, 1)$. We seek the geodesic connecting these two points.
 
-Using the conservation law $e^{2x} \dot{y} = C$ and the unit-speed constraint $\dot{x}^2 + e^{2x} \dot{y}^2 = E$ (constant energy), we get:
+Using the conservation law $e^{2x} \dot{y} = C$ and the constant-speed constraint $\dot{x}^2 + e^{2x} \dot{y}^2 = E$ (constant energy), we get:
 
 $$\dot{x}^2 = E - \frac{C^2}{e^{2x}}$$
 
@@ -157,11 +157,11 @@ The geodesic looks like a bow: it curves into the region of negative $x$ (where 
 
 $$\mathcal{L}_{\text{naive}} = \int_0^1 e^{2 \cdot 0} \cdot 1^2 \, dt = 1$$
 
-The geodesic has cost strictly less than 1, because by dipping into negative $x$ it exploits the cheaper metric there. Numerical integration for this boundary problem gives $\mathcal{L}_{\text{geodesic}} \approx 0.83$, so the geodesic deviation of the naive path is:
+The geodesic has cost strictly less than 1, because by dipping into negative $x$ it exploits the cheaper metric there. For this boundary problem the geodesic has length $\operatorname{arccosh}(1.5) \approx 0.962$, and traversed at constant speed its cost is the square of that length, $\mathcal{L}_{\text{geodesic}} \approx 0.926$, so the geodesic deviation of the naive path is:
 
-$$\Delta \approx 1.0 - 0.83 = 0.17$$
+$$\Delta \approx 1.0 - 0.926 = 0.074$$
 
-The naive strategy — maintaining the same reasoning depth while shifting approach — wastes roughly 17% more effort than the optimal strategy of abstracting first, switching, and re-specializing.
+The naive strategy — maintaining the same reasoning depth while shifting approach — wastes roughly 8% more effort than the optimal strategy of abstracting first, switching, and re-specializing.
 
 **Step 5: Interpret.** This toy example captures a real phenomenon in reasoning. When a model needs to shift from one line of argument to another (traversing $y$ at fixed depth $x$), the efficient strategy is not to force the transition at the current level of detail. Instead, the geodesic says: abstract upward (decrease $x$), make the conceptual shift where it is cheap, then descend back into detail. Experienced human reasoners do this instinctively — they "zoom out" before switching gears. The geodesic equation makes this intuition mathematically precise and quantifies the cost savings.
 
@@ -262,7 +262,7 @@ But the key insight for reasoning is the *geodesic deviation on SPD*. The BirdCL
 - **Geodesic distance**: the direct Riemannian distance from start to end
 - **Geodesic deviation**: path length minus geodesic distance
 
-This deviation measures how "direct" the spectral evolution is. A bird call with a simple harmonic structure has low deviation — the covariance matrix evolves smoothly along a geodesic. A complex call with rapid frequency modulation has high deviation — the trajectory takes detours on the SPD manifold.
+This is the length form of the deviation. Definition 4.2 uses the cost functional $\mathcal{L}$, the integral of the squared speed, in place of the length; both forms are non-negative and vanish on a geodesic traversed at constant speed. This deviation measures how "direct" the spectral evolution is. A bird call with a simple harmonic structure has low deviation — the covariance matrix evolves smoothly along a geodesic. A complex call with rapid frequency modulation has high deviation — the trajectory takes detours on the SPD manifold.
 
 The analogy to reasoning is precise: replace "covariance matrix" with "cognitive state" and "spectral trajectory" with "reasoning trajectory." The geodesic deviation measures how directly the system navigates from problem to solution. The mathematics is identical.
 
@@ -379,9 +379,9 @@ $$\Delta(\tilde{\gamma}, \gamma^*) = \mathcal{L}[\tilde{\gamma}] - \mathcal{L}[\
 
 This deviation has two components. The first is the *wasted path length* — the statistical effort expended traveling toward the anxiety basin, effort that contributed nothing to reaching the correct diagnosis. The second is the *recovery cost* — the additional effort required when the patient returns to the ER with hemodynamic instability from an untreated PE, and the diagnostic process must restart from a worse clinical state.
 
-On the Fisher manifold, we can compute this explicitly. The geodesic distance from the prior to the PE-concentrated posterior is approximately $d_g(\gamma(0), \gamma(1)) \approx 2.1$ nats. The corrupted trajectory's total path length to its false terminus plus the recovery path is approximately $\mathcal{L}[\tilde{\gamma}] \approx 4.6$ nats. The geodesic deviation is:
+On the Fisher manifold, we can compute this explicitly. The geodesic distance from the prior to the PE-concentrated posterior is approximately $d_g(\gamma(0), \gamma(1)) \approx 1.8$ nats. The corrupted trajectory's total path length to its false terminus plus the recovery path is approximately $\mathcal{L}[\tilde{\gamma}] \approx 4.6$ nats. The geodesic deviation is:
 
-$$\Delta \approx 4.6 - 2.1 = 2.5 \text{ nats}$$
+$$\Delta \approx 4.6 - 1.8 = 2.8 \text{ nats}$$
 
 The corrupted reasoning trajectory wastes more than double the statistical effort of the geodesic — and this accounting does not include the human cost of delayed treatment.
 
@@ -409,7 +409,7 @@ The derivation, given in full in Section 4.1, proceeds through the Christoffel s
 
 $$\Delta(\gamma, \gamma^*) = E[\gamma] - E[\gamma^*] \geq 0$$
 
-with equality if and only if $\gamma$ is a reparameterization of $\gamma^*$. The non-negativity follows from the variational characterization of geodesics as energy minimizers.
+with equality if and only if $\gamma$ is itself a minimizing geodesic traversed at constant speed. The non-negativity follows from the variational characterization of geodesics as energy minimizers. The energy $E$ is half the cost functional $\mathcal{L}$ of Section 4.1, so this $\Delta$ is half that of Definition 4.2, and the two forms order trajectories identically.
 
 **Geodesic Deviation on the Fisher Manifold (Proposition 4.2).** Let $\Theta$ be a statistical manifold equipped with the Fisher information metric $F_{ij}(\theta)$. For a belief-update trajectory $\theta(t)$ from prior $\theta_0$ to posterior $\theta_1$, the geodesic deviation is:
 

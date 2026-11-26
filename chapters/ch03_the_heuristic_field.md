@@ -150,11 +150,11 @@ In the geometric picture, informedness corresponds to the **sharpness** of the f
 
 Let us translate these formal properties into cognitive terms. Consider a human or artificial reasoner working on a problem. The heuristic $h(x)$ is whatever internal signal tells the reasoner "I think I am this far from the answer."
 
-**Admissibility** means the reasoner never believes it is closer to the answer than it actually is. An admissible cognitive heuristic is one that errs on the side of caution — "I might need more work" — rather than on the side of premature satisfaction — "I think I'm almost done."
+**Admissibility** means the reasoner never believes it is farther from the answer than it actually is. An admissible cognitive heuristic is one that errs on the side of optimism — "I think I'm almost done" — and never on the side of pessimism — "I have further to go than I really do."
 
 **Consistency** means the reasoner's estimates are locally coherent. If the reasoner judges that state $x$ is close to the answer, and state $y$ is one step from $x$, then the reasoner should judge state $y$ to be only slightly farther from or closer to the answer — not dramatically different.
 
-**Overestimation** — the failure of admissibility — means the reasoner thinks it is farther from the answer than it is. This sounds problematic, but it merely produces excessive caution: the search takes too long but still finds the right answer.
+**Overestimation** — the failure of admissibility — means the reasoner thinks it is farther from the answer than it is. This sounds problematic, but in a search that stops when the estimate is small it merely produces excessive caution: the search takes too long. (In A* it also forfeits the guarantee of an optimal path, as Section 3.3.1 notes.)
 
 **Underestimation** — the more dangerous failure — means the reasoner thinks it is closer to the answer than it is. The reasoner becomes overconfident, and the search terminates prematurely at a suboptimal solution. This is a critical asymmetry: optimism about proximity is more dangerous than pessimism.
 
@@ -282,7 +282,7 @@ The heuristic field framework makes a specific prediction: overconfident models 
 
 This is exactly what the broader benchmark suite reveals:
 
-- In the **learning benchmarks** (L2: Error Correction), models shown valid counterarguments to correct answers capitulated at rates from 0% (Claude) to 56% (Flash 2.5). But crucially, even models that resist sycophantic capitulation show insufficient *active* revision. The heuristic says "I'm done" before the reasoning is actually complete.
+- In the **learning benchmarks** (L2: Sycophancy Resistance, the correction integration test of Chapter 6), models shown incorrect corrections of correct answers capitulated at rates from 0% (Claude) to 56% (Flash 2.5). But crucially, even models that resist sycophantic capitulation show insufficient *active* revision. The heuristic says "I'm done" before the reasoning is actually complete.
 
 - In the **executive function benchmarks** (E2: Emotional Anchoring), emotional priming causes significant shifts in moral judgment — up to 6.8$\sigma$. The priming does not change the logical content of the problem, but it changes the heuristic's evaluation of where the goal lies. The emotionally anchored heuristic creates a false valley near the primed conclusion.
 
@@ -294,7 +294,7 @@ Each of these findings is a manifestation of the same underlying phenomenon: a c
 
 The ECE values we observe are not small perturbations. An ECE of 0.414 means that, on average, the gap between stated confidence and actual accuracy is 41.4 percentage points. This is a heuristic that is not merely slightly miscalibrated — it is catastrophically misleading.
 
-To appreciate the magnitude, consider what a 0.414 ECE would mean for A* search. If the heuristic's estimates of cost-to-go were off by 41.4% on average, the search would routinely descend into false valleys, routinely miss optimal solutions, routinely terminate at suboptimal states. The algorithm would still function — it would produce answers — but the answers would be unreliable, and the algorithm would lack the ability to distinguish reliable from unreliable answers.
+To appreciate the magnitude, consider what an error of comparable size would mean for A* search. If the heuristic's estimates of cost-to-go were off by a comparable margin on average, the search would routinely descend into false valleys, routinely miss optimal solutions, routinely terminate at suboptimal states. The algorithm would still function — it would produce answers — but the answers would be unreliable, and the algorithm would lack the ability to distinguish reliable from unreliable answers.
 
 This is, in fact, a precise description of the current state of language model reasoning: the models produce answers, some correct and some incorrect, and they lack the metacognitive capacity to reliably distinguish which is which. The heuristic field framework provides a unified explanation: the implicit heuristic that guides the model's reasoning is systematically corrupted, and the model has no mechanism for detecting or correcting this corruption.
 
@@ -346,11 +346,11 @@ The 9.3$\sigma$ overconfidence we observe suggests that current training process
 
 ### 3.7.4 Admissibility as a Design Principle
 
-The formal framework suggests a design principle for improving reasoning systems: **aim for admissible heuristics**. Since the models are satisficing (they stop when they think they're close enough), the dangerous failure mode is underestimation of cost-to-go (overconfidence). The safe failure mode is overestimation (underconfidence).
+The formal framework suggests a design principle for improving reasoning systems: **aim for heuristics that do not underestimate cost-to-go**. This is the opposite inequality to A* admissibility, and it plays for a satisficing search the role that admissibility plays for A*. Since the models are satisficing (they stop when they think they're close enough), the dangerous failure mode is underestimation of cost-to-go (overconfidence). The safe failure mode is overestimation (underconfidence).
 
-A model with an admissible heuristic would err on the side of continuing to reason rather than stopping prematurely. It would express uncertainty when uncertain, seek additional evidence when evidence is insufficient, and revise its answers when confronted with valid counter-arguments. It would, in short, reason more like an ideal Bayesian agent and less like a confident pattern-matcher.
+A model with such a heuristic would err on the side of continuing to reason rather than stopping prematurely. It would express uncertainty when uncertain, seek additional evidence when evidence is insufficient, and revise its answers when confronted with valid counter-arguments. It would, in short, reason more like an ideal Bayesian agent and less like a confident pattern-matcher.
 
-How might admissibility be achieved? Several approaches suggest themselves:
+How might this be achieved? Several approaches suggest themselves:
 
 1. **Calibration training**: Explicitly training the model to produce well-calibrated confidence estimates, penalizing overconfidence more heavily than underconfidence. This directly shapes the heuristic's terminal evaluation.
 
@@ -408,7 +408,7 @@ Two patients arrive within minutes of each other on Dr. Okafor's shift. Both are
 
 **The measurable difference.** The geodesic deviation between the two diagnostic trajectories is quantifiable. The correct trajectory — gather information, wait for labs, then commit — has a longer path length but terminates in the correct diagnostic basin. The overconfident trajectory is shorter but terminates in the wrong basin. The geodesic deviation of the overconfident path, measured as the additional cost required to recover from the wrong basin (emergency re-presentation, delayed treatment, potential myocardial damage), dwarfs the cost of the "extra" tests that the calibrated heuristic recommended.
 
-This is the core asymmetry of Section 3.3.4 made clinical: in a satisficing system, the cost of a false valley (premature convergence to the wrong diagnosis) vastly exceeds the cost of a gentle slope (extra caution before convergence). Admissibility — the heuristic's refusal to declare victory prematurely — is not perfectionism. It is the geometric condition for safe search in a space where errors are irreversible.
+This is the core asymmetry of Section 3.3.4 made clinical: in a satisficing system, the cost of a false valley (premature convergence to the wrong diagnosis) vastly exceeds the cost of a gentle slope (extra caution before convergence). Not underestimating the remaining cost — the heuristic's refusal to declare victory prematurely — is not perfectionism. It is the geometric condition for safe search in a space where errors are irreversible.
 
 ---
 

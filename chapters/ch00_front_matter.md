@@ -80,7 +80,7 @@ C. Benchmark Implementations
 | **Model Robustness Index** (MRI) | Multi-dimensional vulnerability profile; maps the robustness surface | Ch. 10 |
 | **Governance margin** | Distance from current state to the nearest safety boundary | Ch. 11 |
 | **Corrigibility basin** | Region of objective space from which the system accepts corrections | Ch. 11 |
-| **Scalar Irrecoverability Theorem** | Any scalar summary of $n$-dimensional evaluation destroys $n-1$ directions | Ch. 13 |
+| **Scalar Irrecoverability Theorem** | Any linear scalar summary of $n$-dimensional evaluation destroys $n-1$ directions, and no weighted composite respects every dominance among Pareto-incomparable profiles | Ch. 13 |
 
 ## Key Results at a Glance
 

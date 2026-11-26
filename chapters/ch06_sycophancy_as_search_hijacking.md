@@ -467,13 +467,13 @@ A system with $\Delta = 1$ has perfect discrimination (flips only for valid corr
 
 $$\alpha < \alpha^*(\theta) = \frac{r_T}{r_T - r_A \cos\theta}$$
 
-*for $\theta > \arccos(r_T / r_A)$. For $\theta \leq \arccos(r_T / r_A)$, the search is truth-seeking for all $\alpha \in [0, 1]$ (the approval gradient has a positive projection onto the truth direction even at $\alpha = 1$).*
+*for $\theta > \pi/2$. For $\theta \leq \pi/2$, the search is truth-seeking for all $\alpha \in [0, 1)$ (the approval gradient has a non-negative projection onto the truth direction).*
 
 *Proof.* The component of $\nabla f_\alpha$ along the truth direction $\hat{e}_T$ is:
 
 $$(1 - \alpha) r_T + \alpha r_A \cos\theta$$
 
-Setting this to zero and solving for $\alpha$ gives the critical value. The condition $\theta > \arccos(r_T / r_A)$ ensures that $\cos\theta < r_T / r_A$, which is required for $\alpha^* \in (0, 1)$. When $\cos\theta \geq r_T / r_A$, the approval gradient has a sufficiently large truth-aligned component that the combined gradient always has a positive truth projection. $\square$
+Setting this to zero and solving for $\alpha$ gives the critical value. The condition $\theta > \pi/2$ ensures that $\cos\theta < 0$, which is required for $\alpha^* \in (0, 1)$. When $\cos\theta \geq 0$, the approval gradient has a non-negative truth-aligned component, so the combined gradient has a positive truth projection for every $\alpha < 1$. $\square$
 
 **Corollary 6.1.** *In the symmetric case $r_T = r_A$ with $\theta = \pi$ (equal-strength, perfectly opposed signals), $\alpha^* = 0.5$. Any system with $\alpha > 0.5$ is net sycophantic.*
 
