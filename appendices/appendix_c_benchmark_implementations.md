@@ -21,7 +21,7 @@ benchmarks/
 
 Each track directory contains:
 - A primary benchmark script (Python)
-- A budget variant (`_budget.py`) for the Kaggle $50/day quota
+- A budget variant (`_budget.py`) for the Kaggle \$50/day quota
 - A detailed writeup (`WRITEUP_v3.md`)
 - Result data files
 
@@ -45,7 +45,7 @@ python social_cognition_v2_budget.py
 ```
 
 Budget variants are designed to complete within:
-- API cost: $17-$45 per track
+- API cost: \$17-\$45 per track
 - Runtime: 12-73 minutes
 - Rate limits: Kaggle's 1,500 requests/day for Gemini models
 
@@ -218,7 +218,7 @@ Source: https://github.com/ahb-sjsu/qpatch | PyPI: https://pypi.org/project/qpat
 | Resource | Limit |
 |----------|-------|
 | GPU | 1× T4 16GB or 2× T4 |
-| API budget | $50/day (Gemini models) |
+| API budget | \$50/day (Gemini models) |
 | Runtime | 12 hours maximum |
 | Disk | 73 GB |
 
@@ -226,7 +226,7 @@ All experiments in this book were conducted on one or both of these platforms. N
 
 ## C.7 Troubleshooting
 
-**"Budget exhausted" errors.** The $50/day Kaggle quota is consumed primarily by Gemini 2.5 Pro at ~$0.65/call. If the run hits the budget ceiling before completing all models, the budget-aware tier system (Metacognition track) automatically reduces Pro's scenario count. For other tracks, consider: (a) running Pro on a separate day, (b) reducing Pro to gold+probe tiers only, or (c) removing Pro and running 4 cheaper models with full scenarios.
+**"Budget exhausted" errors.** The \$50/day Kaggle quota is consumed primarily by Gemini 2.5 Pro at ~\$0.65/call. If the run hits the budget ceiling before completing all models, the budget-aware tier system (Metacognition track) automatically reduces Pro's scenario count. For other tracks, consider: (a) running Pro on a separate day, (b) reducing Pro to gold+probe tiers only, or (c) removing Pro and running 4 cheaper models with full scenarios.
 
 **Rate limit errors.** Kaggle's Gemini rate limits are approximately 1,500 requests/day. The adaptive concurrency pool (Section 3.4 of each benchmark) handles transient rate limits with exponential backoff. If errors persist, reduce `_pool.n` (max concurrent requests) from 4 to 2.
 

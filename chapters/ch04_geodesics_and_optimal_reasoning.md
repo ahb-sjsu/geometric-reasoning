@@ -411,13 +411,13 @@ $$\Delta(\gamma, \gamma^*) = E[\gamma] - E[\gamma^*] \geq 0$$
 
 with equality if and only if $\gamma$ is itself a minimizing geodesic traversed at constant speed. The non-negativity follows from the variational characterization of geodesics as energy minimizers. The energy $E$ is half the cost functional $\mathcal{L}$ of Section 4.1, so this $\Delta$ is half that of Definition 4.2, and the two forms order trajectories identically.
 
-**Geodesic Deviation on the Fisher Manifold (Proposition 4.2).** Let $\Theta$ be a statistical manifold equipped with the Fisher information metric $F_{ij}(\theta)$. For a belief-update trajectory $\theta(t)$ from prior $\theta_0$ to posterior $\theta_1$, the geodesic deviation is:
+**Proposition 4.2 (Geodesic Deviation on the Fisher Manifold).** Let $\Theta$ be a statistical manifold equipped with the Fisher information metric $F_{ij}(\theta)$. For a belief-update trajectory $\theta(t)$ from prior $\theta_0$ to posterior $\theta_1$, the geodesic deviation is:
 
 $$\Delta = \frac{1}{2}\int_0^1 F_{ij}(\theta(t))\dot{\theta}^i\dot{\theta}^j \, dt - \frac{1}{2} d_F(\theta_0, \theta_1)^2$$
 
 where $d_F(\theta_0, \theta_1)$ is the Fisher-Rao geodesic distance. For the Gaussian family $\mathcal{N}(\mu, \sigma^2)$ with the Poincare half-plane metric $ds^2 = (d\mu^2 + 2 \, d\sigma^2)/\sigma^2$, geodesics are semicircles and vertical lines, and the geodesic distance has a closed-form expression. Deviations from geodesic belief update on this manifold correspond to statistically inefficient inference — updates that waste Fisher information.
 
-**Jacobi Fields and Trajectory Stability (Proposition 4.3).** Let $\gamma^*$ be a geodesic and $J(t)$ a Jacobi field along $\gamma^*$ — an infinitesimal variation satisfying:
+**Proposition 4.3 (Jacobi Fields and Trajectory Stability).** Let $\gamma^*$ be a geodesic and $J(t)$ a Jacobi field along $\gamma^*$ — an infinitesimal variation satisfying:
 
 $$\frac{D^2 J}{dt^2} + R(J, \dot{\gamma}^*)\dot{\gamma}^* = 0$$
 

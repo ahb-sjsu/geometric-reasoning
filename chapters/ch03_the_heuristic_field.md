@@ -416,19 +416,19 @@ This is the core asymmetry of Section 3.3.4 made clinical: in a satisficing syst
 
 **The Heuristic Field (Formal Definition).** Let $(M, g)$ be a Riemannian reasoning manifold and $\mathcal{G} \subset M$ a goal region. A *heuristic field* is a smooth function $h: M \to \mathbb{R}_{\geq 0}$ satisfying $h(x) = 0$ for $x \in \mathcal{G}$ and $h(x) > 0$ for $x \notin \mathcal{G}$. The function $h$ is interpreted as an estimate of the geodesic distance from $x$ to the nearest point in $\mathcal{G}$.
 
-**Admissibility (Definition 3.1).** A heuristic field $h$ is *admissible* if for all $x \in M$:
+**Definition 3.1 (Admissibility).** A heuristic field $h$ is *admissible* if for all $x \in M$:
 
 $$h(x) \leq d_g(x, \mathcal{G})$$
 
 where $d_g(x, \mathcal{G}) = \inf_{y \in \mathcal{G}} d_g(x, y)$ is the geodesic distance from $x$ to the goal region. Admissibility guarantees that the evaluation landscape $f = g + h$ has no false valleys below the true optimum.
 
-**Consistency (Definition 3.2).** A heuristic field $h$ is *consistent* if for all $x, y \in M$:
+**Definition 3.2 (Consistency).** A heuristic field $h$ is *consistent* if for all $x, y \in M$:
 
 $$h(x) \leq d_g(x, y) + h(y)$$
 
 Consistency is equivalent to the condition that $h$ is a *Lipschitz function with Lipschitz constant 1* with respect to the geodesic distance on $M$. In the smooth case, consistency is equivalent to $\|\nabla h\|_g \leq 1$ everywhere — the gradient of the heuristic has magnitude at most 1 in the Riemannian metric. This means the heuristic's rate of change never exceeds the actual rate of change of geodesic distance. Consistency implies admissibility (by integration along geodesics from $x$ to $\mathcal{G}$), but not vice versa.
 
-**The Heuristic Quality Thesis (Theorem 3.1, informal).** Let $\gamma_h$ be the search trajectory produced by gradient descent on the evaluation landscape $f = g + h$. Then:
+**Theorem 3.1 (The Heuristic Quality Thesis, informal).** Let $\gamma_h$ be the search trajectory produced by gradient descent on the evaluation landscape $f = g + h$. Then:
 
 (i) If $h = h^*$ (the perfect heuristic), $\gamma_h$ is a geodesic to $\mathcal{G}$.
 
@@ -436,9 +436,9 @@ Consistency is equivalent to the condition that $h$ is a *Lipschitz function wit
 
 (iii) If $h$ is admissible and $M$ is compact, $\gamma_h$ terminates in $\mathcal{G}$.
 
-**Premature Convergence Criterion (Proposition 3.1).** Let $\tau > 0$ be a termination threshold: the search halts when $h(x) < \tau$. If $h$ underestimates the true cost-to-go by at least $\delta > \tau$ on a region $U \subset M$ with $U \cap \mathcal{G} = \emptyset$, then any search trajectory entering $U$ terminates outside the goal region. That is, the set $\{x \in M : h(x) < \tau, \, d_g(x, \mathcal{G}) > \delta\}$ is a *false termination region* — a basin from which the satisficing search cannot escape.
+**Proposition 3.1 (Premature Convergence Criterion).** Let $\tau > 0$ be a termination threshold: the search halts when $h(x) < \tau$. If $h$ underestimates the true cost-to-go by at least $\delta > \tau$ on a region $U \subset M$ with $U \cap \mathcal{G} = \emptyset$, then any search trajectory entering $U$ terminates outside the goal region. That is, the set $\{x \in M : h(x) < \tau, \, d_g(x, \mathcal{G}) > \delta\}$ is a *false termination region* — a basin from which the satisficing search cannot escape.
 
-**Overconfidence as Heuristic Underestimation (Corollary 3.1).** If a system's implicit heuristic satisfies $\mathbb{E}[h(x) - h^*(x)] = -\beta$ with $\beta > 0$ (systematic underestimation of cost-to-go by an average of $\beta$), then the expected false termination rate is at least $\Pr[h^*(x) > \tau + \beta \mid h(x) < \tau]$, which increases monotonically with $\beta$. An ECE of 0.414 corresponds to a regime where this false termination rate is substantial, consistent with the empirical observation that models reporting high confidence are frequently incorrect.
+**Corollary 3.1 (Overconfidence as Heuristic Underestimation).** If a system's implicit heuristic satisfies $\mathbb{E}[h(x) - h^*(x)] = -\beta$ with $\beta > 0$ (systematic underestimation of cost-to-go by an average of $\beta$), then the expected false termination rate is at least $\Pr[h^*(x) > \tau + \beta \mid h(x) < \tau]$, which increases monotonically with $\beta$. An ECE of 0.414 corresponds to a regime where this false termination rate is substantial, consistent with the empirical observation that models reporting high confidence are frequently incorrect.
 
 ---
 

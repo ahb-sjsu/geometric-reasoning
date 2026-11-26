@@ -288,18 +288,18 @@ Several patterns emerge from this mapping.
 
 **[Empirical.]** A benchmark that cannot be reproduced is not a benchmark --- it is an anecdote. The *Measuring AGI* suite was designed from the outset to be reproducible by any researcher with access to the same API endpoints, and the primary constraint on reproducibility is cost.
 
-**Table 12.2.** Cost and resource structure of the five benchmark tracks, under Kaggle's $0.10/call API pricing.
+**Table 12.2.** Cost and resource structure of the five benchmark tracks, under Kaggle's \$0.10/call API pricing.
 
 | Track | Tasks | Models | Approx. API Calls | Cost Range | Runtime |
 |---|---|---|---|---|---|
-| Social Cognition | T1--T5 | 5 | ~2,500 | $25--$45 | 45--73 min |
-| Learning | L1--L4 | 3--5 | ~1,800 | $18--$35 | 30--55 min |
-| Metacognition | M1--M4 | 2--5 | ~1,200 | $17--$30 | 12--40 min |
-| Attention | A1--A4 | 5 | ~1,500 | $20--$38 | 25--50 min |
-| Executive Functions | E1--E4 | 5 | ~1,000 | $17--$32 | 20--45 min |
-| **Total** | **21** | **5** | **~8,000** | **$97--$180** | **132--263 min** |
+| Social Cognition | T1--T5 | 5 | ~2,500 | \$25--\$45 | 45--73 min |
+| Learning | L1--L4 | 3--5 | ~1,800 | \$18--\$35 | 30--55 min |
+| Metacognition | M1--M4 | 2--5 | ~1,200 | \$17--\$30 | 12--40 min |
+| Attention | A1--A4 | 5 | ~1,500 | \$20--\$38 | 25--50 min |
+| Executive Functions | E1--E4 | 5 | ~1,000 | \$17--\$32 | 20--45 min |
+| **Total** | **21** | **5** | **~8,000** | **\$97--\$180** | **132--263 min** |
 
-The cost per track ranges from $17 to $45, well within Kaggle's $50/day free-tier quota. The entire suite can be run in 2--5 days using a single Kaggle account, at a total cost of approximately $100--$180. This is not an incidental feature of the design --- it is a deliberate constraint that shaped every methodological choice.
+The cost per track ranges from \$17 to \$45, well within Kaggle's \$50/day free-tier quota. The entire suite can be run in 2--5 days using a single Kaggle account, at a total cost of approximately \$100--\$180. This is not an incidental feature of the design --- it is a deliberate constraint that shaped every methodological choice.
 
 ### 12.5.2 Design Decisions Driven by Budget
 

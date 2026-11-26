@@ -128,3 +128,16 @@ These could not be settled from anything in the repository. The benchmark's run 
 - **Figures B.1 and B.2.** Drawn from the listings of Section B.6, which were not changed. The text now calls the step 2 values illustrative; the caption of Figure B.1 says "values as printed in the appendix" and could add the word. The caption of Figure B.2 refers to "the minimum rule of Section B.1", which the text now describes as a worst-case figure alongside the vector.
 - **Figure 13.1.** Unchanged values. Only the description of how the composites are formed changed.
 - **Chapter 8 has no figure of the Hohfeldian square.** The text drawing in Section 8.7.2 was kept.
+
+## Repaired in the survey of 2026-11-26: mechanical defects
+
+Found by the series checker (`tools/series-build/series_check.py` in erisml-lib), with its paragraph checks also run on the text as the build reads it (LF line ends). Hard defects: 15 before, 2 after; both are listed under "Left as they are".
+
+- **Technical Appendix labels, Chapters 1, 3 and 4.** Nine statements were labelled name first, for example "Admissibility (Definition 3.1)". They now read number first, as in the other chapters ("Definition 5.1 (Corruption Tensor)"): Theorem 1.1 (A* Optimality, restated formally) and Proposition 1.1 (Dominance); Definitions 3.1 and 3.2, Theorem 3.1, Proposition 3.1 and Corollary 3.1; Propositions 4.2 and 4.3. Numbers and statements unchanged. In the old form the checker did not see them as statements, so each label, the caption of Figure 3.2 and the Technical Appendix of Chapter 9 were reported as citing statements that do not exist. The caption was not edited.
+- **Section 14.6, the Bond Geodesic Equilibrium.** The text said "from *Geometric Methods*, Theorem 20.3". *Geometric Methods* has no Theorem 20.3: its Chapter 20 is the bioacoustics case study, and it defines the BGE as Definition 7.1. Theorem 20.3 of *Geometric Ethics* (Chapter 20) is the BGE–Nash Relationship, the claim the sentence makes. It now reads "from *Geometric Ethics*, Theorem 20.3".
+- **Literal dollar signs.** Amounts written with a bare `$` now use `\$`: the caption and cost column of Table 12.2 and the paragraph after it (Section 12.5.1); the cost sentence of the Chapter 13 introduction; the Hardware and Budget paragraphs of Section 14.7; three paragraphs of Section 14.7.1. Before, the build set ranges such as `$25--$45`, `$17-$45` and `$100,000-$200,000` as formulas.
+
+### Left as they are
+
+- **Section 15.1, "the SPD manifold (Appendix A.4)".** Section A.4 exists in `appendices/appendix_a_mathematical_prerequisites.md`, and the front matter lists Appendices A to C, but the series build publishes only `chapters/`, so the published book has no Appendix A. Needed: a decision to publish the appendices, or to cite Section 2.6.1, where the chapters treat the SPD manifold.
+- **Section 14.6, Theorem 20.3 of *Geometric Ethics*.** Correct as now written; the checker counts every "Theorem N.M" against this book's own numbering.

@@ -702,11 +702,11 @@ The example also previews the geometric extension. In a graph, the six assignmen
 
 ## Technical Appendix
 
-**A* Optimality (Theorem 1.1, restated formally).** **[Established Mathematics.]** Let $(S, s_0, A, T, G)$ be a finite search problem with non-negative edge costs. Let $h: S \to \mathbb{R}_{\geq 0}$ be an admissible heuristic: $h(x) \leq h^*(x)$ for all $x \in S$, where $h^*(x)$ is the true cost of an optimal path from $x$ to the nearest goal. Then A* with evaluation function $f(x) = g(x) + h(x)$ terminates at a goal state $s^* \in G$ such that $g(s^*) = g^*(s_0)$, the cost of an optimal solution.
+**Theorem 1.1 (A* Optimality, restated formally).** **[Established Mathematics.]** Let $(S, s_0, A, T, G)$ be a finite search problem with non-negative edge costs. Let $h: S \to \mathbb{R}_{\geq 0}$ be an admissible heuristic: $h(x) \leq h^*(x)$ for all $x \in S$, where $h^*(x)$ is the true cost of an optimal path from $x$ to the nearest goal. Then A* with evaluation function $f(x) = g(x) + h(x)$ terminates at a goal state $s^* \in G$ such that $g(s^*) = g^*(s_0)$, the cost of an optimal solution.
 
 *Proof.* Suppose A* terminates at a goal $s'$ with $g(s') > g^*(s_0)$. Let $P^*$ be an optimal path from $s_0$ to some optimal goal $s^*$. At termination, there exists some node $n$ on $P^*$ that is on the frontier (open list). Then $f(n) = g(n) + h(n) \leq g(n) + h^*(n) = g^*(s_0) < g(s') = f(s')$, where the first inequality uses admissibility and the last equality uses $h(s') = 0$ for any goal state. But A* selected $s'$ over $n$, meaning $f(s') \leq f(n)$, a contradiction. $\square$
 
-**Dominance (Proposition 1.1).** If $h_1(x) \geq h_2(x)$ for all non-goal states $x$, and both are admissible, then every node expanded by A* using $h_1$ is also expanded by A* using $h_2$. The tighter heuristic produces a search that is a *subset* of the looser one.
+**Proposition 1.1 (Dominance).** If $h_1(x) \geq h_2(x)$ for all non-goal states $x$, and both are admissible, then every node expanded by A* using $h_1$ is also expanded by A* using $h_2$. The tighter heuristic produces a search that is a *subset* of the looser one.
 
 ---
 

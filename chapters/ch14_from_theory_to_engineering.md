@@ -273,7 +273,7 @@ The hierarchical embedding places abstract categories (sign classes, determinati
 
 ## 14.6 The Bond Geodesic Equilibrium in Economic Reasoning
 
-The geometric reasoning framework extends beyond language models to multi-agent economic decision-making. The Bond Geodesic Equilibrium (BGE) --- from *Geometric Methods*, Theorem 20.3 --- generalizes Nash equilibrium to manifold-valued decision spaces.
+The geometric reasoning framework extends beyond language models to multi-agent economic decision-making. The Bond Geodesic Equilibrium (BGE) --- from *Geometric Ethics*, Theorem 20.3 --- generalizes Nash equilibrium to manifold-valued decision spaces.
 
 The economic decision manifold is a 9-dimensional space with a Mahalanobis metric:
 
@@ -287,9 +287,9 @@ This connects the abstract framework of Chapters 1-4 to a concrete computational
 
 All of the engineering described in this chapter operates under real-world constraints:
 
-**Hardware.** The Nemotron training runs on an HP Z840 workstation ("Atlas") with 2$\times$ Quadro GV100 GPUs (32GB each), 128GB RAM, and 2$\times$ Xeon E5-2690 v3 processors. This is a $5,000 used workstation, not a data center. The 4-bit quantization + LoRA approach makes 30B-parameter models trainable on this hardware.
+**Hardware.** The Nemotron training runs on an HP Z840 workstation ("Atlas") with 2$\times$ Quadro GV100 GPUs (32GB each), 128GB RAM, and 2$\times$ Xeon E5-2690 v3 processors. This is a \$5,000 used workstation, not a data center. The 4-bit quantization + LoRA approach makes 30B-parameter models trainable on this hardware.
 
-**Budget.** The Measuring AGI benchmarks cost $17-$45 per track, well within the Kaggle $50/day API quota. Total API calls: ~8,000 across all five tracks. The entire empirical program of this book was conducted for less than $300 in API costs.
+**Budget.** The Measuring AGI benchmarks cost \$17-\$45 per track, well within the Kaggle \$50/day API quota. Total API calls: ~8,000 across all five tracks. The entire empirical program of this book was conducted for less than \$300 in API costs.
 
 **Time.** Training Nemotron takes ~32 hours. BirdCLEF feature extraction runs in minutes on 48 CPU threads. The benchmark experiments run in 12-73 minutes per track. No experiment in this book required more than two days of compute.
 
@@ -301,9 +301,9 @@ To appreciate the accessibility of the compute requirements described above, it 
 
 **Large-scale pretraining** (LLaMA-70B, GPT-4, Gemini): thousands of GPUs running for weeks to months. The compute cost is measured in millions of dollars. No individual researcher or small lab can afford this; it is the exclusive province of well-funded corporations and national labs.
 
-**Medium-scale fine-tuning** (typical NeurIPS/ICML paper): 4-8 A100 GPUs (80GB each) for 1-3 days. The hardware cost is approximately $100,000-$200,000 for the GPU cluster, or $500-$5,000 per experiment on cloud compute. This is within reach of well-funded academic labs but out of reach for individual researchers, unfunded graduate students, or researchers in developing countries.
+**Medium-scale fine-tuning** (typical NeurIPS/ICML paper): 4-8 A100 GPUs (80GB each) for 1-3 days. The hardware cost is approximately \$100,000-\$200,000 for the GPU cluster, or \$500-\$5,000 per experiment on cloud compute. This is within reach of well-funded academic labs but out of reach for individual researchers, unfunded graduate students, or researchers in developing countries.
 
-**The compute budget of this book**: 2 Quadro GV100 GPUs (32GB each, available used for $1,000-$1,500 each) for 32 hours, plus $300 in API costs for the benchmark experiments. The total hardware investment (the Atlas workstation) is approximately $5,000 --- comparable to a high-end gaming PC. The per-experiment compute cost is effectively zero (electricity costs for 32 hours of dual-GPU training are negligible).
+**The compute budget of this book**: 2 Quadro GV100 GPUs (32GB each, available used for \$1,000-\$1,500 each) for 32 hours, plus \$300 in API costs for the benchmark experiments. The total hardware investment (the Atlas workstation) is approximately \$5,000 --- comparable to a high-end gaming PC. The per-experiment compute cost is effectively zero (electricity costs for 32 hours of dual-GPU training are negligible).
 
 This comparison is not incidental. The geometric reasoning framework was designed from the outset to be *democratically accessible*. The core insight --- that group-theoretic augmentation, geometric features, and local curvature adjustment via LoRA can substitute for raw compute --- is not just a pragmatic workaround. It is a principled consequence of the theory.
 
@@ -313,9 +313,9 @@ Similarly, the SPD manifold features and TDA pipeline run on CPU, require no GPU
 
 The LoRA approach trades *parameter efficiency* for *compute intensity*: instead of fine-tuning all 17B parameters (which requires hundreds of gigabytes of optimizer state), we fine-tune 865M parameters (which requires a few gigabytes). The rank-32 constraint means the curvature adjustment is restricted to a 32-dimensional subspace, which is sufficient for the local expertise needed by the Nemotron competition but would not be sufficient for global restructuring. This tradeoff --- local precision at low cost versus global restructuring at high cost --- is the geometric content of the LoRA approach.
 
-**The implication for the field.** If geometric reasoning requires billion-dollar compute budgets, it will remain the province of a handful of large corporations. If it requires $5,000 and a weekend of training, it is accessible to any researcher with a workstation and mathematical training. The experiments in this chapter demonstrate the latter. The geometric framework is not a luxury that becomes available only at scale. It is an equalizer --- a way to substitute mathematical structure for raw compute, making frontier-scale reasoning accessible to individual researchers.
+**The implication for the field.** If geometric reasoning requires billion-dollar compute budgets, it will remain the province of a handful of large corporations. If it requires \$5,000 and a weekend of training, it is accessible to any researcher with a workstation and mathematical training. The experiments in this chapter demonstrate the latter. The geometric framework is not a luxury that becomes available only at scale. It is an equalizer --- a way to substitute mathematical structure for raw compute, making frontier-scale reasoning accessible to individual researchers.
 
-This is not to claim that larger compute budgets are useless. They are not. A model trained on more data with more compute will generally outperform a model trained on less, all else being equal. But the geometric framework changes what counts as "all else." With the right augmentation strategy, the right feature representation, and the right fine-tuning approach, a model trained on a $5,000 workstation can compete with models trained on clusters costing a thousand times more --- not because it is a better model, but because it is asking a better question of a smaller amount of data.
+This is not to claim that larger compute budgets are useless. They are not. A model trained on more data with more compute will generally outperform a model trained on less, all else being equal. But the geometric framework changes what counts as "all else." With the right augmentation strategy, the right feature representation, and the right fine-tuning approach, a model trained on a \$5,000 workstation can compete with models trained on clusters costing a thousand times more --- not because it is a better model, but because it is asking a better question of a smaller amount of data.
 
 ## 14.8 Summary
 
