@@ -467,9 +467,9 @@ For a system with ECE $= |b|$ and $M_3 = s$, the minimum detectable anomaly magn
 
 ## References
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
-Bond, A. H. (2026b). *Geometric Ethics: Moral Reasoning on the Judgment Manifold.* San Jose State University.
+Bond, A. H. (2026b). *Geometric Ethics: The Mathematical Structure of Moral Reasoning.* San Jose State University.
 
 Flavell, J. H. (1979). Metacognition and cognitive monitoring: A new area of cognitive-developmental inquiry. *American Psychologist*, 34(10), 906--911.
 

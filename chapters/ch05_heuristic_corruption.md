@@ -363,9 +363,9 @@ where $m^j$ represents the intensity of metacognitive intervention along directi
 
 ## References
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
-Bond, A. H. (2026b). *Geometric Ethics: Moral Reasoning on the Judgment Manifold.* San Jose State University.
+Bond, A. H. (2026b). *Geometric Ethics: The Mathematical Structure of Moral Reasoning.* San Jose State University.
 
 De Luca, G., Suryapranata, H., Ottervanger, J. P., and Antman, E. M. (2004). Time delay to treatment and mortality in primary angioplasty for acute myocardial infarction. *Circulation*, 109(10), 1223--1225.
 

@@ -522,9 +522,9 @@ Bai, Y., Jones, A., Ndousse, K., Askell, A., Chen, A., DasSarma, N., ... & Kapla
 
 Bai, Y., Kadavath, S., Kundu, S., Askell, A., Kernion, J., Jones, A., ... & Kaplan, J. (2022). Constitutional AI: Harmlessness from AI feedback. *arXiv preprint arXiv:2212.08073.*
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
-Bond, A. H. (2026b). *Geometric Ethics: Moral Reasoning on the Judgment Manifold.* San Jose State University.
+Bond, A. H. (2026b). *Geometric Ethics: The Mathematical Structure of Moral Reasoning.* San Jose State University.
 
 Bond, A. H. (2026c). Measuring AGI: Five convergent measurements of cognitive capability in large language models. *Kaggle Competition Report.*
 

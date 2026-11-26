@@ -13,7 +13,7 @@ Chapter 9 established that metacognition --- the system's capacity to monitor an
 
 The key intellectual shift is from asking "is this model robust?" to asking "which reasoning capabilities of this model are robust, which are fragile, and where exactly is the boundary between the two?" The first question demands a scalar answer. The second demands a surface --- a multi-dimensional object that maps perturbation type, perturbation magnitude, and cognitive capability to a performance measure. That surface is what this chapter develops.
 
-The tools come from Chapter 9 of *Geometric Methods in Computational Modeling* (Bond, 2026a): the Model Robustness Index (MRI), sensitivity profiling, and adversarial threshold search. These three tools, applied in sequence, form a pipeline that takes a model and produces a complete robustness surface --- a geometric object that captures everything the corruption tensor of Chapter 5 captures and more, because it includes the nonlinear regime where performance degrades catastrophically rather than merely shifting proportionally.
+The tools come from Chapter 9 of *Geometric Methods: Computational Modeling* (Bond, 2026a): the Model Robustness Index (MRI), sensitivity profiling, and adversarial threshold search. These three tools, applied in sequence, form a pipeline that takes a model and produces a complete robustness surface --- a geometric object that captures everything the corruption tensor of Chapter 5 captures and more, because it includes the nonlinear regime where performance degrades catastrophically rather than merely shifting proportionally.
 
 The empirical motivation is the data presented in Chapters 5, 8, 9, and (in full) Chapter 13. The five-track Measuring AGI benchmark suite, applied across five large language models, produces composite scores that vary dramatically across tracks and models. These composites are themselves projections of the robustness surface onto one-dimensional slices. This chapter provides the theoretical framework for understanding why those projections have the structure they do, and why no single projection --- no single number --- can capture the full surface.
 
@@ -67,7 +67,7 @@ Accuracy, even disaggregated accuracy, is insufficient. What is needed is a fram
 
 ## 10.2 The Model Robustness Index
 
-**[Modeling Axiom.]** The Model Robustness Index (MRI), introduced in Chapter 9 of *Geometric Methods in Computational Modeling* (Bond, 2026a), is a structured protocol for quantifying how a model's performance changes under systematic perturbation. It is not a single number but a *profile*: a function that maps each perturbation type to a robustness score.
+**[Modeling Axiom.]** The Model Robustness Index (MRI), introduced in Chapter 9 of *Geometric Methods: Computational Modeling* (Bond, 2026a), is there a single weighted figure: the mean, 75th and 95th percentiles of the error deviation under random parameter perturbations, combined with weights 0.5, 0.3 and 0.2 (lower is more robust; Section 9.2 there). This chapter uses a profile instead: a function that maps each perturbation type to a robustness score, of which that figure is one summary.
 
 ### 10.2.1 Definition
 
@@ -557,9 +557,9 @@ $$\pi(\mathbf{r}^{(i)}) > \pi(\mathbf{r}^{(j)}) \quad \text{but} \quad r^{(i)}_c
 
 ## References
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
-Bond, A. H. (2026b). *Geometric Ethics: Moral Reasoning on the Judgment Manifold.* San Jose State University.
+Bond, A. H. (2026b). *Geometric Ethics: The Mathematical Structure of Moral Reasoning.* San Jose State University.
 
 Bond, A. H. (2026c). Measuring AGI: Five convergent measurements of cognitive capability in large language models. *Kaggle Competition Report.*
 

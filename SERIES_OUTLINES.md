@@ -28,7 +28,7 @@ All domain books inherit from *Geometric Reasoning: From Search to Manifolds* (B
 
 ---
 
-## Book 3: Geometric Ethics
+## Book 2: Geometric Ethics
 ### *The Mathematical Structure of Moral Reasoning*
 **Status: PUBLISHED (v1.23, 400+ pages, 30 chapters)**
 

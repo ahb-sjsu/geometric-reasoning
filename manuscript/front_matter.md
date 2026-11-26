@@ -52,7 +52,7 @@ The footnote became a section. The section became a chapter. The chapter became 
 
 I should pause here and tell you about the two years that preceded this moment, because they matter for understanding what kind of book this is.
 
-In early 2024, I was working on *Geometric Methods in Computational Modeling* (Bond, 2026a) -- a technical text on differential geometry, topological data analysis, and information geometry applied to machine learning problems. That book was pure mathematics. It made no claims about cognition. It developed tools -- Riemannian metrics, persistent homology, Fisher information, group-theoretic augmentation -- and showed how to apply them to engineering problems. Clean. Safe. Useful.
+In early 2024, I was working on *Geometric Methods: Computational Modeling* (Bond, 2026a) -- a technical text on differential geometry, topological data analysis, and information geometry applied to machine learning problems. That book was pure mathematics. It made no claims about cognition. It developed tools -- Riemannian metrics, persistent homology, Fisher information, group-theoretic augmentation -- and showed how to apply them to engineering problems. Clean. Safe. Useful.
 
 But as I wrote the chapters on symmetry and invariance, I kept having the same intrusive thought: these mathematical structures look like the structures of reasoning. Not metaphorically. Not by analogy. The same objects. A state space with metric structure. A guidance signal that can be corrupted. Optimal paths that can be deviated from. Symmetries that should be preserved but aren't. I ignored the thought for months. I am a consultant at AT&T by day and an amateur researcher by night, and the last thing an amateur researcher should do is make grand claims about the nature of cognition.
 
@@ -387,7 +387,7 @@ The following conventions are used throughout:
 - **"Model"** refers to a large language model unless qualified (e.g., "cognitive model," "mathematical model")
 - **Chapter references** use the format "Ch. N" in running text and "Chapter N" at the start of a sentence
 - Cross-references to *Geometric Ethics* (Bond, 2026b) use the prefix "GE:" -- e.g., "GE: Ch. 4" refers to Chapter 4 of the companion volume
-- Cross-references to *Geometric Methods in Computational Modeling* (Bond, 2026a) use the prefix "GM:" -- e.g., "GM: Ch. 13" refers to Chapter 13 of the methods volume
+- Cross-references to *Geometric Methods: Computational Modeling* (Bond, 2026a) use the prefix "GM:" -- e.g., "GM: Ch. 13" refers to Chapter 13 of the methods volume
 
 ---
 
@@ -407,7 +407,7 @@ The errors in this book are my own. The ambitious ones are deliberate.
 
 This is the third book in a trilogy, and the relationships matter.
 
-**Geometric Methods in Computational Modeling** (Bond, 2026a) is the mathematical toolkit. It develops differential geometry, topological data analysis, information geometry, and group-theoretic methods for machine learning practitioners. It makes no claims about cognition. It is the toolbox. This book uses the tools.
+**Geometric Methods: Computational Modeling** (Bond, 2026a) is the mathematical toolkit. It develops differential geometry, topological data analysis, information geometry, and group-theoretic methods for machine learning practitioners. It makes no claims about cognition. It is the toolbox. This book uses the tools.
 
 **Geometric Ethics: The Mathematical Structure of Moral Reasoning** (Bond, 2026b) is the special case. It applies the geometric framework to a single domain -- moral reasoning -- and develops the claim that moral deliberation is A* search on the judgment manifold. Its running example is Priya, a ML engineer at HealthBridge navigating the ethics of clinical AI. Its empirical base is the Social Cognition benchmark track. It is a deep, narrow book.
 

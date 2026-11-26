@@ -289,7 +289,7 @@ The SPD manifold is not flat. It has non-positive curvature (it is a Cartan-Hada
 
 ### 2.6.2 Log-Euclidean Features for Audio Classification
 
-In the BirdCLEF 2026 acoustic classification pipeline (Bond, 2026a, Chapter 4.6), covariance matrices are extracted from mel spectrograms as follows:
+In the BirdCLEF 2026 acoustic classification pipeline, which uses the frequency-band covariance extraction of Bond (2026a, Section 4.4), covariance matrices are extracted from mel spectrograms as follows:
 
 1. A mel spectrogram of dimension (n_mels, T) is divided into n_bands = 16 frequency bands.
 2. The covariance matrix of these 16 bands is computed, producing a 16 x 16 SPD matrix.
@@ -421,7 +421,7 @@ Bengio, Y., Courville, A., and Vincent, P. (2013). "Representation Learning: A R
 
 Bhatia, R. (2009). *Positive Definite Matrices.* Princeton University Press.
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
 Bond, A. H. (2026b). "Moral Geometry: Five Geometric Tests of Social Cognition." In *Measuring AGI Benchmarks.* Kaggle.
 

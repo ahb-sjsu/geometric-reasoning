@@ -195,13 +195,13 @@ The Salience Exploitation Hypothesis is therefore not merely descriptive. It ide
 
 If gauge symmetry breaking is the diagnosis, what is the treatment? The geometric framework suggests a precise answer: if the model's internal representations lack the symmetries that the task possesses, we can *teach* the model those symmetries by augmenting the training data with symmetry-transformed examples.
 
-This is the program of group-theoretic data augmentation, developed in *Geometric Methods in Computational Modeling* (Bond, 2026a, Ch. 13). The principle is elementary: if the task has a symmetry group $G$, then for each training example $(x, y)$, we include the transformed pair $(g \cdot x, g \cdot y)$ for each $g \in G$. The model sees not just the original example but all of its symmetry-related variants, and learns --- through the sheer weight of consistent examples --- that the output should be the same regardless of which group element was applied.
+This is the program of group-theoretic data augmentation, developed in *Geometric Methods: Computational Modeling* (Bond, 2026a, Ch. 13). The principle is elementary: if the task has a symmetry group $G$, then for each training example $(x, y)$, we include the transformed pair $(g \cdot x, g \cdot y)$ for each $g \in G$. The model sees not just the original example but all of its symmetry-related variants, and learns --- through the sheer weight of consistent examples --- that the output should be the same regardless of which group element was applied.
 
 The key subtlety is the word *consistent*. The same group element must be applied to both the input and the output. If the input is permuted but the output is not, the augmented example teaches the wrong lesson. If different group elements are applied to different parts of the input, the structural relationships within the example are destroyed. Consistency is not optional; it is the difference between symmetry augmentation and noise injection.
 
 ### 8.6.1 The Nemotron Pipeline: Six Groups for Six Tasks
 
-The Nemotron Reasoning Challenge pipeline (Bond, 2026a) provides a concrete implementation of this principle across six task types, each with its own symmetry group.
+The Nemotron Reasoning Challenge pipeline (Section 14.1), built on the augmentation method of Bond (2026a, Ch. 13), provides a concrete implementation of this principle across six task types, each with its own symmetry group.
 
 **Bit manipulation: $S_8 \times \mathbb{Z}_2$.** The input and output are 8-bit binary strings. The symmetry group consists of bit position permutations ($S_8$, order $8! = 40{,}320$) composed with bit complement ($\mathbb{Z}_2$, order 2), giving a combined group of order 80,640. A randomly sampled permutation $\sigma \in S_8$ reorders the bit positions; the complement operation $c \in \mathbb{Z}_2$ optionally flips all bits. The same $(\sigma, c)$ is applied to every input-output pair in the prompt and to the query and answer. This preserves the logical relationship between inputs and outputs --- whatever bit manipulation rule maps inputs to outputs is invariant under relabeling of bit positions and complementation.
 
@@ -316,7 +316,7 @@ In natural language, certain phrases trigger transitions between Hohfeldian posi
 - "You have every right": This maps $L \to C$ via the quarter-turn $r^3$. **[Withdrawn pending restatement under $V_4$, 2026-11-26.]**
 - "They can't demand": This maps $C \to L$ via the quarter-turn $r$. **[Withdrawn pending restatement under $V_4$, 2026-11-26.]**
 
-The assignment of semantic gates to $D_4$ group elements is implemented in the ErisML safety gateway (Bond & Claude, 2026), where it serves as a real-time classifier of normative transitions in LLM-generated text. The implementation includes the full $D_4$ multiplication table, inverse table, rotation and reflection actions, and the Wilson observable for computing holonomy around closed paths of normative transformations.
+The assignment of semantic gates to group elements is implemented in the ErisML library (`erisml.ethics.hohfeld`). Since 2026-10-03 every gate maps to an element of $V_4$; the earlier $D_4$ multiplication table and rotation actions were removed. The implementation keeps the Wilson observable for computing holonomy around closed paths of normative transformations.
 
 ### 8.7.5 The Gauge-Theoretic Interpretation
 
@@ -414,7 +414,7 @@ This chapter completes Part II of the book. Let us trace the connections to what
 
 **To Chapter 9 (Metacognition as Search Control).** Metacognitive calibration is necessary for gauge invariance in a specific sense: a system that cannot detect when its output has drifted under a gauge transformation cannot correct the drift. The ~38% recovery ceiling (Chapters 5 and 7) is the ceiling on metacognitive gauge restoration --- the fraction of anomalies that can be corrected by post-hoc metacognitive intervention. Full gauge invariance requires that the anomaly not arise in the first place, which is a property of the heuristic field, not the metacognitive monitor.
 
-**To Chapter 10 (The Robustness Surface).** The Model Robustness Index (Bond, 2026a, Ch. 9) can be reinterpreted as a gauge invariance score: the fraction of gauge transformations under which the model's output remains invariant, weighted by the importance of each transformation class. The sensitivity profiling tool maps the anomaly spectrum. The adversarial threshold search identifies the boundary in perturbation intensity at which gauge invariance breaks.
+**To Chapter 10 (The Robustness Surface).** The Model Robustness Index (Bond, 2026a, Ch. 9) summarizes how far a model's error moves under random parameter perturbations (lower is more robust). Its analogue here is a gauge-violation score: how far the output moves under each class of gauge transformation, weighted by the importance of the class. The sensitivity profiling tool maps the anomaly spectrum. The adversarial threshold search identifies the boundary in perturbation intensity at which gauge invariance breaks.
 
 **To Chapter 11 (Alignment as Heuristic Shaping).** The BIP provides a necessary condition for alignment: a system that is not gauge-invariant is not aligned, because it responds to surface features rather than content. Alignment interventions that shape the heuristic field to be gauge-invariant --- either through architectural constraints, training on symmetry-augmented data, or both --- are alignment interventions in the deepest sense: they ensure the system reasons about what matters rather than what is salient.
 
@@ -504,9 +504,9 @@ for a Lipschitz constant $L$ that depends on the sensitivity of the output layer
 
 ## References
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
-Bond, A. H. (2026b). *Geometric Ethics: Moral Reasoning on the Judgment Manifold.* San Jose State University.
+Bond, A. H. (2026b). *Geometric Ethics: The Mathematical Structure of Moral Reasoning.* San Jose State University.
 
 Bond, A. H. & Claude (2026). SQND-Probe: A gamified instrument for measuring dihedral gauge structure in human moral reasoning. Working paper.
 

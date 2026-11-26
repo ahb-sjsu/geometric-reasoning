@@ -474,9 +474,9 @@ The general result: for any two models whose profiles cross (each dominates on s
 
 ## References
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
-Bond, A. H. (2026b). *Geometric Ethics: Moral Reasoning on the Judgment Manifold.* San Jose State University.
+Bond, A. H. (2026b). *Geometric Ethics: The Mathematical Structure of Moral Reasoning.* San Jose State University.
 
 Cameron, W. B. (1963). *Informal Sociology: A Casual Introduction to Sociological Thinking.* New York: Random House.
 

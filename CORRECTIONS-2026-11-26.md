@@ -141,3 +141,41 @@ Found by the series checker (`tools/series-build/series_check.py` in erisml-lib)
 
 - **Section 15.1, "the SPD manifold (Appendix A.4)".** Section A.4 exists in `appendices/appendix_a_mathematical_prerequisites.md`, and the front matter lists Appendices A to C, but the series build publishes only `chapters/`, so the published book has no Appendix A. Needed: a decision to publish the appendices, or to cite Section 2.6.1, where the chapters treat the SPD manifold.
 - **Section 14.6, Theorem 20.3 of *Geometric Ethics*.** Correct as now written; the checker counts every "Theorem N.M" against this book's own numbering.
+
+## Cross-volume repairs (2026-11-26)
+
+These repairs come from the survey of the series for consistency between volumes (`cross-volume-report.md`, findings R1 to R9 and the series-wide items X1, X2, X3, X6 and S1) and the author's decisions on its [AUTHOR] items (`author-decisions.md`, rules G1 to G14). Each target was checked in the cited volume as it stands. No figure, caption or file under `tools/`, `figures/` or `.build/` was changed.
+
+### Applied
+
+- **R1 (X1), the title of Volume 1.** "*Geometric Methods in Computational Modeling*" now reads "*Geometric Methods: Computational Modeling*", the title in the series build, `books.json` and the Methods README: the front matter (series paragraph), Chapter 1 (Technical Appendix, closing note on sources), Section 4.2, Section 8.6, the opening of Chapter 10 and Section 10.2, Section 14.1, and the References of Chapters 2 and 5 to 14.
+- **R2, the subtitle of Volume 2.** The References of Chapters 5 to 14 gave "*Geometric Ethics: Moral Reasoning on the Judgment Manifold.*" They now give "*Geometric Ethics: The Mathematical Structure of Moral Reasoning.*", the title of that volume.
+- **R3, the Nemotron pipeline.** Section 4.6 attributed the pipeline to "Ch. 13 of *Geometric Methods*" and Section 8.6.1 to "Bond, 2026a". *Geometric Methods* does not mention Nemotron; its Chapter 13 is group-theoretic augmentation, applied to ARC-AGI grids. Both now name Section 14.1 of this book for the pipeline and *Geometric Methods* Chapter 13 for the method.
+- **R4, BirdCLEF and "Chapter 4.6".** Sections 2.6.2, 4.7 and 14.4 cited *Geometric Methods* Chapter 4.6 for the BirdCLEF feature pipeline. *Geometric Methods* does not treat BirdCLEF. Its frequency-band covariance extraction is Section 4.4 (Algorithm 4.1), and its Section 4.6 applies it to sperm-whale clicks. The three passages now cite Section 4.4, Section 14.4 says that the methods volume does not itself treat BirdCLEF, and the subsection heading of Section 14.4 reads "SPD Manifold Features (Ch. 4.4)". No figure stands under that heading.
+- **R5, the Bond Geodesic Equilibrium.** Section 14.6 now adds, after "*Geometric Ethics*, Theorem 20.3", "(developed computationally in *Geometric Methods*, Chapter 7)", where that volume defines the BGE (Definition 7.1).
+- **R6, the MRI in Section 8.9.2.** The text said the Model Robustness Index of *Geometric Methods* Chapter 9 "can be reinterpreted as a gauge invariance score: the fraction of gauge transformations under which the model's output remains invariant". In that chapter the MRI is a weighted statistic of how far the error moves under random parameter perturbations, lower meaning more robust. The sentence now says so and calls the reading here its analogue, a gauge-violation score.
+- **Unresolved 8 (the MRI across volumes), now settled.** Section 10.2 said the MRI of *Geometric Methods* Chapter 9 "is not a single number but a profile". That chapter (its Section 9.2) defines it as one weighted figure: the mean, 75th and 95th percentiles of the error deviation, with weights 0.5, 0.3 and 0.2. Section 10.2 now says this, and that this chapter uses a profile of which that figure is one summary.
+- **R9 (Unresolved 7, the ErisML D4 table), now settled.** Section 8.7.4 said the ErisML safety gateway implements "the full $D_4$ multiplication table". erisml-lib commit df00fc5 of 2026-10-03 ("hohfeld: V4 only; the D4 machinery is removed") removed it. `src/erisml/ethics/hohfeld.py` maps every gate into $V_4$ (`GATE_TO_V4`) and keeps `compute_wilson_observable`. The paragraph now says this.
+- **R7 [AUTHOR], rule G5: benchmark figures that differ between volumes.** The volumes print different values for the same Measuring AGI benchmarks, and no repository holds the run records. The front matter's first statement of the results keeps 8.9σ and adds "(15.3σ in the later run reported in *Geometric Cognition*, Chapter 7)", because that volume's Technical Appendix 7B calls 15.3σ an update of 8.9σ. After it stands the sentence "The benchmark was run more than once; volumes of this series report figures from different runs, and the run records are not published." No value in the chapters was changed. The dated notes the report proposed for Sections 5.2 and 7.4 were not added: G5 puts the note at the first use only.
+- **R8 (X2, X3, X1), the README.** The series table now lists the fourteen volumes in series order. Ethics reads "Published (v1.29)". Economics, Communication and Medicine carry the subtitles of the series build (rule G7). A last row is added for *Geometric Observation*, with the status "Draft": that volume's README gives itself no status word, and its Chapters 20 to 23 are outlines (rule G8). In the map, the Methods node reads "Geometric Methods / Computational Modeling", and a node for *Geometric Observation* stands in the parent-framework subgraph, with no edge (rule G8).
+- **S1 [AUTHOR], rule G8: the license paragraph of the README.** "Every claim in this series carries a status label, such as `[proved]`, `[posited]` or `[open]`, graded against a claim ledger" now reads "Claims in this series carry status labels, such as `[proved]`, `[posited]` or `[open]` or a volume's own tags, graded against a claim ledger where the volume keeps one". This volume keeps no claim ledger and tags its claims `[Empirical.]`, `[Modeling Axiom.]` and so on.
+- **Unpublished files (X6, X1).** `SERIES_OUTLINES.md`: "Book 3: Geometric Ethics" now reads "Book 2: Geometric Ethics". `manuscript/front_matter.md`: the title of Volume 1, three places.
+
+### Recorded, not changed
+
+- **R7, the values that differ.** These stay as printed here until the run records are found. *Geometric Cognition* prints:
+  - for M1, Gemini 2.5 Pro: ECE 0.186 and 2.2σ, against 0.230 and 2.5σ here;
+  - for M1, Gemini 2.0 Flash: ECE 0.437 and 6.2σ, against 0.414 and 5.8σ here;
+  - for the M1 Fisher combination: 6.7σ, against 9.3σ here;
+  - for M3/M4, Pro: 0.500/0.000, against 0.700/0.350 here;
+  - for M3/M4, Claude: 0.723/0.094, which are the Gemini 2.0 Flash values here, against 0.550/0.480;
+  - for the euphemism drift: 9 to 14 points, against 9 to 16 here;
+  - for the model: "Claude 3.5 Sonnet", against "Claude Sonnet 4.6" here.
+
+  *Geometric Communication* (Chapter 14) gives the drift as 10 to 16 points, and the distractor result as 5.0σ with a recovery ceiling near 33%, against 4.6σ and about 39% here.
+- **Unresolved 6 (the key of the benchmark write-up).** The survey found three more places that cite the Measuring AGI benchmarks as Bond (2026a), which is *Geometric Methods* in this volume's References: the introduction of Chapter 9 and Section 9.1, and the introduction of Chapter 12. The key is still to be chosen; nothing was changed.
+- **Earlier drafts in `manuscript/`.** The unpublished drafts `part_i.md`, `part_ii.md`, `part_iii.md`, `appendix_d_series.md` and `series_architecture.md` still give the old title of Volume 1. The chapters in `chapters/` supersede them, and they were not edited.
+
+### Figures and captions
+
+None is made stale. Figure 8.1 (`tools/figs_ch01_08.py`) draws 4.6σ, 6.8σ and 8.9σ, which the text still prints.

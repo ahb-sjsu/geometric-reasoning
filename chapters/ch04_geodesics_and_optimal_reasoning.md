@@ -83,7 +83,7 @@ then the geodesic is the trajectory that minimizes $\mathcal{L}$ — it is the *
 
 ## 4.2 The Bond Geodesic Formulation
 
-We formalize this connection following the framework introduced in *Geometric Methods in Computational Modeling* (Bond, 2026a, Ch. 6). Consider a reasoning task specified by:
+We formalize this connection following the framework introduced in *Geometric Methods: Computational Modeling* (Bond, 2026a, Ch. 6). Consider a reasoning task specified by:
 
 - An initial state $x_0 \in M$ (the problem representation)
 - A goal region $G \subset M$ (the set of acceptable solutions)
@@ -214,7 +214,7 @@ Without CoT, the model performs an internal traversal of the reasoning manifold 
 - *Circular CoT*: the chain contains loops — the model revisits reasoning states.
 - *Hallucinated CoT*: the chain leaves the reasoning manifold entirely — the intermediate states are not on any valid reasoning surface.
 
-The Nemotron geometric training pipeline (Ch. 13 of *Geometric Methods*) exploits this connection directly. **[Speculation/Extension.]** By augmenting training data with symmetry-transformed examples — applying group actions (S_8 × Z_2 for bit manipulation, S_26 for encryption, R+ for physics) — we reshape the local geometry of the reasoning manifold to make geodesics easier to follow. The augmented model doesn't just see more examples; it learns the *symmetry structure* of the solution space, which straightens the geodesics.
+The Nemotron geometric training pipeline (Section 14.1; its method is the group-theoretic augmentation of *Geometric Methods*, Ch. 13, developed there for ARC-AGI) exploits this connection directly. **[Speculation/Extension.]** By augmenting training data with symmetry-transformed examples — applying group actions (S_8 × Z_2 for bit manipulation, S_26 for encryption, R+ for physics) — we reshape the local geometry of the reasoning manifold to make geodesics easier to follow. The augmented model doesn't just see more examples; it learns the *symmetry structure* of the solution space, which straightens the geodesics.
 
 ### The six symmetry groups and their geometric role
 
@@ -244,7 +244,7 @@ The expected aggregate expansion across the full training mixture is **1.5-2.5x*
 
 ## 4.7 The SPD Manifold: A Concrete Geodesic Computation
 
-To make these ideas concrete, consider the Symmetric Positive Definite (SPD) manifold used in the BirdCLEF geometric feature pipeline (Bond 2026a, Ch. 4.6).
+To make these ideas concrete, consider the Symmetric Positive Definite (SPD) manifold used in the BirdCLEF geometric feature pipeline (after Bond 2026a, Section 4.4).
 
 The space of $n \times n$ symmetric positive definite matrices $\text{SPD}(n)$ is a Riemannian manifold with the affine-invariant metric:
 

@@ -25,7 +25,7 @@ The preceding chapters have developed a geometric theory of reasoning: search on
 
 **[Established Mathematics.]** The gauge invariance framework of Chapter 8 predicts that a model's reasoning quality is bounded by its symmetry structure. A model that breaks gauge invariance under framing but not under gender swap has a specific geometric deficiency --- and the natural remedy is to restore the broken symmetry through training data augmentation.
 
-*Geometric Methods in Computational Modeling* (Bond, 2026a, Ch. 13) develops this idea formally: if a task has a symmetry group $G$, then augmenting the training set by applying all elements of $G$ to each example forces the model to learn a $G$-invariant representation. The augmented model's heuristic field inherits the symmetry.
+*Geometric Methods: Computational Modeling* (Bond, 2026a, Ch. 13) develops this idea formally: if a task has a symmetry group $G$, then augmenting the training set by applying all elements of $G$ to each example forces the model to learn a $G$-invariant representation. The augmented model's heuristic field inherits the symmetry.
 
 ### The Nemotron Geometric Pipeline
 
@@ -152,9 +152,9 @@ The v0.2 release adds the *Patch Switch* pattern: auto-detection probes that che
 
 ## 14.4 SPD Manifold Features and Topological Data Analysis
 
-The BirdCLEF geometric feature pipeline implements two techniques from *Geometric Methods* (Bond, 2026a):
+The BirdCLEF geometric feature pipeline implements two techniques of *Geometric Methods* (Bond, 2026a), which does not itself treat BirdCLEF:
 
-### SPD Manifold Features (Ch. 4.6)
+### SPD Manifold Features (Ch. 4.4)
 
 **[Established Mathematics.]** The Symmetric Positive Definite manifold SPD($n$) is the space of $n \times n$ symmetric positive definite matrices. It is a Riemannian manifold with a well-studied differential geometry.
 
@@ -273,7 +273,7 @@ The hierarchical embedding places abstract categories (sign classes, determinati
 
 ## 14.6 The Bond Geodesic Equilibrium in Economic Reasoning
 
-The geometric reasoning framework extends beyond language models to multi-agent economic decision-making. The Bond Geodesic Equilibrium (BGE) --- from *Geometric Ethics*, Theorem 20.3 --- generalizes Nash equilibrium to manifold-valued decision spaces.
+The geometric reasoning framework extends beyond language models to multi-agent economic decision-making. The Bond Geodesic Equilibrium (BGE) --- from *Geometric Ethics*, Theorem 20.3 (developed computationally in *Geometric Methods*, Chapter 7) --- generalizes Nash equilibrium to manifold-valued decision spaces.
 
 The economic decision manifold is a 9-dimensional space with a Mahalanobis metric:
 
@@ -394,9 +394,9 @@ For $r = 32$ and $m = n = 4096$, this is approximately 1.6%. The update is *loca
 
 ## References
 
-Bond, A. H. (2026a). *Geometric Methods in Computational Modeling.* San Jose State University.
+Bond, A. H. (2026a). *Geometric Methods: Computational Modeling.* San Jose State University.
 
-Bond, A. H. (2026b). *Geometric Ethics: Moral Reasoning on the Judgment Manifold.* San Jose State University.
+Bond, A. H. (2026b). *Geometric Ethics: The Mathematical Structure of Moral Reasoning.* San Jose State University.
 
 Chollet, F. (2024). ARC-AGI: A formal benchmark for measuring abstract reasoning capabilities. *Proceedings of the ARC Prize Foundation.*
 

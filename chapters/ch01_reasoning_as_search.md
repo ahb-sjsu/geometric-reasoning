@@ -725,5 +725,5 @@ Cognitive Architecture*. The manifold hypothesis for neural representations is
 discussed in Bengio, Courville, and Vincent (2013), "Representation Learning:
 A Review and New Perspectives," *IEEE Transactions on Pattern Analysis and
 Machine Intelligence*, 35(8), 1798–1828. The geodesic formulation referenced
-in Section 1.6 is developed in Bond (2026a), *Geometric Methods in Computational
+in Section 1.6 is developed in Bond (2026a), *Geometric Methods: Computational
 Modeling*, Chapter 6.
